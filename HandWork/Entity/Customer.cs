@@ -25,14 +25,21 @@ namespace Entity
         public virtual List<Order> Orders { get; set; }
         public int Age { get; set; }
         public DateTime RegisteryDate { get; set; }
-        public bool HasPhoto { get; set; }
+        public bool HasPhoto
+        {
+            get
+            {
+                return ProfilPhoto == null ? false : true;
+            }
+        }
         public string ProfilPhoto { get; set; }
-        public List<Product> Products { get; set; }
+        public virtual List<MyProduct> MyProducts { get; set; }
         public int Complaint { get; set; }
         public Customer()
         {
             RegisteryDate = DateTime.Today;
-            HasPhoto = false;
+            Complaint = 0;
+          
         }
 
     }
@@ -40,4 +47,6 @@ namespace Entity
     {
         public string SendToEmail { get; set; }
     }
+   
+    
 }

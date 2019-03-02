@@ -21,11 +21,15 @@ namespace Entity
             }
         }
         public bool Paid { get; set; }
+        public Order()
+        {
+            OrderDate = DateTime.Now;
+        }
 
     }
-    public class OrderItem
+    public class OrderItem:IEntity
     {
-        public int ItemID { get; set; }
+        public int ID { get; set; }
         public virtual Product Product { get; set; }
         public virtual Order Order { get; set; }
         public int Count { get; set; }

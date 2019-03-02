@@ -18,9 +18,19 @@ namespace Entity
         public virtual List<ShoppingCart> ShoppingCarts { get; set; }
         public string Description { get; set; }
         public virtual List<ProductImage> ProductImages { get; set; }
-        public virtual Customer Seller { get; set; }
+       
         public int LikeCount { get; set; }
         public int UnLikeCount { get; set; }
+        public Product()
+        {
+            LikeCount = 0;
+            UnLikeCount = 0;
+        }
     }
+    public class MyProduct : Product
+    {
+        public virtual Customer Seller { get; set; }
+    }
+   
 
 }
