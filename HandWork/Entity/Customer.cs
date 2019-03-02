@@ -33,7 +33,7 @@ namespace Entity
             }
         }
         public string ProfilPhoto { get; set; }
-        public virtual List<MyProduct> MyProducts { get; set; }
+        public virtual List<Product> MyProducts { get; set; }//sepetimdeki urunler kendi ürünlerim oolmamalı
         public int Complaint { get; set; }
         public Customer()
         {
@@ -47,6 +47,5 @@ namespace Entity
     {
         public string SendToEmail { get; set; }
     }
-   
-    
+  
 }

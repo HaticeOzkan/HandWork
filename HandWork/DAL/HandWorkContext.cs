@@ -19,9 +19,9 @@ namespace DAL
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderItem> OrderItems { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }    
         public virtual DbSet<ProductImage> ProductImages { get; set; }
-        public virtual DbSet<MyProduct> MyProducts { get; set; } 
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>().Property(x => x.Age).IsOptional();
@@ -38,7 +38,7 @@ namespace DAL
             modelBuilder.Entity<ProductImage>().HasRequired(x => x.Product).WithMany(x => x.ProductImages);
             modelBuilder.Entity<Tag>().HasMany(x => x.Products).WithMany(x => x.Tags);
             modelBuilder.Entity<Product>().HasMany(x => x.OrderItems).WithRequired(x => x.Product);
-            modelBuilder.Entity<Customer>().HasMany(x => x.MyProducts).WithRequired(x => x.Seller);
+            modelBuilder.Entity<Product>().HasRequired(x => x.Seller);
             modelBuilder.Entity<Order>().HasMany(x => x.OrderItems).WithRequired(x => x.Order);
             modelBuilder.Entity<Customer>().HasMany(x => x.Orders).WithRequired(x => x.Customer);
             base.OnModelCreating(modelBuilder);
