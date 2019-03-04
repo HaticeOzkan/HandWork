@@ -9,7 +9,7 @@
     <div class="col-md-2 column productbox">
         <a href="/Home/ProductDetail/@item.ID"><img src="@item.ImageURL" class="img-responsive"></a>@*ürün detayına gidecek*@
         <div class="producttitle">@item.ProductName</div>
-        <div class="producttitle">By<a href="#">@item.Seller.NameSurname</a></div>@*//profile gidecek*@
+        <div class="producttitle">By<a href="#">@item</a></div>@*//profile gidecek*@
         <div class="productprice">
             <div class="pull-right">@item.LikeCount <a href="/Home/Index/Like=@item.ID" class="btn btn-danger btn-sm" role="button"><i class="far fa-thumbs-up"></i></a></div>@*begenme sayısı bir artacak*@
             <div class="pull-right">@item.DisLikeCount <a href="/Home/Index/DisLike=@item.ID" class="btn btn-danger btn-sm" role="button"><i class="far fa-thumbs-down"></i></a></div>@*begenmeme sayısı bir artacak*@
