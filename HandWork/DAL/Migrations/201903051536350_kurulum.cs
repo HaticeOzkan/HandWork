@@ -75,6 +75,8 @@ namespace DAL.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Content = c.String(),
+                        NotiDate = c.DateTime(nullable: false),
                         Member_Id = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.ID)
@@ -124,6 +126,15 @@ namespace DAL.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.AspNetUsers", t => t.Member_Id, cascadeDelete: true)
                 .Index(t => t.Member_Id);
+            
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        CategoryName = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.ProductImages",
@@ -187,6 +198,19 @@ namespace DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.CategoryProducts",
+                c => new
+                    {
+                        Category_ID = c.Int(nullable: false),
+                        Product_ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Category_ID, t.Product_ID })
+                .ForeignKey("dbo.Categories", t => t.Category_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Products", t => t.Product_ID, cascadeDelete: true)
+                .Index(t => t.Category_ID)
+                .Index(t => t.Product_ID);
+            
         }
         
         public override void Down()
@@ -199,12 +223,16 @@ namespace DAL.Migrations
             DropForeignKey("dbo.ProductImages", "Product_ID", "dbo.Products");
             DropForeignKey("dbo.OrderItems", "Product_ID", "dbo.Products");
             DropForeignKey("dbo.Products", "Member_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CategoryProducts", "Product_ID", "dbo.Products");
+            DropForeignKey("dbo.CategoryProducts", "Category_ID", "dbo.Categories");
             DropForeignKey("dbo.OrderItems", "Order_ID", "dbo.Orders");
             DropForeignKey("dbo.Orders", "Member_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Notifications", "Member_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Baskets", "Member_Id", "dbo.AspNetUsers");
+            DropIndex("dbo.CategoryProducts", new[] { "Product_ID" });
+            DropIndex("dbo.CategoryProducts", new[] { "Category_ID" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -221,11 +249,13 @@ namespace DAL.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Baskets", new[] { "Member_Id" });
+            DropTable("dbo.CategoryProducts");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.ProfilPhotoes");
             DropTable("dbo.ProductItems");
             DropTable("dbo.ProductImages");
+            DropTable("dbo.Categories");
             DropTable("dbo.Products");
             DropTable("dbo.OrderItems");
             DropTable("dbo.Orders");

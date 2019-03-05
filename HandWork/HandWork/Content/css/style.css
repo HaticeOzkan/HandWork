@@ -413,10 +413,12 @@ a {
 /* Home Banner Area css
 ============================================================================================ */
 .home_banner_area {
-  background: url(../img/banner/banner-bg.jpg) no-repeat center bottom;
-  position: relative;
-  z-index: 1;
-  min-height: 900px; }
+    background:url(../img/banner/oyuncak.jpg) no-repeat center bottom;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    min-height: 900px;
+}
   .home_banner_area .overlay {
     background: rgba(0, 0, 0, 0.33);
     position: absolute;

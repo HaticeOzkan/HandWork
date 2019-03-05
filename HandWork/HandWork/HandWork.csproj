@@ -179,11 +179,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903031412526_kurulum.cs" />
-    <Compile Include="Migrations\201903031412526_kurulum.Designer.cs">
-      <DependentUpon>201903031412526_kurulum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -266,7 +261,18 @@
     <Content Include="Content\img\banner\banner-2.jpg" />
     <Content Include="Content\img\banner\banner-bg.jpg" />
     <Content Include="Content\img\banner\banner.jpg" />
+    <Content Include="Content\img\banner\1.jpg" />
+    <Content Include="Content\img\banner\2.jpg" />
+    <Content Include="Content\img\banner\3.jpg" />
+    <Content Include="Content\img\banner\4.jpg" />
+    <Content Include="Content\img\banner\5.jpg" />
     <Content Include="Content\img\banner\home-banner.jpg" />
+    <Content Include="Content\img\banner\6.jpg" />
+    <Content Include="Content\img\banner\7.jpg" />
+    <Content Include="Content\img\banner\8.jpg" />
+    <Content Include="Content\img\banner\oyuncak.jpg" />
+    <Content Include="Content\img\banner\yazı.jpg" />
+    <Content Include="Content\img\banner\örgü.jpg" />
     <Content Include="Content\img\blog\add.jpg" />
     <Content Include="Content\img\blog\author.png" />
     <Content Include="Content\img\blog\c1.jpg" />
@@ -541,11 +547,6 @@
       <Project>{7967C24A-2B52-406D-9C3D-810464C99A6C}</Project>
       <Name>Entity</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903031412526_kurulum.resx">
-      <DependentUpon>201903031412526_kurulum.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

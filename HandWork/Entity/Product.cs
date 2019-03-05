@@ -20,6 +20,7 @@ namespace Entity
         public virtual List<ProductImage> ProductImages { get; set; }
         public virtual List<ProductItem> ProductItems{ get; set; }
         public virtual List<OrderItem> OrderItems { get; set; }
+        public List<Category> Categories { get; set; }
 
     }
 }

@@ -21,6 +21,7 @@ namespace DAL
         public virtual DbSet<ProfilPhoto> ProfilPhotos { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().HasKey(x => x.ID);
@@ -30,7 +31,8 @@ namespace DAL
             modelBuilder.Entity<Notification>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductItem>().HasKey(x => x.ID);
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
-
+            modelBuilder.Entity<Category>().HasKey(x => x.ID);
+            modelBuilder.Entity<Category>().HasMany(x => x.Products).WithMany(x => x.Categories);
             modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductImages).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductItems).WithRequired(x => x.Product);
@@ -39,6 +41,7 @@ namespace DAL
             modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
             modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
             modelBuilder.Entity<Notification>().HasRequired(x => x.Member).WithMany(x => x.Notifications);
+            modelBuilder.Entity<Category>().HasMany(x => x.SubCategory).WithOptional(x => x.ParentCategory);
             base.OnModelCreating(modelBuilder);
         }
     }
