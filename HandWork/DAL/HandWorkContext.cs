@@ -11,7 +11,7 @@ namespace DAL
 {
     public class HandWorkContext : IdentityDbContext<Member>
     {
-        public HandWorkContext() : base("HandWorkContext")
+        public HandWorkContext() : base("HandContext")
         {
 
         }
@@ -30,13 +30,15 @@ namespace DAL
             modelBuilder.Entity<Notification>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductItem>().HasKey(x => x.ID);
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
+
             modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductImages).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductItems).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.OrderItems).WithRequired(x => x.Product);
             modelBuilder.Entity<Basket>().HasMany(x => x.ProductItems).WithRequired(x => x.Basket);
-            modelBuilder.Entity<Basket>().HasRequired(x => x.Member).WithOptional(x => x.Basket);
-          
+            modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
+            modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
+            modelBuilder.Entity<Notification>().HasRequired(x => x.Member).WithMany(x => x.Notifications);
             base.OnModelCreating(modelBuilder);
         }
     }

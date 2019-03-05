@@ -7,7 +7,7 @@ namespace Entity
     public class Basket : IEntity
     {
         public int ID { get; set; }
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
         public List<ProductItem> ProductItems { get; set; }
         public decimal SubTotal
         {

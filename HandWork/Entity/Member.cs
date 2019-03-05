@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,10 +24,17 @@ namespace Entity
         public virtual List<Order> Orders { get; set; }
         public int Age { get; set; }
         public string Text { get; set; }
-        public ProfilPhoto ProfilPhoto { get; set; }
+        public virtual ProfilPhoto ProfilPhoto { get; set; }
         public int ComplaintCount { get; set; }
         public int FavorCount { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public virtual List<Notification> Notifications { get; set; }
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Member> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
 
     }
 }
