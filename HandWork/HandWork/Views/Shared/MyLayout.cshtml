@@ -1,0 +1,176 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/Content/img/favicon.png" type="image/png">
+    <title>Fashiop</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/css/bootstrap.css">
+    <link rel="stylesheet" href="/Content/vendors/linericon/style.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Content/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/Content/vendors/lightbox/simpleLightbox.css">
+    <link rel="stylesheet" href="/Content/vendors/nice-select/css/nice-select.css">
+    <link rel="stylesheet" href="/Content/vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="/Content/vendors/jquery-ui/jquery-ui.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="/Content/css/style.css">
+    <link rel="stylesheet" href="/Content/css/responsive.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="/Content/js/jquery-3.2.1.min.js"></script>
+    <script src="/Content/js/popper.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/stellar.js"></script>
+    <script src="/Content/vendors/lightbox/simpleLightbox.min.js"></script>
+    <script src="/Content/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="/Content/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+    <script src="/Content/vendors/isotope/isotope-min.js"></script>
+    <script src="/Content/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="/Content/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/Content/vendors/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/Content/vendors/flipclock/timer.js"></script>
+    <script src="/Content/vendors/counter-up/jquery.counterup.js"></script>
+    <script src="/Content/js/mail-script.js"></script>
+    <script src="/Content/js/theme.js"></script>
+
+    @RenderSection("css", false)
+</head>
+
+<body>
+
+    <!--================Header Menu Area =================-->
+    <header class="header_area">
+        <div class="top_menu row m0">
+            <div class="container-fluid">
+                <div class="float-left">
+                    <p>Call Us: 012 44 5698 7456 896</p>
+                    <h1>HomeShop</h1>
+                </div>
+                <div class="float-right">
+                    <ul class="right_side">
+                        <li>
+                            @Html.ActionLink("Registery", "Registery", "Account")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Login", "Login", "Account")
+                        </li>
+                        <li>
+                            @Html.ActionLink("My Account", "Index", "Profile")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Contact Us", "Index", "Contact")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Logout", "Index", "LogOut")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <div class="row w-100">
+                            <div class="col-lg-7 pr-0">
+                                <ul class="nav navbar-nav center_nav pull-right">
+                                    <li class="nav-item active">
+                                        @Html.ActionLink("Home", "Index", "Home")
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Shop", "Index", "Product")
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Contact", "Index", "Contact")
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <ul class="nav navbar-nav navbar-right right_nav pull-right">
+                                    <li class="nav-item">
+                                        <a href="#" class="icons">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="icons">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        @*//bu kısmı sor*@
+                                        <a href="#" class="icons">
+                                            <i class="lnr lnr lnr-cart"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    @RenderBody()
+    <footer class="footer-area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6 class="footer_title">About Us</h6>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget f_social_wd">
+                        <h6 class="footer_title">Follow Us</h6>
+                        <p>Let us be social</p>
+                        <div class="f_social">
+                            <a href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-dribbble"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa fa-behance"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                <p class="col-lg-12 footer-text text-center">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </div>
+    </footer>
+   
+    @RenderSection("script",false)
+</body>
+
+</html>
