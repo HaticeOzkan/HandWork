@@ -33,7 +33,8 @@ namespace DAL
             modelBuilder.Entity<NotificationItem>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductItem>().HasKey(x => x.ID);
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
-
+            modelBuilder.Entity<Category>().HasKey(x => x.ID);
+            modelBuilder.Entity<Category>().HasMany(x => x.Products).WithMany(x => x.Categories);
             modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductImages).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductItems).WithRequired(x => x.Product);
@@ -41,8 +42,7 @@ namespace DAL
             modelBuilder.Entity<Basket>().HasMany(x => x.ProductItems).WithRequired(x => x.Basket);
             modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
             modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
-            modelBuilder.Entity<NotificationBox>().HasRequired(x => x.Member).WithOptional(x => x.NotificationBox);
-            modelBuilder.Entity<NotificationBox>().HasMany(x => x.Notifications).WithRequired(x => x.NotificationBox);
+            modelBuilder.Entity<Notification>().HasRequired(x => x.Member).WithMany(x => x.Notifications);
             base.OnModelCreating(modelBuilder);
         }
     }

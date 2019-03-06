@@ -55,9 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HandWorkContext.cs" />
-    <Compile Include="Migrations\201903050946211_kurulum.cs" />
-    <Compile Include="Migrations\201903050946211_kurulum.Designer.cs">
-      <DependentUpon>201903050946211_kurulum.cs</DependentUpon>
+    <Compile Include="Migrations\201903051536350_kurulum.cs" />
+    <Compile Include="Migrations\201903051536350_kurulum.Designer.cs">
+      <DependentUpon>201903051536350_kurulum.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +73,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903050946211_kurulum.resx">
-      <DependentUpon>201903050946211_kurulum.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903051536350_kurulum.resx">
+      <DependentUpon>201903051536350_kurulum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
