@@ -21,16 +21,16 @@ namespace DAL
         public virtual DbSet<ProfilPhoto> ProfilPhotos { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<ProductItem> ProductItems { get; set; }
-        public virtual DbSet<NotificationBox> Notifications { get; set; }
-        public virtual DbSet<NotificationItem> NotificationItems { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
+     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().HasKey(x => x.ID);
             modelBuilder.Entity<Order>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductImage>().HasKey(x => x.ID);
             modelBuilder.Entity<ProfilPhoto>().HasKey(x => x.ID);
-            modelBuilder.Entity<NotificationBox>().HasKey(x => x.ID);
-            modelBuilder.Entity<NotificationItem>().HasKey(x => x.ID);
+            //modelBuilder.Entity<NotificationBox>().HasKey(x => x.ID);
+            modelBuilder.Entity<Notification>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductItem>().HasKey(x => x.ID);
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
             modelBuilder.Entity<Category>().HasKey(x => x.ID);
@@ -42,7 +42,10 @@ namespace DAL
             modelBuilder.Entity<Basket>().HasMany(x => x.ProductItems).WithRequired(x => x.Basket);
             modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
             modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
-            modelBuilder.Entity<Notification>().HasRequired(x => x.Member).WithMany(x => x.Notifications);
+
+            modelBuilder.Entity<Member>().HasMany(x => x.TakeNot).WithRequired(x => x.Receiver).HasForeignKey(x=>x.ReceiverId);
+            //modelBuilder.Entity<NotificationBox>().HasMany(x => x.Notifications).WithRequired(x => x.NotificationBox);
+
             base.OnModelCreating(modelBuilder);
         }
     }

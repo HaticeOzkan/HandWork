@@ -27,8 +27,10 @@ namespace Entity
         public virtual ProfilPhoto ProfilPhoto { get; set; }
         public int ComplaintCount { get; set; }
         public int FavorCount { get; set; }
-        public virtual NotificationBox NotificationBox { get; set; }
-        public virtual List<NotificationItem> NotificationItemsFromMe { get; set; }
+        //public virtual NotificationBox NotificationBox { get; set; }
+      
+        //public virtual List<NotificationItem> SentNotifications { get; set; }
+        public virtual List<Notification> TakeNot { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Member> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
