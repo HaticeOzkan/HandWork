@@ -22,11 +22,17 @@ namespace Entity
         public virtual List<Product> Products { get; set; }
         public virtual Basket Basket { get; set; }
         public virtual List<Order> Orders { get; set; }
-        public int Age { get; set; }
         public string Text { get; set; }
         public virtual ProfilPhoto ProfilPhoto { get; set; }
-        public int ComplaintCount { get; set; }
-        public int FavorCount { get; set; }
+        public int? ComplaintCount { get; set; }
+        public int? FavorCount { get; set; }
+        public bool HasPhoto { get; set; }
+        public Member()
+        {
+            HasPhoto = false;
+        }
+       
+        
         //public virtual NotificationBox NotificationBox { get; set; }
       
         //public virtual List<NotificationItem> SentNotifications { get; set; }
