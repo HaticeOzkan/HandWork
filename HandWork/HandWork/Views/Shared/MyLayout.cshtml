@@ -63,18 +63,20 @@
                 </div>
                 <div class="float-right">
                     <ul class="right_side">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <p style="display:inline">Hoşgeldin! </p>@User.Identity.Name
+                            </li>
+                        }
                         <li>
-                            @Html.ActionLink("Registery/Login","Register","Member")
-                        </li>
-                      
-                        <li>
-                            @Html.ActionLink("My Account", "Index", "Profile")
+                            @Html.ActionLink("Registery/Login", "Index", "Member")
                         </li>
                         <li>
                             @Html.ActionLink("Contact Us", "Index", "Contact")
                         </li>
                         <li>
-                            @Html.ActionLink("Logout", "Index", "LogOut")
+                            @Html.ActionLink("Logout", "LogOut", "Member")
                         </li>
                     </ul>
                 </div>
@@ -106,11 +108,16 @@
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="icons">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+
+                                        <li class="nav-item">                                             
+                                                <a href="/Member/Account" class="icons">Hesabım 
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                    }
+
                                     <li class="nav-item">
                                         @*//bu kısmı sor*@
                                         <a href="#" class="icons">
@@ -168,8 +175,8 @@
             </div>
         </div>
     </footer>
-   
-    @RenderSection("script",false)
+
+    @RenderSection("script", false)
 </body>
 
 </html>

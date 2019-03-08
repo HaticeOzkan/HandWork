@@ -534,8 +534,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\MyLayout.cshtml" />
-    <Content Include="Views\Member\Login.cshtml" />
-    <Content Include="Views\Member\Register.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Member\Account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

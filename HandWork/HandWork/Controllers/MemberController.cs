@@ -1,5 +1,6 @@
 ﻿using BLL;
 using Entity;
+using Entity.ViewModel;
 using HandWork.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,18 +15,19 @@ namespace HandWork.Controllers
 {
     public class MemberController : Controller
     {
-        // GET: Member
+        UnitOfWork _uw = new UnitOfWork();
 
-        [HttpGet]
+        // GET: Member     
         public ActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginViewModel LoginModel)
+        public ActionResult Login(Entity.ViewModel.LoginViewModel LoginModel)
         {
+            string Name = _uw.Db.Users.Where(x => x.Email == LoginModel.Email).Select(x => x.UserName).FirstOrDefault();
             ApplicationSignInManager signInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            SignInStatus Result = signInManager.PasswordSignIn(LoginModel.Email, LoginModel.Password, true, false);
+            SignInStatus Result = signInManager.PasswordSignIn(Name, LoginModel.Password, true, false);
             switch (Result)
             {
                 case SignInStatus.Success:
@@ -36,15 +38,7 @@ namespace HandWork.Controllers
             }
             return View();
         }
-        [HttpGet]
-        public ActionResult Register()
-        {
-
-            return View();
-        }
-
-
-        // [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Register(Member NewMember, string Password, HttpPostedFileBase image)
         {
@@ -59,21 +53,35 @@ namespace HandWork.Controllers
                     image.SaveAs(Path + NewMember.Id + ".jpg");//image ismi
                     NewMember.HasPhoto = true;
                     Manager.Update(NewMember);
+
                 }
 
             }
             else
-              //  ViewBag.Errors = Result.Errors;
-              Session["hata"]= Result.Errors;
+                TempData["Error"] = Result.Errors;
+
             return RedirectToAction("Index");
+        }
+        public ActionResult Account()
+        {
+            //var MemberID=User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
+            //  Member member = _uw.Db.Users.Find(MemberID);
+            //  MemberViewModel.Adress = member.Adress;
+            //  MemberViewModel.ImageURL = member.ProfilPhoto.ImageURL;
+            //  MemberViewModel.NameSurname = member.UserName;
+            //  MemberViewModel.TelNo = member.PhoneNumber;
+            //  MemberViewModel.Text = member.Text;          
+            // return View(member);
+            return View();
         }
         public ActionResult ForgotPassword()
         {
             return View();
         }
-        public ActionResult Profile()
+        public ActionResult LogOut()
         {
-            return View();
+            HttpContext.GetOwinContext().Authentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

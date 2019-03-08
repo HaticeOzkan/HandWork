@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.ViewModel
 {
-    class LoginViewModel
+   public class LoginViewModel
     {
         [Required]
         [EmailAddress]

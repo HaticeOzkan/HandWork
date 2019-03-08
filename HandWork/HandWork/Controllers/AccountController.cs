@@ -110,7 +110,7 @@ namespace HandWork.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
+        {//email dofrula a
             if (!ModelState.IsValid)
             {
                 return View(model);
