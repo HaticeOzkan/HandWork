@@ -13,7 +13,7 @@ namespace Entity.ViewModel
         public string Text { get; set; }
         public string ImageURL { get; set; }   
         public string TelNo { get; set; }
-
+        public bool HasPhoto { get; set; }
 
     }
 }

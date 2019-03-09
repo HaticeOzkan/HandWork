@@ -64,15 +64,17 @@ namespace HandWork.Controllers
         }
         public ActionResult Account()
         {
-            //var MemberID=User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
-            //  Member member = _uw.Db.Users.Find(MemberID);
-            //  MemberViewModel.Adress = member.Adress;
-            //  MemberViewModel.ImageURL = member.ProfilPhoto.ImageURL;
-            //  MemberViewModel.NameSurname = member.UserName;
-            //  MemberViewModel.TelNo = member.PhoneNumber;
-            //  MemberViewModel.Text = member.Text;          
-            // return View(member);
-            return View();
+            var MemberID = User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
+            Member member = _uw.Db.Users.Find(MemberID);
+            //MemberViewModel memberViewModel = new MemberViewModel();
+            //memberViewModel.Adress = member.Adress;
+            //memberViewModel.ImageURL = member.ProfilPhoto.ImageURL;
+            //memberViewModel.NameSurname = member.UserName;
+            //memberViewModel.TelNo = member.PhoneNumber;
+            //memberViewModel.Text = member.Text;
+            //memberViewModel.HasPhoto = member.HasPhoto;
+            return View(member);
+       
         }
         public ActionResult ForgotPassword()
         {

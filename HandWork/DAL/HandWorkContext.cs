@@ -22,6 +22,7 @@ namespace DAL
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<ProductItem> ProductItems { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
      
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -29,11 +30,12 @@ namespace DAL
             modelBuilder.Entity<Order>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductImage>().HasKey(x => x.ID);
             modelBuilder.Entity<ProfilPhoto>().HasKey(x => x.ID);
-            //modelBuilder.Entity<NotificationBox>().HasKey(x => x.ID);
+            modelBuilder.Entity<Message>().HasKey(x => x.ID);
             modelBuilder.Entity<Notification>().HasKey(x => x.ID);
             modelBuilder.Entity<ProductItem>().HasKey(x => x.ID);
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
             modelBuilder.Entity<Category>().HasKey(x => x.ID);
+           
             modelBuilder.Entity<Category>().HasMany(x => x.Products).WithMany(x => x.Categories);
             modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductImages).WithRequired(x => x.Product);
@@ -42,10 +44,8 @@ namespace DAL
             modelBuilder.Entity<Basket>().HasMany(x => x.ProductItems).WithRequired(x => x.Basket);
             modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
             modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
-
-            modelBuilder.Entity<Member>().HasMany(x => x.TakeNot).WithRequired(x => x.Receiver).HasForeignKey(x=>x.ReceiverId);
-            //modelBuilder.Entity<NotificationBox>().HasMany(x => x.Notifications).WithRequired(x => x.NotificationBox);
-
+            modelBuilder.Entity<Member>().HasMany(x => x.Messages).WithRequired(x => x.Owner);
+            modelBuilder.Entity<Member>().HasMany(x => x.Notifications).WithRequired(x => x.Owner);
             base.OnModelCreating(modelBuilder);
         }
     }

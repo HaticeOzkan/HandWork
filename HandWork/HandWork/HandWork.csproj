@@ -268,11 +268,13 @@
     <Content Include="Content\img\banner\3.jpg" />
     <Content Include="Content\img\banner\4.jpg" />
     <Content Include="Content\img\banner\5.jpg" />
+    <Content Include="Content\img\banner\el.jpg" />
     <Content Include="Content\img\banner\home-banner.jpg" />
     <Content Include="Content\img\banner\6.jpg" />
     <Content Include="Content\img\banner\7.jpg" />
     <Content Include="Content\img\banner\8.jpg" />
     <Content Include="Content\img\banner\oyuncak.jpg" />
+    <Content Include="Content\img\banner\paint.jpg" />
     <Content Include="Content\img\banner\yazı.jpg" />
     <Content Include="Content\img\banner\örgü.jpg" />
     <Content Include="Content\img\blog\add.jpg" />

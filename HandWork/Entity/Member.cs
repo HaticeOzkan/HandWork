@@ -27,16 +27,13 @@ namespace Entity
         public int? ComplaintCount { get; set; }
         public int? FavorCount { get; set; }
         public bool HasPhoto { get; set; }
+        public virtual List<Message> Messages { get; set; }
+        public virtual List<Notification> Notifications { get; set; }
         public Member()
         {
             HasPhoto = false;
         }
-       
-        
-        //public virtual NotificationBox NotificationBox { get; set; }
-      
-        //public virtual List<NotificationItem> SentNotifications { get; set; }
-        public virtual List<Notification> TakeNot { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Member> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

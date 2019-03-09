@@ -58,6 +58,7 @@
     <Compile Include="Basket.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Member.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Product.cs" />
