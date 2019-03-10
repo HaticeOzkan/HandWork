@@ -22,7 +22,12 @@ namespace HandWork.Controllers
         {
             return View();
         }
-        [HttpPost]
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+       [HttpPost]
         public ActionResult Login(Entity.ViewModel.LoginViewModel LoginModel)
         {
             string Name = _uw.Db.Users.Where(x => x.Email == LoginModel.Email).Select(x => x.UserName).FirstOrDefault();
@@ -38,6 +43,11 @@ namespace HandWork.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Register(Member NewMember, string Password, HttpPostedFileBase image)
@@ -50,10 +60,11 @@ namespace HandWork.Controllers
                 if (image != null)
                 {
                     string Path = Server.MapPath("/Uploads/Members/");//dosya yolu
-                    image.SaveAs(Path + NewMember.Id + ".jpg");//image ismi
+                    image.SaveAs(Path + NewMember.Id + ".jpg");//image ismi                 
+                    NewMember.ProfilPhoto = new ProfilPhoto();
+                    NewMember.ProfilPhoto.ImageURL = Path + NewMember.Id + ".jpg";
                     NewMember.HasPhoto = true;
                     Manager.Update(NewMember);
-
                 }
 
             }
@@ -62,19 +73,19 @@ namespace HandWork.Controllers
 
             return RedirectToAction("Index");
         }
-        public ActionResult Account()
+        public ActionResult AccountEdit()
         {
             var MemberID = User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
-            Member member = _uw.Db.Users.Find(MemberID);
-            //MemberViewModel memberViewModel = new MemberViewModel();
-            //memberViewModel.Adress = member.Adress;
-            //memberViewModel.ImageURL = member.ProfilPhoto.ImageURL;
-            //memberViewModel.NameSurname = member.UserName;
-            //memberViewModel.TelNo = member.PhoneNumber;
-            //memberViewModel.Text = member.Text;
-            //memberViewModel.HasPhoto = member.HasPhoto;
+            Member member = _uw.Db.Users.Find(MemberID);       
             return View(member);
        
+        }
+        public ActionResult MemberProfile()
+        {
+            string MemberID = User.Identity.GetUserId();
+            Member Member = _uw.Db.Users.Find(MemberID);
+            ViewBag.Products = _uw.Db.Products.Where(x => x.MemberID == MemberID).ToList();
+            return View(Member);
         }
         public ActionResult ForgotPassword()
         {

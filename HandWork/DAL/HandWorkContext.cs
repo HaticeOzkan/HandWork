@@ -37,7 +37,7 @@ namespace DAL
             modelBuilder.Entity<Category>().HasKey(x => x.ID);
            
             modelBuilder.Entity<Category>().HasMany(x => x.Products).WithMany(x => x.Categories);
-            modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products);
+            modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products).HasForeignKey(x=>x.MemberID);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductImages).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductItems).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.OrderItems).WithRequired(x => x.Product);

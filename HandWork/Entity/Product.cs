@@ -12,6 +12,7 @@ namespace Entity
         public int ID { get; set; }
         public string ProductName { get; set; }
         public virtual Member Member { get; set; }
+        public string MemberID { get; set; }
         public string Content { get; set; }
         public decimal Price { get; set; }
         public int StockCount { get; set; }

@@ -22,7 +22,7 @@ namespace Entity
         public virtual List<Product> Products { get; set; }
         public virtual Basket Basket { get; set; }
         public virtual List<Order> Orders { get; set; }
-        public string Text { get; set; }
+        public string Text { get; set;}
         public virtual ProfilPhoto ProfilPhoto { get; set; }
         public int? ComplaintCount { get; set; }
         public int? FavorCount { get; set; }
@@ -32,8 +32,9 @@ namespace Entity
         public Member()
         {
             HasPhoto = false;
+            ComplaintCount = 0;
+            FavorCount=0;
         }
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Member> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
