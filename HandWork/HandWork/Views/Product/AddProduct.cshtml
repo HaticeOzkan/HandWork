@@ -153,12 +153,12 @@
                                     @Html.DropDownListFor(x => x.CategoryID, (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
                                 </div>
                             </div>          
-                            <fieldset class="form-group">
+                            <div class="form-group">
                                <a href="javascript:void(0)" onclick="$('#pro-image').click()">upload image</a>
-                                <input type="file" id="pro-image" name="images" style="display: none;" class="form-control multi" multiple>
+                                <input type="file" id="pro-image" name="images" style="display: none;" class="form-control multiple" multiple>
                                 @*@Html.TextBoxFor(x=>x.ProductImages, null, new { @class = "form-control multi", @multiple = "multiple", @type = "file", @id = "pro-image" })*@
                                 @*@Html.ValidationMessageFor(x => x.CategoryID);*@
-                            </fieldset>
+                            </div>
                                 <div class="preview-images-zone">                                                           
                                 </div>
                             </div>
