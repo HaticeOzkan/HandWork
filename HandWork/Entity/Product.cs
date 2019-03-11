@@ -21,11 +21,14 @@ namespace Entity
         public virtual List<ProductImage> ProductImages { get; set; }
         public virtual List<ProductItem> ProductItems{ get; set; }
         public virtual List<OrderItem> OrderItems { get; set; }
-        public List<Category> Categories { get; set; }
+        public int CategoryID { get; set; }
+        public virtual Category Categories { get; set; }
+        public bool HasPhoto { get; set; }
         public Product()
         {
             LikeCount = 0;
             DisLikeCount = 0;
+            HasPhoto = false;
         }
 
     }

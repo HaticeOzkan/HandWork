@@ -21,14 +21,38 @@ namespace HandWork.Controllers
         [HttpGet]
         public ActionResult AddProduct()
         {
-            ViewBag.Category = _uw.CategoryRepo.GetAll();
+            ViewBag.Categories = _uw.CategoryRepo.GetAll().Select(x => new SelectListItem {
+                Text = x.CategoryName,
+                Value = (x.ID).ToString()
+            });
             return View();
 
         }
         [HttpPost]
-        public ActionResult AddProduct(Product NewProduct)
+        public ActionResult AddProduct(Product NewProduct,IEnumerable<HttpPostedFileBase> images)
         {
-            ViewBag.Category = _uw.CategoryRepo.GetAll();
+            ViewBag.Categories = _uw.CategoryRepo.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.CategoryName,
+                Value = (x.ID).ToString()
+            });
+            _uw.ProductRepo.Add(NewProduct);
+            if (images != null)
+            {
+                foreach (HttpPostedFileBase item in images)
+                {
+                    ProductImage NewImage = new ProductImage();
+                    string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
+                    item.SaveAs(Path + NewProduct.ID + ".jpg");//image ismi
+                    NewProduct.ProductImages = new List<ProductImage>();
+                    NewImage.ImageURL = "/Uploads/Products/" + NewProduct.ID + ".jpg";
+                    NewProduct.ProductImages.Add(NewImage);
+                    NewProduct.HasPhoto = true;
+                }
+                _uw.ProductRepo.Edit(NewProduct);
+
+            }
+          
             return View();
 
         }

@@ -23,6 +23,7 @@ namespace DAL
         public virtual DbSet<ProductItem> ProductItems { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
      
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,7 +37,7 @@ namespace DAL
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
             modelBuilder.Entity<Category>().HasKey(x => x.ID);
            
-            modelBuilder.Entity<Category>().HasMany(x => x.Products).WithMany(x => x.Categories);
+            modelBuilder.Entity<Category>().HasMany(x => x.Products).WithRequired(x=>x.Categories).HasForeignKey(x=>x.CategoryID);
             modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products).HasForeignKey(x=>x.MemberID);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductImages).WithRequired(x => x.Product);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductItems).WithRequired(x => x.Product);
