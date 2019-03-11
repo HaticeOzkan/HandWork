@@ -101,6 +101,10 @@
             background: #e84d1c;
             border-color: #e84d1c;
         }
+        a{
+            color:black !important;
+        }
+     
 </style>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -128,18 +132,19 @@
                     }              
                 </div><br>
 
-                <ul class="list-group">
-                    @Html
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürünlerim", "Products", "Member")</strong></span>@Html.Label(Model.Products.Count().ToString())</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Memnuniyet")</strong></span>@Html.Label(Model.FavorCount.ToString())</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Şikayet")</strong></span>@Html.Label(Model.ComplaintCount.ToString())</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Mesajlarım", "Messages", "Member")</strong></span>@Model.Messages.Count().ToString()</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Bildirimler", "Notifications", "Member")</strong></span>@Model.Notifications.Count().ToString()</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Siparişlerim", "Orders", "Member")</strong></span></li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Hesap Bilgileri Güncelle", "Account", "Member")</strong></span></li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Şifre Değiştir", "ChangePassword", "Member")</strong></span></li>
+                      <ul class="list-group">
 
-                </ul>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürünlerim", "Products", "Member")</strong></span>@Html.Label(Model.Products.Count().ToString())</li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Memnuniyet")</strong></span>@Html.Label(Model.FavorCount.ToString())</li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Şikayet")</strong></span>@Html.Label(Model.ComplaintCount.ToString())</li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Mesajlarım", "Messages", "Member")</strong></span>@Model.Messages.Count().ToString()</li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Bildirimler", "Notifications", "Member")</strong></span>@Model.Notifications.Count().ToString()</li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Siparişlerim", "Orders", "Member")</strong></span></li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Hesap Bilgileri Güncelle", "AccountEdit", "Member")</strong></span></li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Şifre Değiştir", "ChangePassword", "Member")</strong></span></li>
+                          <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürün Ekle", "AddProduct", "Product")</strong></span></li>
+
+                      </ul>
 
             </div><!--/tab-pane-->
 

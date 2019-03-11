@@ -62,7 +62,7 @@ namespace HandWork.Controllers
                     string Path = Server.MapPath("/Uploads/Members/");//dosya yolu
                     image.SaveAs(Path + NewMember.Id + ".jpg");//image ismi                 
                     NewMember.ProfilPhoto = new ProfilPhoto();
-                    NewMember.ProfilPhoto.ImageURL = Path + NewMember.Id + ".jpg";
+                    NewMember.ProfilPhoto.ImageURL ="/Uploads/Members/"+NewMember.Id+".jpg";
                     NewMember.HasPhoto = true;
                     Manager.Update(NewMember);
                 }
@@ -71,14 +71,21 @@ namespace HandWork.Controllers
             else
                 TempData["Error"] = Result.Errors;
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
+        [HttpGet]
         public ActionResult AccountEdit()
         {
             var MemberID = User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
             Member member = _uw.Db.Users.Find(MemberID);       
             return View(member);
        
+        }
+        [HttpPost]
+        public ActionResult AccountEdit(Member NewMember, HttpPostedFileBase image)
+        {
+            return View();
+
         }
         public ActionResult MemberProfile()
         {

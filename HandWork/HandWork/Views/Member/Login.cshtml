@@ -218,7 +218,7 @@
         <div class="login-form">
           
             <div class="sign-in-htm">
-                @Html.BeginForm("Login", "Member", FormMethod.Post)
+                @using (Html.BeginForm("Login", "Member", FormMethod.Post))
                 {
                 <div class="group">
                     @Html.Label("Email", new { @class = "label", @for = "user" })

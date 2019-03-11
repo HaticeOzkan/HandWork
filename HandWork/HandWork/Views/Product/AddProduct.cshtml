@@ -1,0 +1,103 @@
+﻿@using Entity
+@model Product
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<style>
+    body {
+        background: url('../../Content/img/banner/5.jpg') no-repeat center center fixed;
+        background-size:cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .panel-default {
+        opacity: 0.9;
+        margin-top: 30px;
+    }
+
+    .form-group.last {
+        margin-bottom: 0px;
+    }
+</style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<br /><br /><br /><br /><br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-2" >
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-lock"></span> Login
+                </div>
+                <div class="panel-body">
+
+                    @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+                <div class="form-group">
+
+                    <div class="col-sm-9">
+                        @Html.Label("Ürün İsmi")
+                        @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", @type = "text", @placeholder = "Ürün İsmi", @required = "required" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Ürün Tanıtımı")
+                        @Html.TextAreaFor(x => x.Content, 5, 5, new { @class = "form-control", @type = "text", @placeholder = "Ürün tanıtımı" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Ücret")
+                        @Html.TextBoxFor(x => x.Price, new { @class = "form-control", @type = "number", @placeholder = "Ücret" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("Stok Miktarı")
+                        @Html.TextBoxFor(x => x.StockCount, new { @class = "form-control", @type = "number", @placeholder = "Stok Miktarı" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        @Html.Label("kategori")
+                        @Html.DropDownListFor(x=>x.Categories,(IEnumerable<SelectListItem>)ViewBag.Category,new {@class="form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" />
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group last">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            Sign in
+                        </button>
+                        <button type="reset" class="btn btn-default btn-sm">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+}
+                </div>
+                <div class="panel-footer">
+                    Not Registred? <a href="http://www.jquery2dotnet.com">Register here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,6 @@
-﻿
+﻿@using Entity
+@model Member
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -121,10 +123,10 @@
 <section class="register-block">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 register-sec">
+            <div class="col-md-4 register-sec" >
                 <h2 class="text-center">Register Now</h2>
 
-                @using (Html.BeginForm("Register", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form" }))
+                @using (Html.BeginForm("Register", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form",@enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     if (TempData["Error"] != null)
@@ -135,38 +137,39 @@
                         }
                     }
                     <div class="form-group">
-                        @Html.Label("Kullanıcı Adı", new { @class = "text-uppercase" })
-                        @Html.TextBoxFor(x => x.NameSurname, new { @class = "form-control", @type = "name" })
+                        @*@Html.Label("Kullanıcı Adı", new { @class = "text-uppercase" })*@
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name",@placeholder="Kullanıcı Adı" })
 
                     </div>
                     <div class="form-group">
 
-                        @Html.Label("Email Adres", new { @class = "text-uppercase" })
-                        @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control" })
+                        @*@Html.Label("Email Adres", new { @class = "text-uppercase" })*@
+                        @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder ="Email Adres" })
                     </div>
                     <div class="form-group">
 
-                        @Html.Label("Adres", new { @class = "text-uppercase" })
-                        @Html.TextAreaFor(x => x.Adress, 6, 5, new { @type = "adress", @class = "form-control", @for = "exampleInputAdress1" })
+                        @*@Html.Label("Adres", new { @class = "text-uppercase" })*@
+                        @Html.TextAreaFor(x => x.Adress, 6, 5, new { @type = "adress", @class = "form-control", @placeholder ="Adres" })
                     </div>
                     <div class="form-group">
 
-                        @Html.Label("Telefon", new { @class = "from-control" })
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone" })
+                        @*@Html.Label("Telefon", new { @class = "from-control" })*@
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder ="Telefon Numarası"})
                     </div>
                     <div class="form-group">
 
                         @Html.Label("Profil Resmi", new { @class = "from-control" })
-                        @Html.TextBox("image", null, new { @class = "form-control", @type = "file" })
+                        @Html.TextBox("image",null, new { @class = "form-control", @type = "file"})
+                   
                     </div>
 
                     <div class="form-group">
-                        @Html.Label("Şifre", new { @class = "from-control" })
-                        @Html.TextBox("Password", null, new { @type = "password", @class = "form-control" })
+                        @*@Html.Label("Şifre", new { @class = "from-control" })*@
+                        @Html.TextBox("Password", null, new { @type = "password", @class = "form-control", @placeholder ="Şifre" })
                     </div>
                     <div class="form-group">
-                        @Html.Label("Şifre Tekrarı", new { @class = "from-control" })
-                        @Html.TextBox("ConfirmPassword", null, new { @type = "password", @class = "form-control" })
+                        @*@Html.Label("Şifre Tekrarı", new { @class = "from-control" })*@
+                        @Html.TextBox("ConfirmPassword", null, new { @type = "password", @class = "form-control",@placeholder ="Şifre Tekrarı" })
                     </div>
 
                     <div class="form-group">

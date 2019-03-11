@@ -16,7 +16,6 @@ namespace Entity
     }
    public class Member:IdentityUser
     {//email password telno geliyor identity userdan
-        public string NameSurname { get; set; }
         public Gender Gender { get; set; }
         public string Adress { get; set; }
         public virtual List<Product> Products { get; set; }
