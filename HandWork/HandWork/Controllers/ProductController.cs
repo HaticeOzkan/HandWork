@@ -1,5 +1,6 @@
 ﻿using BLL;
 using Entity;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,32 +30,44 @@ namespace HandWork.Controllers
 
         }
         [HttpPost]
-        public ActionResult AddProduct(Product NewProduct,IEnumerable<HttpPostedFileBase> images)
+        public ActionResult AddProduct(Product NewProduct,HttpPostedFileBase[] images)
         {
             ViewBag.Categories = _uw.CategoryRepo.GetAll().Select(x => new SelectListItem
             {
                 Text = x.CategoryName,
                 Value = (x.ID).ToString()
             });
-            _uw.ProductRepo.Add(NewProduct);
+            if (ModelState.IsValid)
+            {
+                NewProduct.MemberID = User.Identity.GetUserId();           
             if (images != null)
             {
+                    int Count = 0;
+                  NewProduct.ProductImages = new List<ProductImage>();
                 foreach (HttpPostedFileBase item in images)
-                {
+                {                 
                     ProductImage NewImage = new ProductImage();
                     string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
-                    item.SaveAs(Path + NewProduct.ID + ".jpg");//image ismi
-                    NewProduct.ProductImages = new List<ProductImage>();
-                    NewImage.ImageURL = "/Uploads/Products/" + NewProduct.ID + ".jpg";
+                    item.SaveAs(Path + Count + ".jpg");//image ismi                 
+                    NewImage.ImageURL = "/Uploads/Products/" + Count + ".jpg";                     
                     NewProduct.ProductImages.Add(NewImage);
-                    NewProduct.HasPhoto = true;
-                }
-                _uw.ProductRepo.Edit(NewProduct);
+                        Count++;
 
-            }
+                    }
+                NewProduct.HasPhoto = true;             
+                    _uw.ProductRepo.Add(NewProduct);
+                    _uw.Complete();
+                }
           
             return View();
-
+            }
+            return View();
+        }
+        public ActionResult DeleteProduct()
+        {
+            string ID = User.Identity.GetUserId();
+          
+            return RedirectToAction("MemberProfile", "Member");
         }
     }
 }

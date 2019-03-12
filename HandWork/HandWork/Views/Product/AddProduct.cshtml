@@ -154,10 +154,9 @@
                                 </div>
                             </div>          
                             <div class="form-group">
-                               <a href="javascript:void(0)" onclick="$('#pro-image').click()">upload image</a>
-                                <input type="file" id="pro-image" name="images" style="display: none;" class="form-control multiple" multiple>
-                                @*@Html.TextBoxFor(x=>x.ProductImages, null, new { @class = "form-control multi", @multiple = "multiple", @type = "file", @id = "pro-image" })*@
-                                @*@Html.ValidationMessageFor(x => x.CategoryID);*@
+                               <a href="javascript:void(0)" onclick="$('#proimage').click()">upload image</a>
+                                <input type="file" id="proimage" name="images" style="display: none;" class="form-control multiple" multiple>
+                     
                             </div>
                                 <div class="preview-images-zone">                                                           
                                 </div>
@@ -182,18 +181,13 @@
 </div>
 <script>
     $(document).ready(function () {
-        document.getElementById('pro-image').addEventListener('change', readImage, false);
-
+        document.getElementById('proimage').addEventListener('change', readImage, false);
         $(".preview-images-zone").sortable();
-
         $(document).on('click', '.image-cancel', function () {
             let no = $(this).data('no');
             $(".preview-image.preview-show-" + no).remove();
         });
     });
-
-
-
     var num = 4;
     function readImage() {
         if (window.File && window.FileList && window.FileReader) {
@@ -220,7 +214,7 @@
 
                 picReader.readAsDataURL(file);
             }
-            $("#pro-image").val('');
+        //    $("#proimage").val('');
         } else {
             console.log('Browser not support');
         }
