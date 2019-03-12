@@ -174,7 +174,7 @@
                                         <div class="pi-img-wrapper">
                                             <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="Berry Lace Dress">
                                             <div>
-                                                @Html.ActionLink("Ürün Detayı", "ProductDetail", "Product", new { @class = "btn" });
+                                                @Html.ActionLink("Ürün Detayı", "ProductDetail", "Product",new {@ProductID=item.ID }, new { @class = "btn" });
                                             </div>
                                         </div>
                                         <h3>@Html.Label(item.ProductName)</h3>

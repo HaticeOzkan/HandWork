@@ -81,19 +81,27 @@ namespace HandWork.Controllers
             });
             Product Product = _uw.ProductRepo.GetOne(ProductID);
             ViewBag.ImageList = _uw.Db.ProductImages.Where(x => x.Product.ID == ProductID).Select(x => x.ImageURL).ToList();
+            ViewBag.Product = Product;
 
 
             return View(Product);
         }
         [HttpPost]
         public ActionResult EditProduct(Product NewProduct, HttpPostedFileBase[] images)
-        {
+        {//burası bitmedi resimler gelmiyor
             ViewBag.Categories = _uw.CategoryRepo.GetAll().Select(x => new SelectListItem
             {
                 Text = x.CategoryName,
                 Value = (x.ID).ToString()
             });
             return View();
+        }
+        [HttpGet]
+        public ActionResult ProductDetail(int ProductID)
+        {
+            string MemberID = User.Identity.GetUserId();
+            Member Member = _uw.Db.Users.Find(MemberID);
+            return View(Member);
         }
 
     }

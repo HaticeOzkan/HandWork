@@ -118,13 +118,13 @@
                 <div class="panel-body">
 
                     @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { @class = "form-horizontal", @enctype = "multipart/form-data" }))
-                    {
+                    {Product Product = (Product)ViewBag.Product;
                         <div class="col-md-6">
                             <div class="form-group">
 
                                 <div class="col-sm-9">
                                     @Html.Label("Ürün İsmi")
-                                    @Html.TextBox("ProductName",new { Model.ProductName } ,new { @class = "form-control", @type = "text", @placeholder = "Ürün İsmi", @required = "required", })
+                                    @Html.TextBoxFor(x=>x.ProductName ,new { @class = "form-control", @type = "text", @placeholder = "Ürün İsmi", @required = "required",@value=Product.ProductName })
                                 </div>
 
                             </div>
@@ -132,13 +132,13 @@
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     @Html.Label("Ürün Tanıtımı")
-                                    @Html.TextArea("Content",new { @class = "form-control", @type = "text", @placeholder = "Ürün tanıtımı", @value = Model.Content })
+                                    @Html.TextAreaFor(x=>x.Content,new { @class = "form-control", @type = "text", @placeholder = "Ürün tanıtımı", @value =Product.Content})
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     @Html.Label("Ücret")
-                                    @Html.TextBox("Price", new { @class = "form-control", @type = "number", @placeholder = "Ücret" ,@value=Model.Price})
+                                    @Html.TextBoxFor(x=>x.Price, new { @class = "form-control", @type = "number", @placeholder = "Ücret" ,@value=Product.Price})
                                 </div>
                             </div>
                         </div>
@@ -146,13 +146,13 @@
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     @Html.Label("Stok Miktarı")
-                                    @Html.TextBox("StockCount", new { @class = "form-control", @type = "number", @placeholder = "Stok Miktarı", @value = Model.StockCount })
+                                    @Html.TextBoxFor(x=>x.StockCount, new { @class = "form-control", @type = "number", @placeholder = "Stok Miktarı", @value = Product.StockCount })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     @Html.Label("kategori")
-                                    @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control", @selected = Model.CategoryID })
+                                    @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control", @selected = Product.CategoryID })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -164,7 +164,7 @@
                                 @{
                                     var num = 4;
                                 }
-                                @foreach (string item in ViewBag.ImageList)
+                                @foreach (string item in ViewBag.ImageList)//????? fotografları editlerken resimler geliyor fakat gorunmuyor controllerda
                                 {
                                     <div class="preview-image preview-show-@num">
                                         <div class="image-cancel" data-no="@num">x</div>
