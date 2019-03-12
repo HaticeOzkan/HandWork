@@ -179,8 +179,8 @@
                                         </div>
                                         <h3>@Html.Label(item.ProductName)</h3>
                                         <div class="pi-price">@item.Price</div>
-                                        @Html.ActionLink("Düzenle", "EditProduct", "Product", new { @class = "btn" })
-                                        @Html.ActionLink("Sil", "DeleteProduct", "Product", new { @class = "btn" })
+                                        @Html.ActionLink("Düzenle", "EditProduct", "Product", new { @ProductID = item.ID }, new { @class = "btn" })
+                                        @Html.ActionLink("Sil", "DeleteProduct", "Product", new { @ProductID = item.ID }, new { @class = "btn" })
                                     </div>
                                 </div>
                             }

@@ -1,0 +1,241 @@
+﻿@using Entity
+@model Product
+  
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<style>
+    body {
+        background: url('../../Content/img/banner/5.jpg') no-repeat center center fixed;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .panel-default {
+        opacity: 0.9;
+        margin-top: 30px;
+    }
+
+    .form-group.last {
+        margin-bottom: 0px;
+    }
+
+    .preview-images-zone {
+        width: 100%;
+        border: 1px solid #ddd;
+        min-height: 180px;
+        /* display: flex; */
+        padding: 5px 5px 0px 5px;
+        position: relative;
+        overflow: auto;
+    }
+
+        .preview-images-zone > .preview-image:first-child {
+            height: 185px;
+            width: 185px;
+            position: relative;
+            margin-right: 5px;
+        }
+
+        .preview-images-zone > .preview-image {
+            height: 90px;
+            width: 90px;
+            position: relative;
+            margin-right: 5px;
+            float: left;
+            margin-bottom: 5px;
+        }
+
+            .preview-images-zone > .preview-image > .image-zone {
+                width: 100%;
+                height: 100%;
+            }
+
+                .preview-images-zone > .preview-image > .image-zone > img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+            .preview-images-zone > .preview-image > .tools-edit-image {
+                position: absolute;
+                z-index: 100;
+                color: #fff;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+                display: none;
+            }
+
+            .preview-images-zone > .preview-image > .image-cancel {
+                font-size: 18px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-weight: bold;
+                margin-right: 10px;
+                cursor: pointer;
+                display: none;
+                z-index: 100;
+            }
+
+    .preview-image:hover > .image-zone {
+        cursor: move;
+        opacity: .5;
+    }
+
+    .preview-image:hover > .tools-edit-image,
+    .preview-image:hover > .image-cancel {
+        display: block;
+    }
+
+    .ui-sortable-helper {
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .container {
+        padding-top: 50px;
+    }
+</style>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!------ Include the above in your HEAD tag ---------->
+<br /><br /><br /><br /><br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fas fa-plus"></i> Ürün Kaydı
+                </div>
+                <div class="panel-body">
+
+                    @using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    {
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <div class="col-sm-9">
+                                    @Html.Label("Ürün İsmi")
+                                    @Html.TextBox("ProductName",new { Model.ProductName } ,new { @class = "form-control", @type = "text", @placeholder = "Ürün İsmi", @required = "required", })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    @Html.Label("Ürün Tanıtımı")
+                                    @Html.TextArea("Content",new { @class = "form-control", @type = "text", @placeholder = "Ürün tanıtımı", @value = Model.Content })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    @Html.Label("Ücret")
+                                    @Html.TextBox("Price", new { @class = "form-control", @type = "number", @placeholder = "Ücret" ,@value=Model.Price})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    @Html.Label("Stok Miktarı")
+                                    @Html.TextBox("StockCount", new { @class = "form-control", @type = "number", @placeholder = "Stok Miktarı", @value = Model.StockCount })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    @Html.Label("kategori")
+                                    @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control", @selected = Model.CategoryID })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="javascript:void(0)" onclick="$('#proimage').click()">upload image</a>
+                                <input type="file" id="proimage" name="images" style="display: none;" class="form-control multiple" multiple>
+
+                            </div>
+                            <div class="preview-images-zone ui-sortable">
+                                @{
+                                    var num = 4;
+                                }
+                                @foreach (string item in ViewBag.ImageList)
+                                {
+                                    <div class="preview-image preview-show-@num">
+                                        <div class="image-cancel" data-no="@num">x</div>
+                                        <div class="image-zone">
+                                            <img id='pro-img-@num' src="@item" />
+                                        </div>
+                                        <div class="tools-edit-image"></div>
+                                    </div>
+
+                                    num = num + 1;
+                                }
+                            </div>
+                            </div>
+                        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                        <div class="form-group last">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    Sign in
+                                </button>
+                                <button type="reset" class="btn btn-default btn-sm">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        document.getElementById('proimage').addEventListener('change', readImage, false);
+        $(".preview-images-zone").sortable();
+        $(document).on('click', '.image-cancel', function () {
+            let no = $(this).data('no');
+            $(".preview-image.preview-show-" + no).remove();
+        });
+    });
+    var num = 4;
+    function readImage() {
+        if (window.File && window.FileList && window.FileReader) {
+            var files = event.target.files; //FileList object
+            var output = $(".preview-images-zone");
+
+            for (let i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (!file.type.match('image')) continue;
+
+                var picReader = new FileReader();
+
+                picReader.addEventListener('load', function (event) {
+                    var picFile = event.target;
+                    var html = '<div class="preview-image preview-show-' + num + '">' +
+                        '<div class="image-cancel" data-no="' + num + '">x</div>' +
+                        '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
+                        '<div class="tools-edit-image">' +
+                        '</div>';
+
+                    output.append(html);
+                    num = num + 1;
+                });
+
+                picReader.readAsDataURL(file);
+            }
+        //    $("#proimage").val('');
+        } else {
+            console.log('Browser not support');
+        }
+    }
+
+
+</script>

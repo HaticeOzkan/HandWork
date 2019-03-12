@@ -541,6 +541,7 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\AccountEdit.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
+    <Content Include="Views\Product\EditProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
