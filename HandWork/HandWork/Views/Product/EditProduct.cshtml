@@ -153,6 +153,8 @@
                                 <div class="col-sm-9">
                                     @Html.Label("kategori")
                                     @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control", @selected = Product.CategoryID })
+                                   <input name="id" value="@Product.ID" hidden/>
+                                    @*@Html.TextBox("id",new {@value=Product.ID, hidden="hidden" })*@
                                 </div>
                             </div>
                             <div class="form-group">
@@ -241,7 +243,7 @@
             method: "POST",
             success: function (Result) {
                 if (Result) {
-                    $(this).find("img").remove();
+                    ($(this).find("img")).remove();
                 }
                   
                 else

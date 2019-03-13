@@ -39,10 +39,14 @@ namespace HandWork.Controllers
                 Value = (x.ID).ToString()
             });
             if (ModelState.IsValid)
-            {
-                NewProduct.MemberID = User.Identity.GetUserId();
+            {    string MemberID= User.Identity.GetUserId();
+                NewProduct.MemberID = MemberID;
+                _uw.ProductRepo.Add(NewProduct);
+                _uw.Complete();
+                int ProductID = _uw.Db.Products.Where(x => x.MemberID == MemberID).Select(x => x.ID).FirstOrDefault();
                 if (images != null)
                 {
+                    System.IO.Directory.CreateDirectory("C:/Users/funda/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" +ProductID);
                     int Count = 0;
                     NewProduct.ProductImages = new List<ProductImage>();
                     foreach (HttpPostedFileBase item in images)
@@ -50,13 +54,12 @@ namespace HandWork.Controllers
                         ProductImage NewImage = new ProductImage();
                         string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
                         item.SaveAs(Path + Count + ".jpg");//image ismi                 
-                        NewImage.ImageURL = "/Uploads/Products/" + Count + ".jpg";                     
+                        NewImage.ImageURL = "/Uploads/Products/"+ProductID+"/" + Count + ".jpg";            
                         NewProduct.ProductImages.Add(NewImage);
                         Count++;
-
                     }
                     NewProduct.HasPhoto = true;
-                    _uw.ProductRepo.Add(NewProduct);
+                    _uw.ProductRepo.Edit(NewProduct);
                     _uw.Complete();
                 }
 
@@ -87,14 +90,15 @@ namespace HandWork.Controllers
             return View(Product);
         }
         [HttpPost]
-        public ActionResult EditProduct(Product NewProduct, HttpPostedFileBase[] images)
+        public ActionResult EditProduct(Product NewProduct, HttpPostedFileBase[] images,int id)
         {//burası bitmedi resimler gelmiyor
             ViewBag.Categories = _uw.CategoryRepo.GetAll().Select(x => new SelectListItem
             {
                 Text = x.CategoryName,
                 Value = (x.ID).ToString()
             });
-            Product OldProduct = _uw.ProductRepo.GetOne(NewProduct.ID);
+            Product OldProduct = _uw.ProductRepo.GetOne(id);
+
             _uw.Db.Entry(OldProduct).CurrentValues.SetValues(NewProduct);
             if (images != null)
             {
@@ -111,13 +115,15 @@ namespace HandWork.Controllers
             }
             _uw.ProductRepo.Edit(OldProduct);
             _uw.Complete();
-            return View();
+            return View(OldProduct);
         }
         [HttpGet]
         public ActionResult ProductDetail(int ProductID)
         {
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
+            Product product = _uw.ProductRepo.GetOne(ProductID);
+            ViewBag.Product = product;
             return View(Member);
         }
         public JsonResult DeletePic(int id)
