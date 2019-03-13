@@ -50,7 +50,7 @@ namespace HandWork.Controllers
                         ProductImage NewImage = new ProductImage();
                         string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
                         item.SaveAs(Path + Count + ".jpg");//image ismi                 
-                        NewImage.ImageURL = "/Uploads/Products/" + Count + ".jpg";
+                        NewImage.ImageURL = "/Uploads/Products/" + Count + ".jpg";                     
                         NewProduct.ProductImages.Add(NewImage);
                         Count++;
 
@@ -80,7 +80,7 @@ namespace HandWork.Controllers
                 Value = (x.ID).ToString()
             });
             Product Product = _uw.ProductRepo.GetOne(ProductID);
-            ViewBag.ImageList = _uw.Db.ProductImages.Where(x => x.Product.ID == ProductID).Select(x => x.ImageURL).ToList();
+            ViewBag.ImageList = _uw.Db.ProductImages.Where(x => x.Product.ID == ProductID).ToList();
             ViewBag.Product = Product;
 
 
@@ -94,6 +94,23 @@ namespace HandWork.Controllers
                 Text = x.CategoryName,
                 Value = (x.ID).ToString()
             });
+            Product OldProduct = _uw.ProductRepo.GetOne(NewProduct.ID);
+            _uw.Db.Entry(OldProduct).CurrentValues.SetValues(NewProduct);
+            if (images != null)
+            {
+                int Count = _uw.Db.ProductImages.OrderByDescending(x => x.ID).Select(x => x.ID).FirstOrDefault();
+                foreach (HttpPostedFileBase item in images)
+                {
+                    ProductImage NewImage = new ProductImage();
+                    string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
+                    item.SaveAs(Path + (Count+1) + ".jpg");//image ismi                 
+                    NewImage.ImageURL = "/Uploads/Products/" + (Count + 1) + ".jpg";
+                    OldProduct.ProductImages.Add(NewImage);
+                    Count++;
+                }
+            }
+            _uw.ProductRepo.Edit(OldProduct);
+            _uw.Complete();
             return View();
         }
         [HttpGet]
@@ -102,6 +119,21 @@ namespace HandWork.Controllers
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             return View(Member);
+        }
+        public JsonResult DeletePic(int id)
+        {
+            try
+            {
+                int productImageID = _uw.Db.ProductImages.Where(x => x.ID == id).Select(x => x.ID).FirstOrDefault();
+                _uw.ImageRepo.Delete(productImageID);
+                _uw.Complete();
+                return Json(true);
+
+            }catch(Exception ex)
+            {
+                return Json(false);
+            }
+
         }
 
     }

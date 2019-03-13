@@ -164,16 +164,15 @@
                                 @{
                                     var num = 4;
                                 }
-                                @foreach (string item in ViewBag.ImageList)//????? fotografları editlerken resimler geliyor fakat gorunmuyor controllerda
+                                @foreach (ProductImage item in ViewBag.ImageList)//????? fotografları editlerken resimler geliyor fakat gorunmuyor controllerda
                                 {
                                     <div class="preview-image preview-show-@num">
-                                        <div class="image-cancel" data-no="@num">x</div>
+                                        <div class="image-cancel " data-no="@num" onclick="ResimSil(@item.ID)">x</div>
                                         <div class="image-zone">
-                                            <img id='pro-img-@num' src="@item" />
+                                            <img id='pro-img-@num' src="@item.ImageURL" class="DeletedImage" />
                                         </div>
                                         <div class="tools-edit-image"></div>
                                     </div>
-
                                     num = num + 1;
                                 }
                             </div>
@@ -202,7 +201,7 @@
         $(".preview-images-zone").sortable();
         $(document).on('click', '.image-cancel', function () {
             let no = $(this).data('no');
-            $(".preview-image.preview-show-" + no).remove();
+          //  $(".preview-image.preview-show-" + no).remove();
         });
     });
     var num = 4;
@@ -236,6 +235,20 @@
             console.log('Browser not support');
         }
     }
+    function ResimSil(ID) {
+        $.ajax({
+            url: "/Product/DeletePic/" + ID,
+            method: "POST",
+            success: function (Result) {
+                if (Result) {
+                    $(this).find("img").remove();
+                }
+                  
+                else
+                    alert("Silinemedi");
+            },
 
-
+        });     
+    }
+   
 </script>
