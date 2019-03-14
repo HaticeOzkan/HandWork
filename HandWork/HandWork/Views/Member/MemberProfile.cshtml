@@ -149,7 +149,7 @@
 
                 <ul class="list-group">
 
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürünlerim", "Products", "Member")</strong></span>@Html.Label(Model.Products.Count().ToString())</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürünlerim", "MemberProfile", "Member")</strong></span>@Html.Label(Model.Products.Count().ToString())</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Memnuniyet")</strong></span>@Html.Label(Model.FavorCount.ToString())</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Şikayet")</strong></span>@Html.Label(Model.ComplaintCount.ToString())</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Mesajlarım", "Messages", "Member")</strong></span>@Model.Messages.Count().ToString()</li>
@@ -167,15 +167,14 @@
                     <div class="row">
                         @if (ViewBag.Products != null)
                         {
-                            foreach (Product item in ViewBag.Products)
+                            foreach (Product item in (List<Product>)ViewBag.Products)
                             {
+                                var img = item.ProductImages.FirstOrDefault();
                                 <div class="col-md-4">
                                     <div style="height:250px; width:250px;" class="product-item">
                                         <div class="pi-img-wrapper">
-                                            <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="Berry Lace Dress">
-                                            <div>
-                                                @Html.ActionLink("Ürün Detayı", "ProductDetail", "Product",new {@ProductID=item.ID }, new { @class = "btn" });
-                                            </div>
+                                            <img src="@Html.Raw(img == null ? "" : img.ImageURL)" class="img-responsive" alt="Berry Lace Dress">
+                                         
                                         </div>
                                         <h3>@Html.Label(item.ProductName)</h3>
                                         <div class="pi-price">@item.Price</div>

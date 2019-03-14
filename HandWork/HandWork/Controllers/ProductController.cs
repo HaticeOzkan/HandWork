@@ -92,14 +92,19 @@ namespace HandWork.Controllers
         [HttpPost]
         public ActionResult EditProduct(Product NewProduct, HttpPostedFileBase[] images,int id)
         {//burası bitmedi resimler gelmiyor
+
             ViewBag.Categories = _uw.CategoryRepo.GetAll().Select(x => new SelectListItem
             {
                 Text = x.CategoryName,
                 Value = (x.ID).ToString()
             });
             Product OldProduct = _uw.ProductRepo.GetOne(id);
-
-            _uw.Db.Entry(OldProduct).CurrentValues.SetValues(NewProduct);
+            OldProduct.CategoryID = NewProduct.CategoryID;
+            OldProduct.Content = NewProduct.Content;
+            OldProduct.Price = NewProduct.Price;
+            OldProduct.ProductName = NewProduct.ProductName;
+            OldProduct.StockCount = NewProduct.StockCount;
+         
             if (images != null)
             {
                 int Count = _uw.Db.ProductImages.OrderByDescending(x => x.ID).Select(x => x.ID).FirstOrDefault();
@@ -113,9 +118,9 @@ namespace HandWork.Controllers
                     Count++;
                 }
             }
-            _uw.ProductRepo.Edit(OldProduct);
+            _uw.Db.Entry(OldProduct).State = System.Data.Entity.EntityState.Modified;
             _uw.Complete();
-            return View(OldProduct);
+            return RedirectToAction("MemberProfile", "Member");
         }
         [HttpGet]
         public ActionResult ProductDetail(int ProductID)

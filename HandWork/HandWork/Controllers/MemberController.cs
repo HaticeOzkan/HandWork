@@ -78,13 +78,30 @@ namespace HandWork.Controllers
         {
             var MemberID = User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
             Member member = _uw.Db.Users.Find(MemberID);       
-            return View(member);
-       
+            return View(member);      
         }
         [HttpPost]
         public ActionResult AccountEdit(Member NewMember, HttpPostedFileBase image)
         {
-            return View();
+            
+            Member OldMember =_uw.Db.Users.Find(User.Identity.GetUserId());
+            OldMember.UserName = NewMember.UserName;
+            OldMember.Email = NewMember.Email;
+            OldMember.Adress = NewMember.Adress;
+            OldMember.PhoneNumber = NewMember.PhoneNumber;
+            _uw.ProfilPhotoRepo.Delete(OldMember.ProfilPhoto.ID);
+            OldMember.Gender = NewMember.Gender;
+            if (image != null)
+            {
+                string Path = Server.MapPath("/Uploads/Members/");//dosya yolu
+                image.SaveAs(Path + OldMember.Id + ".jpg");//image ismi                 
+                OldMember.ProfilPhoto.ImageURL = "/Uploads/Members/" + OldMember.Id + ".jpg";
+                OldMember.HasPhoto = true;
+                
+            }
+            _uw.Db.Entry(OldMember).State = System.Data.Entity.EntityState.Modified;
+            _uw.Complete();
+            return RedirectToAction("Index", "Home");
 
         }
         public ActionResult MemberProfile()
