@@ -1,0 +1,91 @@
+﻿@using Entity
+@model Member
+@{
+    Layout = null;
+}
+
+<nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
+    <div class="navbar-toggler animate">
+        <span class="menu-icon"></span>
+    </div>
+    <ul class="navbar-menu animate">
+        <li>
+            <a href="/Member/MemberProfile/" class="animate">
+                <span class="desc animate">
+                    @if (Model.HasPhoto == false)
+                    {
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+
+                    }
+                    else
+                    {
+                        <img src="@Model.ProfilPhoto.ImageURL" class="avatar img-circle img-thumbnail" alt="avatar">
+
+                    }
+                </span>
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/Member/MemberProfile/" class="animate">
+                <span class="desc animate">Ürünlerim @Html.Label(Model.Products.Count().ToString()) </span>
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="animate">
+                <span class="desc animate"><i class="fas fa-heart"></i>@Html.Label(Model.FavorCount.ToString()) </span>
+                <span class="glyphicon glyphicon-info-sign"></span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="animate">
+                <span class="desc animate">Şikayet @Html.Label(Model.ComplaintCount.ToString()) </span>
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/Member/Messages/" class="animate">
+                <span class="desc animate"><i class="fas fa-envelope"></i>@Model.Messages.Count().ToString()</span>
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/Member/Notifications/" class="animate">
+                <span class="desc animate">Bildirimler @Model.Notifications.Count().ToString() </span>
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/Member/AccountEdit/" class="animate">
+                <span class="desc animate">Hesap Bilgilerimi Güncelle</span>
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/Member/ChangePassword/" class="animate">
+                <span class="desc animate">Şifremi Değiştir</span>
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        </li>
+        <li>
+            <a href="/Product/AddProduct/" class="animate">
+                <span class="desc animate">Sipariş Ekle</span>
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        </li>
+    </ul>
+</nav>
+@*<ul class="list-group">*@
+
+@*<li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürünlerim", "MemberProfile", "Member")</strong></span>@Html.Label(Model.Products.Count().ToString())</li>
+    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Memnuniyet")</strong></span>@Html.Label(Model.FavorCount.ToString())</li>
+    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.Label("Şikayet")</strong></span>@Html.Label(Model.ComplaintCount.ToString())</li>
+    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Mesajlarım", "Messages", "Member")</strong></span>@Model.Messages.Count().ToString()</li>
+    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Bildirimler", "Notifications", "Member")</strong></span>@Model.Notifications.Count().ToString()</li>
+    <li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Siparişlerim", "Orders", "Member")</strong></span></li>*@
+@*<li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Hesap Bilgileri Güncelle", "AccountEdit", "Member")</strong></span></li>*@
+@*<li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Şifre Değiştir", "ChangePassword", "Member")</strong></span></li>*@
+@*<li class="list-group-item text-right"><span class="pull-left"><strong>@Html.ActionLink("Ürün Ekle", "AddProduct", "Product")</strong></span></li>*@
+
+

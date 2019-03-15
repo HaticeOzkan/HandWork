@@ -536,13 +536,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\MyLayout.cshtml" />
-    <Content Include="Views\Member\MemberProfile.cshtml" />
     <Content Include="Views\Member\Register.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\AccountEdit.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Product\EditProduct.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
+    <Content Include="Views\Member\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\ProfileLayout.cshtml" />
+    <Content Include="Views\Member\MyProfile.cshtml" />
+    <Content Include="Views\Member\MyProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
