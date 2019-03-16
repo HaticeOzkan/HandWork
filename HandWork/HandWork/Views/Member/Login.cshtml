@@ -39,8 +39,8 @@
         max-width: 510px;
         min-height: 510px;
         position: relative;
-        background: url('../../Content/img/banner/2.jpg') no-repeat center;
-        background-size: cover;
+        background:none;
+       
         box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
     }
 
@@ -210,7 +210,7 @@
         text-align: center;
     }
 </style>
-
+<br /><br /><br /><br /><br /><br /><br /><br /><br />
 <div class="login-wrap">
     <div class="login-html">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
@@ -230,13 +230,14 @@
 
                 </div>
                 <div class="group">
-                    <button class="button">Giriş</button>
+                    <button class="button btn-primary">Giriş</button>
                 </div>
                 }
             </div>
             
             <div class="for-pwd-htm">
-                @Html.BeginForm("Forgot", "Member", FormMethod.Post){
+                @using (Html.BeginForm("Forgot", "Member", FormMethod.Post))
+                {
                 <div class="group">
                     @Html.Label("Email", new { @class = "label", @for = "user" })
                     @Html.TextBoxFor(x => x.Email, new { @type = "text", @class = "input", @id = "user" })

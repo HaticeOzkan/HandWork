@@ -93,6 +93,7 @@ namespace HandWork.Controllers
             OldMember.Gender = NewMember.Gender;
             if (image != null)
             {
+                OldMember.ProfilPhoto = new ProfilPhoto();
                 string Path = Server.MapPath("/Uploads/Members/");//dosya yolu
                 image.SaveAs(Path + OldMember.Id + ".jpg");//image ismi                 
                 OldMember.ProfilPhoto.ImageURL = "/Uploads/Members/" + OldMember.Id + ".jpg";
@@ -119,6 +120,7 @@ namespace HandWork.Controllers
             HttpContext.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
         public ActionResult ChangePassword()
         {
             return View();
@@ -131,20 +133,21 @@ namespace HandWork.Controllers
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             bool Result = Manager.CheckPassword(Member, ViewModel.CurrentPassword);
-            if (Result == true)
+            if (ViewModel.NewPassword != ViewModel.ConfirmPassword)
             {
+                ViewBag.Result = "Şifreler Uyuşmuyor!";
+                return View(); ;
+            }
+           else if (Result == true)
+            {               
                 IdentityResult Result2 = Manager.ChangePassword(MemberID, ViewModel.CurrentPassword, ViewModel.NewPassword);
                 if (Result2.Succeeded)
                 {
                     ViewBag.Result = "Başarılı";
                     return RedirectToAction("MyProfile", "Member");
                 }
-                else
-                {
-                    ViewBag.Result = "İki şifreyi aynı girmediniz.";
-                    return View();
-                }
-
+                ViewBag.Result = "Tekrar Deneyin";
+                return View();
             }
             else
                 ViewBag.Result = "Şifre Yanlış";
@@ -157,6 +160,16 @@ namespace HandWork.Controllers
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             return View(Member);
+        }
+        public ActionResult DeleteAccount()
+        {
+            var MemberID = User.Identity.GetUserId();
+            Member member = _uw.Db.Users.Find(MemberID);
+            UserStore<Member> Store = new UserStore<Member>(_uw.Db);
+            UserManager<Member> Manager = new UserManager<Member>(Store);
+            Manager.Delete(member);
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

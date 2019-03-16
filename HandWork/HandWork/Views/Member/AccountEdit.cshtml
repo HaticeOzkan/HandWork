@@ -2,198 +2,89 @@
 @model Member
 
 @{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/MyLayout.cshtml";
+    Layout = "~/Views/Shared/ProfileLayout.cshtml";
 }
-
+@section css{
 <style>
-    @@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-
-    .register-block {
-        background: #DE6262; /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #3f4c6b, #3f4c6b); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #3f4c6b, #3f4c6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        float: left;
-        width: 100%;
-        padding: 50px 0;
-    }
-    img {
-        max-width: 100px;
-        height: 100px;
-        margin-top: 20px;
-    }
-
-    input {
-        margin-top: 20px;
-    }
-
-    .banner-sec {
-        background: url('../../Content/img/banner/8.jpg') no-repeat;
-        background-size: cover;
-        min-height: 500px;
-        border-radius: 0 10px 10px 0;
-        padding: 0;
-    }
-
-    .container {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
-    }
-
-    .carousel-inner {
-        border-radius: 0 10px 10px 0;
-    }
-
-    .carousel-caption {
-        text-align: left;
-        left: 5%;
-    }
-
-    .register-sec {
-        padding: 50px 30px;
+    .changePas {
         position: relative;
+        top: 200px;
+    }
+    label{
+        color:white;
     }
 
-        .register-sec .copy-text {
-            position: absolute;
-            width: 80%;
-            bottom: 20px;
-            font-size: 13px;
-            text-align: center;
-        }
-
-            .register-sec .copy-text i {
-                color: #FEB58A;
-            }
-
-            .register-sec .copy-text a {
-                color: #E36262;
-            }
-
-        .register-sec h2 {
-            margin-bottom: 30px;
-            font-weight: 800;
-            font-size: 30px;
-            color: #3f4c6b;
-        }
-
-            .register-sec h2:after {
-                content: " ";
-                width: 100px;
-                height: 5px;
-                background: #3f4c6b;
-                display: block;
-                margin-top: 20px;
-                border-radius: 3px;
-                margin-left: auto;
-                margin-right: auto
-            }
-
-    .btn-register {
-        background: #3f4c6b;
-        color: #fff;
-        font-weight: 600;
+    img {
+        width: 150px;
+        height: 150px;
+        margin-top: 20px;
+       position:relative;
+       left:60px;
+       border-radius:150px;
     }
-
-    .banner-text {
-        width: 70%;
-        position: absolute;
-        bottom: 40px;
-        padding-left: 20px;
-    }
-
-        .banner-text h2 {
-            color: #fff;
-            font-weight: 600;
-        }
-
-            .banner-text h2:after {
-                content: " ";
-                width: 100px;
-                height: 5px;
-                background: #FFF;
-                display: block;
-                margin-top: 20px;
-                border-radius: 3px;
-            }
-
-        .banner-text p {
-            color: #fff;
-        }
 </style>
-<!------ Include the above in your HEAD tag ---------->
-<br /><br /><br /><br />
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+}
+<div class="container" style="position:relative; left:150px;">
+    <div class="changePas">
+        @using (Html.BeginForm("AccountEdit", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form", @enctype = "multipart/form-data" }))
+        {@Html.AntiForgeryToken()
+        if (TempData["Error"] != null)
+        {
+            foreach (string item in (List<string>)Session["hata"])
+            {
+                <p>item</p>
+            }
+        }
+        <div class="form-group pass_show ">
+            <img id="blah" src="@Model.ProfilPhoto.ImageURL" alt="your image" />
+            <br /><br />
+            @Html.Label("Profil Resmi", new { @class = "from-control" })
+            @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @onchange = "readURL(this);" })
 
-<!------ Include the above in your HEAD tag ---------->
-<section class="register-block">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 register-sec">
-                <h2 class="text-center">Register Now</h2>
-
-                @using (Html.BeginForm("AccountEdit", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form", @enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-                    if (TempData["Error"] != null)
-                    {
-                        foreach (string item in (List<string>)Session["hata"])
-                        {
-                            <p>item</p>
-                        }
-                    }
-                    <div class="form-group">
-                        @*@Html.Label("Kullanıcı Adı", new { @class = "text-uppercase" })*@
-                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı" })
-
-                    </div>
-                    <div class="form-group">
-
-                        @*@Html.Label("Email Adres", new { @class = "text-uppercase" })*@
-                        @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres" })
-                    </div>
-                    <div class="form-group">
-
-                        @*@Html.Label("Adres", new { @class = "text-uppercase" })*@
-                        @Html.TextAreaFor(x => x.Adress, 6, 5, new { @type = "adress", @class = "form-control", @placeholder = "Adres" })
-                    </div>
-                    <div class="form-group">
-
-                        @*@Html.Label("Telefon", new { @class = "from-control" })*@
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası" })
-                    </div>
-                    <div class="form-group">
-
-                        @Html.Label("Profil Resmi", new { @class = "from-control" })
-                        @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @onchange = "readURL(this);" })
-
-                        @*//  <input type='file' onchange="readURL(this);" />*@
-
-                        <img id="blah" src="@Model.ProfilPhoto.ImageURL" alt="your image" />
-                    </div>
-                  
-                    <div class="form-group">
-                        <input type="radio" name="gender" id="gender" value="Female" />Female
-                        <br />
-                        <input type="radio" name="gender" id="gender" value="Male" />Male
-                    </div>
-                    <br />
-                    <div class="form-check">
-                        <button type="submit" class="btn btn-register float-right">Submit</button>
-                    </div>
-
-                }
-            </div>
-            <div class="col-md-8 banner-sec">
-            </div>
+            @*//  <input type='file' onchange="readURL(this);" />*@
         </div>
+        <div class="form-group pass_show">
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı" })
+        </div>
+
+        <div class="form-group pass_show">
+
+            @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres" })
+        </div>
+        <div class="form-group pass_show ">
+
+            @Html.TextAreaFor(x => x.Adress, 6, 5, new { @type = "adress", @class = "form-control", @placeholder = "Adres" })
+        </div>
+        <div class="form-group pass_show ">
+
+            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası" })
+        </div>
+
+
+        <div class="form-group pass_show">
+            @if (Model.Gender == Gender.Female)
+            {
+                <input type="radio" name="gender" id="gender" value="Female" checked /><label for="gender">Female</label>
+                <input type="radio" name="gender" id="gender" value="Male" /><label for="gender">Male</label>
+            }
+            else
+            {<input type="radio" name="gender" id="gender" value="Female"/><label for="gender">Female</label>
+                <input type="radio" name="gender" id="gender" value="Male" checked/><label for="gender">Male</label>
+
+            }
+
+        </div>
+        <div class="form-group pass_show">
+          
+        </div>
+        <div class="form-group pass_show">
+            <button class="btn btn-primary">Submit</button>
+        </div>
+
+
+    }
     </div>
-</section>
-
-
+    </div>
 <!-- JS -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="js/main.js"></script>
@@ -211,5 +102,4 @@
         }
     }
 </script>
-
 

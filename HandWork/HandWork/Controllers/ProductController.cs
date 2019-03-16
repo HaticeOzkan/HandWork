@@ -14,10 +14,9 @@ namespace HandWork.Controllers
         // GET: Product
         UnitOfWork _uw = new UnitOfWork();
 
-        public ActionResult Index(int id)
-        {
-
-            return View();
+        public ActionResult GetProducts(int id)
+        {         
+            return View(_uw.ProductRepo.GetAll());
         }
         [HttpGet]
         public ActionResult AddProduct()
@@ -43,7 +42,7 @@ namespace HandWork.Controllers
                 NewProduct.MemberID = MemberID;
                 _uw.ProductRepo.Add(NewProduct);
                 _uw.Complete();
-                int ProductID = _uw.Db.Products.Where(x => x.MemberID == MemberID).Select(x => x.ID).FirstOrDefault();
+                int ProductID = _uw.Db.Products.Where(x => x.MemberID == MemberID).OrderByDescending(x=>x.ID).Select(x => x.ID).FirstOrDefault();
                 if (images != null)
                 {
                     System.IO.Directory.CreateDirectory("C:/Users/funda/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" +ProductID);
@@ -52,7 +51,7 @@ namespace HandWork.Controllers
                     foreach (HttpPostedFileBase item in images)
                     {
                         ProductImage NewImage = new ProductImage();
-                        string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
+                        string Path = Server.MapPath("/Uploads/Products/" + ProductID + "/");//dosya yolu
                         item.SaveAs(Path + Count + ".jpg");//image ismi                 
                         NewImage.ImageURL = "/Uploads/Products/"+ProductID+"/" + Count + ".jpg";            
                         NewProduct.ProductImages.Add(NewImage);
@@ -63,16 +62,17 @@ namespace HandWork.Controllers
                     _uw.Complete();
                 }
 
-                return RedirectToAction("MemberProfile", "Member");
+                return RedirectToAction("MyProducts", "Member");
             }
-            return RedirectToAction("MemberProfile", "Member");
+            return RedirectToAction("MyProducts", "Member");
         }
         public ActionResult DeleteProduct(int ProductID)
         {
 
             _uw.ProductRepo.Delete(ProductID);
+            _uw.Complete();
 
-            return RedirectToAction("MemberProfile", "Member");
+            return RedirectToAction("MyProducts", "Member");
         }
         [HttpGet]
         public ActionResult EditProduct(int ProductID)
@@ -111,16 +111,16 @@ namespace HandWork.Controllers
                 foreach (HttpPostedFileBase item in images)
                 {
                     ProductImage NewImage = new ProductImage();
-                    string Path = Server.MapPath("/Uploads/Products/");//dosya yolu
-                    item.SaveAs(Path + (Count+1) + ".jpg");//image ismi                 
-                    NewImage.ImageURL = "/Uploads/Products/" + (Count + 1) + ".jpg";
+                    string Path = Server.MapPath("/Uploads/Products/" +id + "/");//dosya yolu
+                    item.SaveAs(Path + (Count + 1) + ".jpg");//image ismi                
+                    NewImage.ImageURL = "/Uploads/Products/" + id + "/" + (Count+1) + ".jpg";
                     OldProduct.ProductImages.Add(NewImage);
                     Count++;
                 }
             }
             _uw.Db.Entry(OldProduct).State = System.Data.Entity.EntityState.Modified;
             _uw.Complete();
-            return RedirectToAction("MemberProfile", "Member");
+            return RedirectToAction("MyProducts", "Member");
         }
         [HttpGet]
         public ActionResult ProductDetail(int ProductID)
@@ -144,6 +144,15 @@ namespace HandWork.Controllers
             {
                 return Json(false);
             }
+
+        }
+        public JsonResult AddLike(int id)
+        {
+            Product product = _uw.ProductRepo.GetOne(id);
+            product.LikeCount = (product.LikeCount) + 1;
+            _uw.ProductRepo.Edit(product);
+            _uw.Complete();
+            return Json(true);
 
         }
 

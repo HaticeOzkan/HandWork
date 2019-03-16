@@ -546,6 +546,7 @@
     <Content Include="Views\Shared\ProfileLayout.cshtml" />
     <Content Include="Views\Member\MyProfile.cshtml" />
     <Content Include="Views\Member\MyProducts.cshtml" />
+    <Content Include="Views\Product\GetProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
