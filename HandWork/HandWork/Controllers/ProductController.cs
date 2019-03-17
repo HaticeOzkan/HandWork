@@ -13,7 +13,6 @@ namespace HandWork.Controllers
     {
         // GET: Product
         UnitOfWork _uw = new UnitOfWork();
-
         public ActionResult GetProducts(int id)
         {         
             return View(_uw.ProductRepo.GetAll());
@@ -122,14 +121,13 @@ namespace HandWork.Controllers
             _uw.Complete();
             return RedirectToAction("MyProducts", "Member");
         }
-        [HttpGet]
+        
         public ActionResult ProductDetail(int ProductID)
         {
-            string MemberID = User.Identity.GetUserId();
-            Member Member = _uw.Db.Users.Find(MemberID);
+           //?
             Product product = _uw.ProductRepo.GetOne(ProductID);
-            ViewBag.Product = product;
-            return View(Member);
+            ViewBag.ByWho = product.Member;
+            return View(product);
         }
         public JsonResult DeletePic(int id)
         {
@@ -148,12 +146,21 @@ namespace HandWork.Controllers
         }
         public JsonResult AddLike(int id)
         {
+            //Sor!! like arttırıyor ama sayfa yenilenmiyor hata
             Product product = _uw.ProductRepo.GetOne(id);
             product.LikeCount = (product.LikeCount) + 1;
             _uw.ProductRepo.Edit(product);
             _uw.Complete();
             return Json(true);
-
+        }
+        public JsonResult AddDisLike(int id)
+        {
+            //Sor!! like arttırıyor ama sayfa yenilenmiyor hata
+            Product product = _uw.ProductRepo.GetOne(id);
+            product.LikeCount = (product.LikeCount) -1;
+            _uw.ProductRepo.Edit(product);
+            _uw.Complete();
+            return Json(true);
         }
 
     }

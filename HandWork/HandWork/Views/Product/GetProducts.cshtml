@@ -116,9 +116,10 @@
             background: #e84d1c;
             border-color: #e84d1c;
         }
+
+    i:hover {
+    }
 </style>
-<!--================Header Menu Area =================-->
-<!--================Home Banner Area =================-->
 <section class="home_banner_area">
     <div class="overlay"></div>
     <div class="banner_inner d-flex align-items-center">
@@ -143,20 +144,24 @@
     <div class="row">
         @foreach (Product item in Model)
         {<div class="col-md-4">
-             <div class="product-item">
-                 <div class="pi-img-wrapper">
-                     <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
-                     <div>
-                         <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
-                     </div>
-                 </div>
-                 <h3><a href="shop-item.html">@item.ProductName</a></h3>
-                 <div class="pi-price">@item.Price.ToString("C")</div>
-                 <br /><br />
-                 <div class="pi-price" style="padding-left:5px;"><i class="fas fa-heart" ProductID=@item.ID></i>@item.LikeCount.ToString()</div>
-                 <a href="/Basket/AddBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
-                 <div class="sticker sticker-new"></div>
-             </div>
+                <div class="product-item">
+                    <div class="pi-img-wrapper">
+                        <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
+                        <div>
+                            <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
+                        </div>
+                    </div>
+                    <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                    <div class="pi-price">@item.Price.ToString("C")</div>
+                    <br /><br />
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="pi-price" style="padding-left:5px;"><a href="/Product/LikeCount/@item.ID"><i class="fas fa-thumbs-up delLike" ProductID=@item.ID></i></a><p>@item.LikeCount.ToString()</p></div>
+                        <div class="pi-price" style="padding-left:5px;"><a href="/Product/AddDislike/@item.ID"><i class="fas fa-thumbs-down delDislike" ProductID=@item.ID></i></a><p class="del">@item.DisLikeCount.ToString()</p></div>
+                    }
+                    <a href="/Basket/AddBasket?ProductID=@item.ID&CategoryID=@item.CategoryID" class="btn add2cart">Sepete Ekle</a>
+                    <div class="sticker sticker-new"></div>
+                </div>
             </div>
 
         }
@@ -165,24 +170,34 @@
 
     </div>
 </div>
-<br>
-<br>
-<center>
-    <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
-</center>
-<br>
-<br>
 <script>
-    
-    $(".del").click(function () {
-        var id = $("ProductID").val;
+    debugger
+    $(".delLike").click(function () {
+        var id = $(".delLike").attr("ProductID");
+
         $.ajax({
-            url: "Product/AddLike/" + id,
+            url: "/Product/AddLike/" + id,
+            method: "POST",
             success: function (sonuc) {
                 if (sonuc)
-                    window.location("Product/GetProducts");
-            }
+                    window.location = window.location;
 
+            
+            }
+        });
+    });
+    $(".delDislike").click(function () {
+        var id = $(".delDislike").attr("ProductID");
+
+        $.ajax({
+            url: "/Product/AddDisLike/" + id,
+            method: "POST",
+            success: function (sonuc) {
+                if (sonuc)
+                    window.location = window.location;
+
+
+            }
         });
     });
 </script>

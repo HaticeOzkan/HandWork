@@ -2,21 +2,15 @@
 @model Member
 
 @{
-  
-        Layout = "~/Views/Shared/ProfileLayout.cshtml";
-   
+    Layout = "~/Views/Shared/MyLayout.cshtml";
 }
-
 <style>
     @@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 
     .register-block {
-        background: #DE6262; /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #3f4c6b, #3f4c6b); /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #3f4c6b, #3f4c6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        float: left;
-        width: 100%;
-        padding: 50px 0;
+        background: url('../../Content/img/banner/2.jpg') fixed;
+        background-size: cover;
+
     }
 
     .banner-sec {
@@ -114,19 +108,15 @@
             color: #fff;
         }
 </style>
-<!------ Include the above in your HEAD tag ---------->
 <br /><br /><br /><br />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-<!------ Include the above in your HEAD tag ---------->
 <section class="register-block">
     <div class="container">
         <div class="row">
             <div class="col-md-4 register-sec">
                 <h2 class="text-center">Register Now</h2>
-
                 @using (Html.BeginForm("Register", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form", @enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
