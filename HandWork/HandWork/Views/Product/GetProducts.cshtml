@@ -117,8 +117,10 @@
             border-color: #e84d1c;
         }
 
-    i:hover {
-    }
+   .spam{
+       /*//api yi ajaxla webclient le add referans ile kullanabilirisn*/
+       cursor:pointer;
+   }
 </style>
 <section class="home_banner_area">
     <div class="overlay"></div>
@@ -156,8 +158,8 @@
                     <br /><br />
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="pi-price" style="padding-left:5px;"><a href="/Product/LikeCount/@item.ID"><i class="fas fa-thumbs-up delLike" ProductID=@item.ID></i></a><p>@item.LikeCount.ToString()</p></div>
-                        <div class="pi-price" style="padding-left:5px;"><a href="/Product/AddDislike/@item.ID"><i class="fas fa-thumbs-down delDislike" ProductID=@item.ID></i></a><p class="del">@item.DisLikeCount.ToString()</p></div>
+                        <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up delLike" ProductID=@item.ID></i></spam><p>@item.LikeCount.ToString()</p></div>
+                        <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-down delDislike" ProductID=@item.ID></i></spam><p class="del">@item.DisLikeCount.ToString()</p></div>
                     }
                     <a href="/Basket/AddBasket?ProductID=@item.ID&CategoryID=@item.CategoryID" class="btn add2cart">Sepete Ekle</a>
                     <div class="sticker sticker-new"></div>
@@ -171,7 +173,6 @@
     </div>
 </div>
 <script>
-    debugger
     $(".delLike").click(function () {
         var id = $(".delLike").attr("ProductID");
 
@@ -186,6 +187,7 @@
             }
         });
     });
+    
     $(".delDislike").click(function () {
         var id = $(".delDislike").attr("ProductID");
 
@@ -194,8 +196,7 @@
             method: "POST",
             success: function (sonuc) {
                 if (sonuc)
-                    window.location = window.location;
-
+                    window.location.url = window.location.url;            
 
             }
         });
