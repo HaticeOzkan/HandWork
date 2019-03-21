@@ -17,6 +17,7 @@ namespace BLL
         public BaseRepository<Basket> BasketRepo;
         public BaseRepository<Category> CategoryRepo;
         public BaseRepository<ProfilPhoto> ProfilPhotoRepo;
+   
 
 
         public UnitOfWork()
@@ -29,6 +30,7 @@ namespace BLL
             BasketRepo = new BaseRepository<Basket>(Db);
             CategoryRepo = new BaseRepository<Category>(Db);
             ProfilPhotoRepo = new BaseRepository<ProfilPhoto>(Db);
+          
         }
         public bool Complete()
         {

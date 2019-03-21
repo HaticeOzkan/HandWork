@@ -30,5 +30,9 @@ namespace Entity
                 return Product.Price * ItemCount;
             }
         }
+        public ProductItem()
+        {
+            ItemCount = 1;
+        }
     }
 }

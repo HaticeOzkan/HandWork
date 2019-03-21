@@ -146,7 +146,7 @@ namespace HandWork.Controllers
         }
         public JsonResult AddLike(int id)
         {
-            //Sor!! like arttırıyor ama sayfa yenilenmiyor hata
+            //Sor!! sayfayı yenilemeden like sayısını arttırmek p içindeki yazıya ulaşamıyom text dediği halde
             Product product = _uw.ProductRepo.GetOne(id);
             product.LikeCount = (product.LikeCount) + 1;
             _uw.ProductRepo.Edit(product);
@@ -155,9 +155,9 @@ namespace HandWork.Controllers
         }
         public JsonResult AddDisLike(int id)
         {
-            //Sor!! like arttırıyor ama sayfa yenilenmiyor hata
+
             Product product = _uw.ProductRepo.GetOne(id);
-            product.LikeCount = (product.LikeCount) -1;
+            product.DisLikeCount = product.DisLikeCount + 1;
             _uw.ProductRepo.Edit(product);
             _uw.Complete();
             return Json(true);
