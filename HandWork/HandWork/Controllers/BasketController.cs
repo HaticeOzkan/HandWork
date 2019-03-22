@@ -93,8 +93,8 @@ namespace HandWork.Controllers
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             Product product = _uw.ProductRepo.GetOne(id);
-            ProductItem productItem = new ProductItem();
-            productItem.Basket = Member.Basket;            
+            ProductItem productItem = new ProductItem(); 
+
             productItem.Product = product;
             if (Member.Basket == null)
             {

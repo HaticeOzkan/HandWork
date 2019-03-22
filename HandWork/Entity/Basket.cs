@@ -8,7 +8,7 @@ namespace Entity
     {
         public int ID { get; set; }
         public virtual Member Member { get; set; }
-        public List<ProductItem> ProductItems { get; set; }
+        public virtual List<ProductItem> ProductItems { get; set; }
         public decimal SubTotal
         {
             get
