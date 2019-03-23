@@ -14,8 +14,11 @@ namespace HandWork.Controllers
         // GET: Product
         UnitOfWork _uw = new UnitOfWork();
         public ActionResult GetProducts(int id)
-        {         
-            return View(_uw.ProductRepo.GetAll());
+        {
+            var MemberID = User.Identity.GetUserId();
+            Member member = _uw.Db.Users.Find(MemberID);
+            ViewBag.Member = member;
+            return View(_uw.Db.Products.Where(x=>x.CategoryID==id).ToList());
         }
         [HttpGet]
         public ActionResult AddProduct()

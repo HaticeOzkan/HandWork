@@ -549,6 +549,7 @@
     <Content Include="Views\Member\MyProducts.cshtml" />
     <Content Include="Views\Product\GetProducts.cshtml" />
     <Content Include="Views\Basket\IndexBasket.cshtml" />
+    <Content Include="Views\Basket\CheckOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

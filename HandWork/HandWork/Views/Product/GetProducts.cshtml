@@ -146,24 +146,27 @@
     <div class="row">
         @foreach (Product item in Model)
         {<div class="col-md-4">
-                <div class="product-item">
-                    <div class="pi-img-wrapper">
-                        <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
-                        <div>
-                            <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
-                        </div>
-                    </div>
-                    <h3><a href="shop-item.html">@item.ProductName</a></h3>
-                    <div class="pi-price">@item.Price.ToString("C")</div>
-                    <br /><br />
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up delLike" ProductID=@item.ID></i></spam><p class="likedel">@item.LikeCount.ToString()</p></div>
-                        <div class="pi-price" style="padding-left:5px;"><spam><i class="fas fa-thumbs-down delDislike" ProductID=@item.ID></i></spam><p>@item.DisLikeCount.ToString()</p></div>
-                    }
-                    <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
-                    <div class="sticker sticker-new"></div>
-                </div>
+             <div class="product-item">
+                 <div class="pi-img-wrapper">
+                     <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
+                     <div>
+                         <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
+                     </div>
+                 </div>
+                 <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                 <div class="pi-price">@item.Price.ToString("C")</div>
+                 <br /><br />
+                 @if (User.Identity.IsAuthenticated)
+                 {
+                     <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up delLike" ProductID=@item.ID></i></spam><p class="likedel">@item.LikeCount.ToString()</p></div>
+                     <div class="pi-price" style="padding-left:5px;"><spam><i class="fas fa-thumbs-down delDislike" ProductID=@item.ID></i></spam><p>@item.DisLikeCount.ToString()</p></div>
+                 }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
+                 {
+                     <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
+                 }
+
+                 <div class="sticker sticker-new"></div>
+             </div>
             </div>
 
         }
@@ -178,7 +181,7 @@
         $.ajax({
             url: "/Product/AddLike/" + id,
             method: "POST",
-            success: function (sonuc) {
+            success:function(sonuc){
                 if (sonuc)
 
                    window.location = window.location;

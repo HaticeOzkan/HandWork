@@ -14,10 +14,10 @@ namespace HandWork.Controllers
     {
         UnitOfWork _uw = new UnitOfWork();
         // GET: Basket
-   
+
         public ActionResult IndexBasket()//direk sepete basarsa
         {
-         
+
             if (User.Identity.IsAuthenticated)
             {
                 string MemberID = User.Identity.GetUserId();
@@ -26,106 +26,92 @@ namespace HandWork.Controllers
                 {
                     Member.Basket = new Basket();
                     Member.Basket.ProductItems = new List<ProductItem>();
-                    ViewBag.ProductItemList = Member.Basket.ProductItems;
                     _uw.Db.Entry(Member).State = System.Data.Entity.EntityState.Modified;
                     _uw.Complete();
                     return View(Member.Basket);
                 }
                 else
-                {                 
-                    ViewBag.ProductItemList = Member.Basket.ProductItems;
+                {
                     return View(Member.Basket);
                 }
             }
             else
                 return RedirectToAction("Index", "Home", new { error = "sepetinize girebilmeniz için önce giriş yapmalısınız." });
-            
+
         }
         public JsonResult DeleteProductItem(int id)//ürün item id
         {
             string MemberID = User.Identity.GetUserId();
-            Member member = _uw.Db.Users.Find(MemberID);         
-            foreach (var item in member.Basket.ProductItems)
-            {
-                if (item.ID==id)
-                    member.Basket.ProductItems.Remove(item);
-            }
-            return Json(true);
-          
-        }
-        public JsonResult IncreaseCount(int id)//ürünitem id si gelecek
-        {
-            string MemberID = User.Identity.GetUserId();
-            Member member = _uw.Db.Users.Find(MemberID);          
-            foreach (var item in member.Basket.ProductItems)
-            {
-                if (item.ID==id)
-                {
-                    item.ItemCount++;
-                    _uw.Db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                    _uw.Complete();
-                }  
-                  
-            }
-            return Json(true);
-
-        }
-        public JsonResult DecreaseCount(int id)//ürünitem id si gelecek
-        {
-            string MemberID = User.Identity.GetUserId();
             Member member = _uw.Db.Users.Find(MemberID);
-            foreach (var item in member.Basket.ProductItems)
+            foreach (var item in member.Basket.ProductItems.ToList())
             {
-                if (item.ID ==id)
+                if (item.ID == id)
                 {
-                    item.ItemCount--;
-                    _uw.Db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                    //member.Basket.ProductItems.Remove(item);                    
+                    ProductItem productItem = _uw.Db.ProductItems.Find(id);
+                    //Product product = productItem.Product;
+                    //product.ProductItems.Remove(productItem);
+                    //_uw.Db.Entry(member).State = System.Data.Entity.EntityState.Modified;
+                    //_uw.Db.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                    _uw.Db.ProductItems.Remove(productItem);
                     _uw.Complete();
                 }
-
             }
             return Json(true);
 
         }
         public ActionResult AddToBasket(int id)//ürün id si
         {
-            
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             Product product = _uw.ProductRepo.GetOne(id);
-            ProductItem productItem = new ProductItem(); 
-
-            productItem.Product = product;
-            if (Member.Basket == null)
+            bool control = false;
+            foreach (ProductItem item in Member.Basket.ProductItems)
             {
-                Member.Basket = new Basket();
-                Member.Basket.ProductItems = new List<ProductItem>();
-                Member.Basket.ProductItems.Add(productItem);
-                _uw.Db.Entry(Member).State = System.Data.Entity.EntityState.Modified;
-                _uw.Complete();
-            }
-            else if (Member.Basket.ProductItems == null)
-            {
-                Member.Basket.ProductItems = new List<ProductItem>();
-                Member.Basket.ProductItems.Add(productItem);
-                _uw.Db.Entry(Member).State = System.Data.Entity.EntityState.Modified;
-                _uw.Complete();
-            }
-            else
-            {
-                foreach (var item in Member.Basket.ProductItems)
+                if (item.Product.ID == id)
                 {
-                    if (item.Product.ID == id)
-                    {
-                        item.ItemCount++;
-                        _uw.Db.Entry(productItem).State = System.Data.Entity.EntityState.Modified;
-                        _uw.Complete();
-                       
-                    }
+                    ProductItem productItem = _uw.Db.ProductItems.Find(item.ID);
+                    productItem.ItemCount++;
+                    _uw.Db.Entry(productItem).State = System.Data.Entity.EntityState.Modified;
+                    _uw.Complete();
+                    control = true;
+
                 }
             }
-                return RedirectToAction("IndexBasket");
+            if (control == false)
+            {
+                if (Member.Basket == null)
+                {
+                    Member.Basket = new Basket();
+                    Member.Basket.ProductItems = new List<ProductItem>();
+                }
+                ProductItem ProductItem = new ProductItem();
+                ProductItem.Product = product;
+                ProductItem.Basket = Member.Basket;
+                Member.Basket.ProductItems = new List<ProductItem>();
+                product.ProductItems = new List<ProductItem>();
+                product.ProductItems.Add(ProductItem);
+                Member.Basket.ProductItems.Add(ProductItem);
+                _uw.Db.ProductItems.Add(ProductItem);
+                _uw.Complete();
+
             }
 
+            return RedirectToAction("IndexBasket");
         }
+        public JsonResult UpdateProductItemCount(int ItemID, int CurrentCount)
+        {
+            ProductItem productItem = _uw.Db.ProductItems.Find(ItemID);
+            productItem.ItemCount = CurrentCount;
+            _uw.Db.Entry(productItem).State = System.Data.Entity.EntityState.Modified;
+            _uw.Complete();
+            return Json(true);
+
+        }
+        public ActionResult CheckOut()//sepet id si geliyor
+        {
+            return View();
+        }
+
     }
+}

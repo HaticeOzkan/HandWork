@@ -4,13 +4,19 @@
     ViewBag.Title = "IndexBasket";
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
+<style>
+    body {
+        background: url('../../Content/img/banner/2.jpg') fixed;
+        background-size: cover;
+    }
+</style>
 <br /><br /><br /><br /><br />
 <h2 style="text-align:center;">Sepetim</h2>
 <br />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <table id="cart" class="table table-hover table-condensed">
-        @if (Model.ProductItems.Count ==0)
+        @if (Model.ProductItems.Count ==0 || Model.ProductItems==null)
         {
             <h3 style="text-align:center;">Sepet Boş</h3>
         }
@@ -40,24 +46,54 @@
                         </td>
                         <td data-th="Price">@item.Product.Price.ToString("C")</td>
                         <td data-th="Quantity">
-                            <input type="number" class="form-control text-center" value="@item.ItemCount">
+                            <input type="number" class="form-control text-center sayi" value="@item.ItemCount" den="@item.ID">
                         </td>
                         <td data-th="Subtotal" class="text-center">@item.TotalPrice.ToString("C")</td>
                         <td class="actions" data-th="">
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                            <strong class="btn btn-danger btn-sm del" rel="@item.ID"><i class="fa fa-trash-o"></i></strong>
                         </td>
                     </tr>
                 </tbody>
             }
             <tfoot>
                 <tr>
-                    <td><a href="@ViewBag.LastPage" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                    <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>@*burada ürün geldiği ürün sayfasına donecek ama sayfanın hangi konumundaysa oraya donsun sor*@
                     <td colspan="2" class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong>Total @Model.SubTotal.ToString("C") </strong></td>
-                    <td><a href="/Basket/Checkout/@Model.ID" class="btn btn-success btn-block">Checkout<i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="/Basket/Checkout/" class="btn btn-success btn-block">Checkout<i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>
         }
     </table>
 </div>
 
+<script>
+    $(".del").click(function () {
+        var Id = $(".del").attr("rel");
+        $.ajax({
+            url: "/Basket/DeleteProductItem/" + Id,
+            method: "POST",
+            success: function (sonuc) {
+                if (sonuc)
+                    window.location = window.location;
+                    //$(this).parent().parent().slideDown("slow");//kaldırmıyor
+                else
+                    alert("Silme işlemi başarısız.");
+        }
+        });
+    });
+    $(".sayi").click(function () {
+        var Id = $(".sayi").attr("den");
+        var CurrentCount = $(".sayi").attr("value");
+        $.ajax({
+            url: "/Basket/UpdateProductItemCount/?ItemID=" + Id + "&CurrentCount=" + CurrentCount,
+            method: "POST",//güncel sayıyı almıyor value de 
+            success: function (sonuc) {
+                if(sonuc)
+                window.location = window.location; 
+            }
+        });
+
+    });
+   
+</script>
