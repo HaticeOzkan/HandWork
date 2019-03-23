@@ -61,6 +61,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="PaymentModels.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductImage.cs" />
     <Compile Include="ProfilPhoto.cs" />

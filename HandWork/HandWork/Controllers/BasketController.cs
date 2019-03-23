@@ -14,14 +14,15 @@ namespace HandWork.Controllers
     {
         UnitOfWork _uw = new UnitOfWork();
         // GET: Basket
-
+       
         public ActionResult IndexBasket()//direk sepete basarsa
         {
+            string MemberID = User.Identity.GetUserId();
+            Member Member = _uw.Db.Users.Find(MemberID);
 
             if (User.Identity.IsAuthenticated)
             {
-                string MemberID = User.Identity.GetUserId();
-                Member Member = _uw.Db.Users.Find(MemberID);
+               
                 if (Member.Basket == null)
                 {
                     Member.Basket = new Basket();
@@ -110,8 +111,40 @@ namespace HandWork.Controllers
         }
         public ActionResult CheckOut()//sepet id si geliyor
         {
+            string MemberID = User.Identity.GetUserId();
+            Member Member = _uw.Db.Users.Find(MemberID);
+            ViewBag.SubTotal = Member.Basket.SubTotal;
+            ViewBag.CartNo = Member.Basket.ID;
             return View();
         }
+        [HttpPost]
+        public ActionResult PayBankTransfer(int? approve)
+        {
+            if (approve.HasValue && approve.Value == 1)
+            {
+                BankTransferPayment p1 = new BankTransferPayment();
+                p1.IsApproved = false;
+                //p1.NameSurname = User.Identity.GetNameSurname();
+                //p1.TC = User.Identity.GetTC();
+
+                BankTransferService service = new BankTransferService();
+
+                bool isPaid = service.MakePayment(p1);
+
+
+                if (isPaid)
+                {
+                    //CreateOrder(isPaid);
+                    //ResetShoppingCart();
+                }
+
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Checkout");
+        }
+
 
     }
 }
