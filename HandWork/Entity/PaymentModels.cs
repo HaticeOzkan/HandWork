@@ -20,6 +20,8 @@ namespace Entity
         public string TC { get; set; }
         public string NameSurname { get; set; }
         public bool IsApproved { get; set; }
+        public string IBAN { get; set; }
+        public string AccountNo { get; set; }
         public virtual Order Order { get; set; }
     }
 

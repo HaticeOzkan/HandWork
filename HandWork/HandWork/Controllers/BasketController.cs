@@ -114,35 +114,21 @@ namespace HandWork.Controllers
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             ViewBag.SubTotal = Member.Basket.SubTotal;
-            ViewBag.CartNo = Member.Basket.ID;
+            ViewBag.BasketNo = Member.Basket.ID;
             return View();
         }
         [HttpPost]
-        public ActionResult PayBankTransfer(int? approve)
+        public ActionResult PayBankTransfer(int? approve)//onaylandıysa odeme işlemi
         {
-            if (approve.HasValue && approve.Value == 1)
-            {
-                BankTransferPayment p1 = new BankTransferPayment();
-                p1.IsApproved = false;
-                //p1.NameSurname = User.Identity.GetNameSurname();
-                //p1.TC = User.Identity.GetTC();
 
-                BankTransferService service = new BankTransferService();
-
-                bool isPaid = service.MakePayment(p1);
-
-
-                if (isPaid)
-                {
-                    //CreateOrder(isPaid);
-                    //ResetShoppingCart();
-                }
-
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            return RedirectToAction("Checkout");
+            ViewBag.Result = "Ödemeniz gerçekleştirildi";
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public ActionResult PayCreditCart(int? approve)//onaylandıysa odeme
+        {
+            ViewBag.Result = "Ödemeniz gerçekleştirildi";
+            return RedirectToAction("Index", "Home");
         }
 
 
