@@ -16,8 +16,10 @@ namespace Entity
     }
    public class Member:IdentityUser
     {//email password telno geliyor identity userdan
+        public long TC { get; set; }
+      
         public Gender Gender { get; set; }
-        public string Adress { get; set; }
+       public string Address { get; set; }
         public virtual List<Product> Products { get; set; }
         public virtual Basket Basket { get; set; }
         public virtual List<Order> Orders { get; set; }
@@ -39,6 +41,13 @@ namespace Entity
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            Claim c1 = new Claim("TC", this.TC.ToString());
+            Claim c2 = new Claim("NameSurname", this.UserName);
+            Claim c3 = new Claim("Address", this.Address);
+           
+            userIdentity.AddClaim(c1);
+            userIdentity.AddClaim(c2);
+            userIdentity.AddClaim(c3);
             return userIdentity;
         }
 

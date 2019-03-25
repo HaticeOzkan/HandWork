@@ -1,5 +1,6 @@
 ﻿using BLL;
 using Entity;
+using HandWork.Extensions;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,8 @@ namespace HandWork.Controllers
         UnitOfWork _uw = new UnitOfWork();
         public ActionResult GetProducts(int id)
         {
-            var MemberID = User.Identity.GetUserId();
-            Member member = _uw.Db.Users.Find(MemberID);
-            ViewBag.Member = member;
+            Member Member = User.GetMember();
+            ViewBag.Member = Member;
             return View(_uw.Db.Products.Where(x=>x.CategoryID==id).ToList());
         }
         [HttpGet]
@@ -158,7 +158,6 @@ namespace HandWork.Controllers
         }
         public JsonResult AddDisLike(int id)
         {
-
             Product product = _uw.ProductRepo.GetOne(id);
             product.DisLikeCount = product.DisLikeCount + 1;
             _uw.ProductRepo.Edit(product);

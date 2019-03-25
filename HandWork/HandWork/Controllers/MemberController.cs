@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Entity;
 using Entity.ViewModel;
+using HandWork.Extensions;
 using HandWork.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -76,9 +77,8 @@ namespace HandWork.Controllers
         [HttpGet]
         public ActionResult AccountEdit()
         {
-            var MemberID = User.Identity.GetUserId();//giriş yapmış olan kullanıcının id sini getirir
-            Member member = _uw.Db.Users.Find(MemberID);
-            return View(member);
+            Member Member = User.GetMember();
+            return View(Member);
         }
         [HttpPost]
         public ActionResult AccountEdit(Member NewMember, HttpPostedFileBase image)
@@ -87,7 +87,7 @@ namespace HandWork.Controllers
             Member OldMember = _uw.Db.Users.Find(User.Identity.GetUserId());
             OldMember.UserName = NewMember.UserName;
             OldMember.Email = NewMember.Email;
-            OldMember.Adress = NewMember.Adress;
+            OldMember.Address = NewMember.Address;
             OldMember.PhoneNumber = NewMember.PhoneNumber;
             _uw.ProfilPhotoRepo.Delete(OldMember.ProfilPhoto.ID);
             OldMember.Gender = NewMember.Gender;
@@ -157,17 +157,15 @@ namespace HandWork.Controllers
 
         public ActionResult MyProfile()
         {
-            string MemberID = User.Identity.GetUserId();
-            Member Member = _uw.Db.Users.Find(MemberID);
+            Member Member = User.GetMember();
             return View(Member);
         }
         public ActionResult DeleteAccount()
         {
-            var MemberID = User.Identity.GetUserId();
-            Member member = _uw.Db.Users.Find(MemberID);
+            Member Member = User.GetMember();
             UserStore<Member> Store = new UserStore<Member>(_uw.Db);
             UserManager<Member> Manager = new UserManager<Member>(Store);
-            Manager.Delete(member);
+            Manager.Delete(Member);
             return RedirectToAction("Index", "Home");
 
         }

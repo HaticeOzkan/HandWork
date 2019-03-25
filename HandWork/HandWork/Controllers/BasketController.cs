@@ -1,10 +1,12 @@
 ﻿using BLL;
 using Entity;
+using HandWork.Extensions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,8 +19,7 @@ namespace HandWork.Controllers
        
         public ActionResult IndexBasket()//direk sepete basarsa
         {
-            string MemberID = User.Identity.GetUserId();
-            Member Member = _uw.Db.Users.Find(MemberID);
+            Member Member = User.GetMember();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -42,9 +43,8 @@ namespace HandWork.Controllers
         }
         public JsonResult DeleteProductItem(int id)//ürün item id
         {
-            string MemberID = User.Identity.GetUserId();
-            Member member = _uw.Db.Users.Find(MemberID);
-            foreach (var item in member.Basket.ProductItems.ToList())
+            Member Member = User.GetMember();
+            foreach (var item in Member.Basket.ProductItems.ToList())
             {
                 if (item.ID == id)
                 {
@@ -63,8 +63,7 @@ namespace HandWork.Controllers
         }
         public ActionResult AddToBasket(int id)//ürün id si
         {
-            string MemberID = User.Identity.GetUserId();
-            Member Member = _uw.Db.Users.Find(MemberID);
+            Member Member = User.GetMember();
             Product product = _uw.ProductRepo.GetOne(id);
             bool control = false;
             foreach (ProductItem item in Member.Basket.ProductItems)
@@ -111,25 +110,26 @@ namespace HandWork.Controllers
         }
         public ActionResult CheckOut()//sepet id si geliyor
         {
-            string MemberID = User.Identity.GetUserId();
-            Member Member = _uw.Db.Users.Find(MemberID);
-            ViewBag.SubTotal = Member.Basket.SubTotal;
-            ViewBag.BasketNo = Member.Basket.ID;
+           
+            Member Member = User.GetMember();
+           // ViewBag.SubTotal = Member.Basket.SubTotal;
+           // ViewBag.BasketNo = Member.Basket.ID;
             return View();
         }
         [HttpPost]
-        public ActionResult PayBankTransfer(int? approve)//onaylandıysa odeme işlemi
+        public ActionResult PayBankTransfer(int? approve)//kişi onaya bastıysa
         {
 
             ViewBag.Result = "Ödemeniz gerçekleştirildi";
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        public ActionResult PayCreditCart(int? approve)//onaylandıysa odeme
+        public ActionResult PayCreditCart(int? approve)//kişi onaya bastıysa
         {
             ViewBag.Result = "Ödemeniz gerçekleştirildi";
             return RedirectToAction("Index", "Home");
         }
+        
 
 
     }
