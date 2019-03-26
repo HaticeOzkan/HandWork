@@ -8,14 +8,15 @@ namespace Entity
     public class Order : IEntity
     {
         public int ID { get; set; }
-        public virtual List<OrderItem> OrderItem { get; set; }
+        public virtual List<OrderItem> OrderItems { get; set; }
         public DateTime OrderDate { get; set; }
         public virtual Member Member { get; set; }
+        public bool IsPaid { get; set; }
         public decimal TotalPrice
         {
             get
             {
-                return OrderItem.Sum(x => x.TotalPrice);
+                return OrderItems.Sum(x => x.TotalPrice);
             }
         }
         public Order()

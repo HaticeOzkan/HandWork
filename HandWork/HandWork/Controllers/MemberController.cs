@@ -32,6 +32,8 @@ namespace HandWork.Controllers
         public ActionResult Login(Entity.ViewModel.LoginViewModel LoginModel)
         {
             string Name = _uw.Db.Users.Where(x => x.Email == LoginModel.Email).Select(x => x.UserName).FirstOrDefault();
+            if(Name==null)
+                return RedirectToAction("Index");
             ApplicationSignInManager signInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             SignInStatus Result = signInManager.PasswordSignIn(Name, LoginModel.Password, true, false);
             switch (Result)

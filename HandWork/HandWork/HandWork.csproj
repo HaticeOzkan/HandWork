@@ -551,6 +551,7 @@
     <Content Include="Views\Product\GetProducts.cshtml" />
     <Content Include="Views\Basket\IndexBasket.cshtml" />
     <Content Include="Views\Basket\CheckOut.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
