@@ -111,7 +111,7 @@ namespace HandWork.Controllers
         {
            
             Member Member = User.GetMember();
-            ViewBag.SubTotal = Member.Basket.SubTotal;
+            ViewBag.SubTotal = Member.Basket.SubTotal.ToString("C");
             ViewBag.BasketNo = Member.Basket.ID;
             return View();
         }
@@ -138,6 +138,9 @@ namespace HandWork.Controllers
             order.IsPaid = isPaid;
             foreach (ProductItem item in Member.Basket.ProductItems)
             {
+                Product product = item.Product;
+                product.StockCount = product.StockCount + (item.ItemCount);
+                _uw.ProductRepo.Edit(product);
                 OrderItem OrderItem = new OrderItem();
                 OrderItem.Product = item.Product;
                 OrderItem.Order = order;
@@ -151,24 +154,26 @@ namespace HandWork.Controllers
 
         private void ResetShoppingCart()
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember();           
             Member.Basket.ProductItems.Clear();
-            _uw.Db.Entry(Member).State = System.Data.Entity.EntityState.Modified;
+            _uw.BasketRepo.Edit(Member.Basket);
             _uw.Complete();
 
         }
 
         [HttpPost]
-        public ActionResult PayCreditCart(int? approve)//kişi onaya bastıysa
+        public ActionResult PayCreditCart(CreditCardPayment paymentModel)//kişi onaya bastıysa
         {
-            CreditCardPayment c1 = new CreditCardPayment(); 
-            c1.IsApproved = false;
-            c1.NameSurname = User.Identity.GetNameSurname();
-            CreditCartService service = new CreditCartService();
-            bool isPaid = service.MakePayment(c1);
-            CreateOrder(isPaid);
-            ResetShoppingCart();
-            return RedirectToAction("Success", "Home");           
+            if (ModelState.IsValid)
+            {
+                CreditCardPayment c1 =paymentModel;
+                CreditCartService service = new CreditCartService();
+                bool isPaid = service.MakePayment(c1);
+                CreateOrder(isPaid);
+                ResetShoppingCart();
+                return RedirectToAction("Success", "Home");
+            }else
+            return RedirectToAction("Fail", "Home");           
         }
     }
 }

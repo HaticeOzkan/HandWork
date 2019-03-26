@@ -9,7 +9,6 @@ namespace Entity
     public interface IPaymentModel
     {
         int Id { get; set; }
-        string TC { get; set; }
         string NameSurname { get; set; }
         bool IsApproved { get; set; }
     }
@@ -28,7 +27,6 @@ namespace Entity
     public class CreditCardPayment : IPaymentModel
     {
         public int Id { get; set; }
-        public string TC { get; set; }
         public string NameSurname { get; set; }
         public string CartNumber { get; set; }
         public int ExpireMonth { get; set; }
@@ -36,5 +34,9 @@ namespace Entity
         public short CV2 { get; set; }
         public bool IsApproved { get; set; }
         public virtual Order Order { get; set; }
+        public CreditCardPayment()
+        {
+            IsApproved = false;
+        }
     }
 }

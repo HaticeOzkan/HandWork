@@ -1,4 +1,5 @@
-﻿
+﻿@using Entity
+@model CreditCardPayment
 @{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -14,8 +15,7 @@
 <div class="container">
     <hr>
     <p>
-        <strong>Cart No:@ViewBag.CartNo</strong>
-        <strong>Total:@ViewBag.Total</strong>
+       
     </p>
     <div class="row">
 
@@ -27,12 +27,7 @@
                             <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
                                 <i class="fa fa-credit-card"></i> Credit Card
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
-                                <i class="fab fa-paypal"></i>  Paypal
-                            </a>
-                        </li>
+                        </li>                       
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
                                 <i class="fa fa-university"></i>  Bank Transfer
@@ -41,16 +36,22 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="nav-tab-card">
-                            <p class="alert alert-success">Some text success or error</p>
-                            <form role="form">
+                            <p class="alert alert-success">
+                                <strong>Total:@ViewBag.SubTotal</strong>
+                                <strong>Cart ID:@ViewBag.BasketNo  </strong>
+                            </p>
+                            @using (Html.BeginForm("PayCreditCart", "Basket", FormMethod.Post, new { @class = "form-group" }))
+                            {
                                 <div class="form-group">
                                     <label for="username">Full name (on the card)</label>
-                                    <input type="text" class="form-control" name="username" placeholder="" required="">
+                            @Html.TextBoxFor(x => x.NameSurname, new {@class="form-control",@type="text",@required="required" })
+                                    @*<input type="text" class="form-control" name="NameSurname" placeholder="" required=""*@
                                 </div> <!-- form-group.// -->
                                 <div class="form-group">
                                     <label for="cardNumber">Card number</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="cardNumber" placeholder="">
+                                        @Html.TextBoxFor(x => x.CartNumber, new { @class = "form-control", @type = "text", @required = "required" })
+                                        
                                         <div class="input-group-append">
                                             <span class="input-group-text text-muted">
                                                 <i class="fab fa-cc-visa"></i>   <i class="fab fa-cc-amex"></i>
@@ -64,35 +65,28 @@
                                         <div class="form-group">
                                             <label><span class="hidden-xs">Expiration</span> </label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" placeholder="MM" name="">
-                                                <input type="number" class="form-control" placeholder="YY" name="">
+                                                @Html.TextBoxFor(x => x.ExpireMonth, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "MM" })
+                                                @Html.TextBoxFor(x => x.ExpireYear, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "YY" })
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
-                                            <input type="number" class="form-control" required="">
+
+                                            <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label> @Html.TextBoxFor(x => x.CV2, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "CVV" })
+  
                                         </div> <!-- form-group.// -->
                                     </div>
                                 </div> <!-- row.// -->
-                                <button class="subscribe btn btn-primary btn-block" type="button"> Confirm  </button>
-                            </form>
+                                <button class="subscribe btn btn-primary btn-block" type="submit"> Confirm  </button>
+                            }
                         </div> <!-- tab-pane.// -->
-                        <div class="tab-pane fade" id="nav-tab-paypal">
-                            <p>Paypal is easiest way to pay online</p>
-                            <p>
-                                <button type="button" class="btn btn-primary"> <i class="fab fa-paypal"></i> Log in my Paypal </button>
-                            </p>
-                            <p>
-                                <strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
-                        </div>
+                      
                         <div class="tab-pane fade" id="nav-tab-bank">
                             <p>Bank accaunt details</p>
                             <dl class="param">
-                                <dt>BANK: </dt>
+                                <dt>BANK:</dt>
                                 <dd> THE WORLD BANK</dd>
                             </dl>
                             <dl class="param">

@@ -43,11 +43,11 @@ namespace Entity
             // Add custom user claims here
             Claim c1 = new Claim("TC", this.TC.ToString());
             Claim c2 = new Claim("NameSurname", this.UserName);
-            Claim c3 = new Claim("Address", this.Address);
+           // Claim c3 = new Claim("Address", this.Address);
            
             userIdentity.AddClaim(c1);
             userIdentity.AddClaim(c2);
-            userIdentity.AddClaim(c3);
+           // userIdentity.AddClaim(c3);
             return userIdentity;
         }
 
