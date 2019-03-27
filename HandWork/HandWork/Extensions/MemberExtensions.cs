@@ -11,9 +11,9 @@ namespace HandWork.Extensions
 {
     public static class MemberExtensions
     {
-        public static Member GetMember(this IPrincipal Ip)//ip burda user i temsil ediyor user.deyince çıkacak
+        public static Member GetMember(this IPrincipal Ip,UnitOfWork _uw)//ip burda user i temsil ediyor user.deyince çıkacak
         {          //hangi tip oldugunu userin üstüne geli öğrendik
-            UnitOfWork _uw = new UnitOfWork();
+           
             string MemberID = Ip.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
             return Member;

@@ -19,7 +19,7 @@ namespace HandWork.Controllers
         }
         public ActionResult Success()
         {
-            Member member = User.GetMember();
+            Member member = User.GetMember(_uw);
             ViewBag.BasketID = member.Basket.ID;
             return View();
         }

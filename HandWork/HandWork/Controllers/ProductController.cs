@@ -16,7 +16,7 @@ namespace HandWork.Controllers
         UnitOfWork _uw = new UnitOfWork();
         public ActionResult GetProducts(int id)
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             ViewBag.Member = Member;
             return View(_uw.Db.Products.Where(x=>x.CategoryID==id).ToList());
         }

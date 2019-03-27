@@ -77,13 +77,11 @@
             success: function (sonuc) {
                 if (sonuc)
                     window.location = window.location;
-                    //$(this).parent().parent().slideDown("slow");//kaldırmıyor
-                else
-                    alert("Silme işlemi başarısız.");
+                    $(this).parent().parent().slideUp("slow");
         }
         });
     });
-    $(".sayi").click(function () {
+    $(".sayi").change(function () {
         var Id = $(".sayi").attr("den");
         var CurrentCount = $(".sayi").attr("value");
         $.ajax({

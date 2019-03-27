@@ -19,7 +19,7 @@ namespace HandWork.Controllers
        
         public ActionResult IndexBasket()//direk sepete basarsa
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
 
             if (User.Identity.IsAuthenticated)
             {
@@ -43,7 +43,7 @@ namespace HandWork.Controllers
         }
         public JsonResult DeleteProductItem(int id)//ürün item id
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             foreach (var item in Member.Basket.ProductItems.ToList())
             {
                 if (item.ID == id)
@@ -58,7 +58,7 @@ namespace HandWork.Controllers
         }
         public ActionResult AddToBasket(int id)//ürün id si
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             Product product = _uw.ProductRepo.GetOne(id);
             bool control = false;
             if (Member.Basket == null)
@@ -110,7 +110,7 @@ namespace HandWork.Controllers
         public ActionResult CheckOut()//sepet id si geliyor
         {
            
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             ViewBag.SubTotal = Member.Basket.SubTotal.ToString("C");
             ViewBag.BasketNo = Member.Basket.ID;
             return View();
@@ -131,7 +131,7 @@ namespace HandWork.Controllers
 
         private void CreateOrder(bool isPaid)
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             Order order = new Order();
             order.Member = Member;
             order.OrderItems = new List<OrderItem>();
@@ -153,10 +153,10 @@ namespace HandWork.Controllers
         }
 
         private void ResetShoppingCart()
-        {
-            Member Member = User.GetMember();           
+        {//resetlemiyor veri tabanındanda silmiyor
+            Member Member = User.GetMember(_uw);           
             Member.Basket.ProductItems.Clear();
-            _uw.BasketRepo.Edit(Member.Basket);
+            _uw.Db.Entry(Member.Basket).State = System.Data.Entity.EntityState.Modified;
             _uw.Complete();
 
         }

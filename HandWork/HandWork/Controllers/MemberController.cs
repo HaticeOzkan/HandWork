@@ -79,7 +79,7 @@ namespace HandWork.Controllers
         [HttpGet]
         public ActionResult AccountEdit()
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             return View(Member);
         }
         [HttpPost]
@@ -159,12 +159,12 @@ namespace HandWork.Controllers
 
         public ActionResult MyProfile()
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             return View(Member);
         }
         public ActionResult DeleteAccount()
         {
-            Member Member = User.GetMember();
+            Member Member = User.GetMember(_uw);
             UserStore<Member> Store = new UserStore<Member>(_uw.Db);
             UserManager<Member> Manager = new UserManager<Member>(Store);
             Manager.Delete(Member);
