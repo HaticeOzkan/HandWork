@@ -73,18 +73,27 @@
                                 <p style="display:inline">Hoşgeldin! </p>@User.Identity.Name
                             </li>
                         }
-                        <li>
-                            @Html.ActionLink("Registery", "Register", "Member")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Login", "Login", "Member")
-                        </li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink("Registery", "Register", "Member")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Login", "Login", "Member")
+                            </li>
+                        }
+
+
                         <li>
                             @Html.ActionLink("Contact Us", "Index", "Contact")
                         </li>
-                        <li>
-                            @Html.ActionLink("Logout", "LogOut", "Member")
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink("Logout", "LogOut", "Member")
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -118,11 +127,12 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
 
-                                        <li class="nav-item">                                             
-                                                <a href="/Member/MyProducts/" class="icons">Hesabım 
-                                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
+                                        <li class="nav-item">
+                                            <a href="/Member/MyProducts/" class="icons">
+                                                Hesabım
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
                                     }
 
                                     <li class="nav-item">
@@ -140,7 +150,7 @@
         </div>
     </header>
     @RenderBody()
-  
+
 
     @RenderSection("script", false)
 </body>

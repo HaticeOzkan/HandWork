@@ -18,7 +18,7 @@ namespace HandWork.Controllers
         {
             Member Member = User.GetMember(_uw);
             ViewBag.Member = Member;
-            return View(_uw.Db.Products.Where(x=>x.CategoryID==id).ToList());
+            return View(_uw.Db.Products.Where(x=>x.CategoryID==id && x.StockCount!=0&&x.Member.Id!=Member.Id).ToList());
         }
         [HttpGet]
         public ActionResult AddProduct()
@@ -48,7 +48,7 @@ namespace HandWork.Controllers
                 if (images != null)
                 {
                     //System.IO.Directory.CreateDirectory("C:/Users/funda/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" +ProductID);
-                    System.IO.Directory.CreateDirectory("C:/Users/Section1/source/repos/HandWork/HandWork/HandWork/Uploads/Products" + ProductID);
+                    System.IO.Directory.CreateDirectory("C:/Users/Section1/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" + ProductID);
                     int Count = 0;
                     NewProduct.ProductImages = new List<ProductImage>();
                     foreach (HttpPostedFileBase item in images)
@@ -108,7 +108,7 @@ namespace HandWork.Controllers
             OldProduct.ProductName = NewProduct.ProductName;
             OldProduct.StockCount = NewProduct.StockCount;
          
-            if (images != null)
+            if (images != null && !images.Any(x=>x==null))
             {
                 int Count = _uw.Db.ProductImages.OrderByDescending(x => x.ID).Select(x => x.ID).FirstOrDefault();
                 foreach (HttpPostedFileBase item in images)
@@ -126,10 +126,10 @@ namespace HandWork.Controllers
             return RedirectToAction("MyProducts", "Member");
         }
         
-        public ActionResult ProductDetail(int ProductID)
+        public ActionResult ProductDetail(int id)
         {
            //?
-            Product product = _uw.ProductRepo.GetOne(ProductID);
+            Product product = _uw.ProductRepo.GetOne(id);
             ViewBag.ByWho = product.Member;
             return View(product);
         }

@@ -1,0 +1,29 @@
+﻿@using Entity
+@model Order
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/ProfileLayout.cshtml";
+}
+
+<h2>Sipariş Detayı</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ürünler</th>
+            <th>Adet</th>
+            <th>Toplam Fiyat</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (OrderItem item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.Product.ProductName</td>
+                <td>@item.ItemCount</td>
+                <td>@item.TotalPrice</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

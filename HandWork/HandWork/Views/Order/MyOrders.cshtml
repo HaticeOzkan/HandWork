@@ -1,0 +1,26 @@
+﻿@using Entity
+@model Order
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/ProfileLayout.cshtml";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Sipariş Tarihi</th>
+            <th>Toplam Fiyat</th>
+            <th>Ödenme Durumu</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.OrderDate</td>
+            <td>@Model.TotalPrice.ToString("C")</td>
+            <td>Ödendi</td>
+            <td><a class="btn btn-primary" href="/Order/OrderDetail/@Model.ID">Sipariş Detayı</a></td>
+        </tr>
+    </tbody>
+</table>
+

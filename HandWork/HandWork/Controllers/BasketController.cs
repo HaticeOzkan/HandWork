@@ -154,9 +154,13 @@ namespace HandWork.Controllers
 
         private void ResetShoppingCart()
         {//resetlemiyor veri tabanındanda silmiyor
-            Member Member = User.GetMember(_uw);           
+            Member Member = User.GetMember(_uw);
             Member.Basket.ProductItems.Clear();
-            _uw.Db.Entry(Member.Basket).State = System.Data.Entity.EntityState.Modified;
+            List<ProductItem> productItems = _uw.Db.ProductItems.Where(x => x.Basket.ID == Member.Basket.ID).ToList();
+            foreach (var item in productItems)
+            {
+                _uw.Db.ProductItems.Remove(item);
+            }                       
             _uw.Complete();
 
         }

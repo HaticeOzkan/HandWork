@@ -144,8 +144,9 @@
 </section>
 <div class="container">
     <div class="row">
-        @foreach (Product item in Model)
-        {<div class="col-md-4">
+        @foreach (Product item in Model)            
+        {
+            <div class="col-md-4">
              <div class="product-item">
                  <div class="pi-img-wrapper">
                      <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
@@ -153,7 +154,11 @@
                          <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
                      </div>
                  </div>
-                 <h3><a href="shop-item.html">@item.ProductName</a></h3>
+                 <h3><a href="shop-item.html">@item.ProductName</a> </h3>
+                 @if (item.StockCount == 1)
+                 {
+                 <h4>Son 1 Ürün!!</h4>
+                 }                
                  <div class="pi-price">@item.Price.ToString("C")</div>
                  <br /><br />
                  @if (User.Identity.IsAuthenticated)

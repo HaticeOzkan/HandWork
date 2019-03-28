@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Extensions\MemberExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -552,6 +553,8 @@
     <Content Include="Views\Basket\IndexBasket.cshtml" />
     <Content Include="Views\Basket\CheckOut.cshtml" />
     <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\Order\MyOrders.cshtml" />
+    <Content Include="Views\Order\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
