@@ -45,9 +45,11 @@
                             </div>
                         </td>
                         <td data-th="Price">@item.Product.Price.ToString("C")</td>
+                  
                         <td data-th="Quantity">
-                            <input type="number" class="form-control text-center sayi" den="@item.ID">
+                            <input type="number" class="form-control text-center sayi" value="@item.ItemCount" rel=@item.ID>
                         </td>
+                        
                         <td data-th="Subtotal" class="text-center">@item.TotalPrice.ToString("C")</td>
                         <td class="actions" data-th="">
                             <strong class="btn btn-danger btn-sm del" rel="@item.ID"><i class="fa fa-trash-o"></i></strong>
@@ -60,7 +62,7 @@
                     <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>@*burada ürün geldiği ürün sayfasına donecek ama sayfanın hangi konumundaysa oraya donsun sor*@
                     <td colspan="2" class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong>Total @Model.SubTotal.ToString("C") </strong></td>
-                    <td><a href="/Basket/Checkout/" class="btn btn-success btn-block">Checkout<i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="/Basket/Checkout/" class="btn btn-success btn-block dene">Checkout<i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>
         }
@@ -81,18 +83,16 @@
         }
         });
     });
-    $(".sayi").change(function () {
-        var Id = $(".sayi").attr("den");
-        var CurrentCount = $(".sayi").attr("value");
+    $(".sayi").click(function () {
+        var CurrentCount = $('.sayi').attr("value");
+        var id = $('.sayi').attr('rel');
         $.ajax({
-            url: "/Basket/UpdateProductItemCount/?ItemID=" + Id + "&CurrentCount=" + CurrentCount,
-            method: "POST",//güncel sayıyı almıyor value de 
-            success: function (sonuc) {
-                if(sonuc)
-                window.location = window.location; 
+            url: "/Basket/UpdateProductItemCount?ItemID=" + id + "&" + "CurrentCount=" + CurrentCount,
+            method: "POST",
+            success: function () {
+
             }
         });
-
     });
    
 </script>

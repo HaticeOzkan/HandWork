@@ -171,5 +171,12 @@ namespace HandWork.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+        public ActionResult MemberProfile(int id)
+        {
+            Member member = _uw.Db.Users.Find(id);
+            List<Product> Products = member.Products.ToList();
+            ViewBag.ProductList = Products;
+            return View(member);
+        }
     }
 }

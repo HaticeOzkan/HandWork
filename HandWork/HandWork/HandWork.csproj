@@ -555,6 +555,7 @@
     <Content Include="Views\Home\Success.cshtml" />
     <Content Include="Views\Order\MyOrders.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
+    <Content Include="Views\Member\MemberProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

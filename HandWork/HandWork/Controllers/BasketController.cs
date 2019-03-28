@@ -108,8 +108,7 @@ namespace HandWork.Controllers
 
         }
         public ActionResult CheckOut()//sepet id si geliyor
-        {
-           
+        {          
             Member Member = User.GetMember(_uw);
             ViewBag.SubTotal = Member.Basket.SubTotal.ToString("C");
             ViewBag.BasketNo = Member.Basket.ID;
@@ -125,10 +124,8 @@ namespace HandWork.Controllers
             bool isPaid = service.MakePayment(p1);         
             CreateOrder(isPaid);
             ResetShoppingCart();
-            return RedirectToAction("Success", "Home");
-  
+            return RedirectToAction("Success", "Home");  
         }
-
         private void CreateOrder(bool isPaid)
         {
             Member Member = User.GetMember(_uw);

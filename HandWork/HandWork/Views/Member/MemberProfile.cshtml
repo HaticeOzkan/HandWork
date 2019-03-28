@@ -1,12 +1,13 @@
 ﻿@using Entity
-@model List<Product>
+@model Member
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 <style>
 
     body {
-        background: #f1f1f1;
+        background: url('../../Content/img/banner/2.jpg') fixed;
+        background-size: cover;
     }
 
     .product-item {
@@ -117,66 +118,51 @@
             border-color: #e84d1c;
         }
 
-   spam{
-       /*//api yi ajaxla webclient le add referans ile kullanabilirisn*/
-       cursor:pointer;
-   }
+    spam {
+        /*//api yi ajaxla webclient le add referans ile kullanabilirisn*/
+        cursor: pointer;
+    }
 </style>
-<section class="home_banner_area">
-    <div class="overlay"></div>
-    <div class="banner_inner d-flex align-items-center">
-        <div class="container">
-            <div class="banner_content row">
-                <div class="offset-lg-2 col-lg-8">
-                    <h3>
-                        Dükkanın Evin
-                        <br />
-                    </h3>
-                    <p>
-                        Yap Sat Hayallerin gerçek olsun.
-                    </p>
-                    @Html.ActionLink("View Collection", "Index", "Product", new { @class = "white_bg_btn" })
 
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <div class="container">
     <div class="row">
-        @foreach (Product item in Model)            
-        {
-            <div class="col-md-4">
-             <div class="product-item">
-                 <div class="pi-img-wrapper">
-                     <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
-                     <div>
-                         <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
-                     </div>
-                 </div>
-                 <h3><a href="shop-item.html">@item.ProductName</a> </h3>
-                 @if (item.StockCount == 1)
-                 {
-                 <h4>Son 1 Ürün!!</h4>
-                 }                
-                 <div class="pi-price">@item.Price.ToString("C")</div>
-                 <br /><br />
-                 @if (User.Identity.IsAuthenticated)
-                 {
-                     <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up"></i></spam><p>@item.LikeCount.ToString()</p></div>
-                     <div class="pi-price" style="padding-left:5px;"><spam><i class="fas fa-thumbs-down "></i></spam><p>@item.DisLikeCount.ToString()</p></div>
-                 }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
-                 {
-                     <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
-                 }
+        <div class="col-md-2">
+            @*//buradan devam*@
+        </div>
+        <div class="col-md-10">
+            @foreach (Product item in ViewBag.ProductList)
+            {
+                <div class="col-md-4">
+                    <div class="product-item">
+                        <div class="pi-img-wrapper">
+                            <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
+                            <div>
+                                <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
+                            </div>
+                        </div>
+                        <h3><a href="shop-item.html">@item.ProductName</a> </h3>
+                        @if (item.StockCount == 1)
+                        {
+                            <h4>Son 1 Ürün!!</h4>
+                        }
+                        <div class="pi-price">@item.Price.ToString("C")</div>
+                        <br /><br />
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up"></i></spam><p>@item.LikeCount.ToString()</p></div>
+                            <div class="pi-price" style="padding-left:5px;"><spam><i class="fas fa-thumbs-down "></i></spam><p>@item.DisLikeCount.ToString()</p></div>
+                        }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
+                        {
+                            <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
+                        }
 
-                 <div class="sticker sticker-new"></div>
-             </div>
-            </div>
+                        <div class="sticker sticker-new"></div>
+                    </div>
+                </div>
 
-        }
+            }
 
-
+        </div>
 
     </div>
 </div>

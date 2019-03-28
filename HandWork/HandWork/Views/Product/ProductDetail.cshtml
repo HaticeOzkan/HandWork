@@ -85,7 +85,7 @@
         margin-top: 50px;
         background: none;
         padding: 3em;
-        line-height: 1.5em;
+       
     }
 
     @@media screen and (min-width: 997px) {
@@ -259,23 +259,54 @@
 
                 </div>
                 <div class="details col-md-6">
-
-                    <h3 class="product-title">@Model.ProductName </h3>
                     <div class="row">
 
-                            <a style="position:relative; top:25px;" href="/Member/MemberProfile/@Model.Member.Id">@Model.Member.UserName</a>
-                            <a href="/Member/MemberProfile/@Model.Member.Id"><img style="height:80px; width:80px; border-radius:80px;" src="@Model.Member.ProfilPhoto.ImageURL" /></a>
+                        <div class="col-8">
+                            <h3 class="product-title">@Model.ProductName </h3>
                         </div>
+                        <div class="col-4" ;>
+                            <a href="/Member/MemberProfile/@Model.Member.Id">@Model.Member.UserName</a>
+                            <a href="/Member/MemberProfile/@Model.Member.Id"><img style="height:80px; width:80px; border-radius:80px;" src="@Model.Member.ProfilPhoto.ImageURL" /></a>
+
+                        </div>
+
+                    </div>
                     <p class="product-description">@Model.Content</p>
                     <h4 class="price">Fiyat: <span>@Model.Price.ToString("C")</span></h4>
-                    <p class="vote"><strong>@Model.LikeCount Beğeni</strong> </p>
+                    <p class="vote"><strong>@Model.LikeCount Like</strong> </p>
+                    <p class="vote"><strong>@Model.DisLikeCount Dislike</strong> </p>
 
                     <div class="action">
-                        <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                        <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                        <a type="button" href="/Basket/AddToBasket/@Model.ID" class="add-to-cart btn btn-default">add to cart</a>
+                        <button class="like btn btn-default delLike" rel="@Model.ID" type="button"><i  class="fas fa-thumbs-up "></i></button>
+                        <button class="like btn btn-default delDislike" rel="@Model.ID" type="button"><i  class="fas fa-thumbs-down "></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $('.delLike').click(function () {
+        var id = $('.delLike').attr('rel');
+        $.ajax({
+            url: "/Product/AddLike/" + id,
+            method: "POST",
+            success: function (sonuc) {
+                if (sonuc)
+                    window.location = window.location;
+            }
+        });
+    });
+    $('.delDislike').click(function () {
+        var id = $('.delDislike').attr('rel');
+        $.ajax({
+            url: "/Product/AddDisLike/" + id,
+            method: "POST",
+            success: function (sonuc) {
+                if (sonuc)
+                    window.location = window.location;
+            }
+        });
+    });
+</script>
