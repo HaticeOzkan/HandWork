@@ -3,6 +3,10 @@
 @{ 
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
+@if (TempData["Error"] != null)
+{
+<p class="alert alert-danger" style="margin-top:100px;">@TempData["Error"]</p> 
+}
     <!--================Header Menu Area =================-->
     <!--================Home Banner Area =================-->
     <section class="home_banner_area">

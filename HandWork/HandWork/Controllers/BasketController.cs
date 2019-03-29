@@ -58,19 +58,21 @@ namespace HandWork.Controllers
         }
         public ActionResult AddToBasket(int id)//ürün id si
         {
-            Member Member = User.GetMember(_uw);
-            Product product = _uw.ProductRepo.GetOne(id);
-            bool control = false;
-            if (Member.Basket == null)
+            if (User.Identity.IsAuthenticated)
             {
-                Member.Basket = new Basket();
-                Member.Basket.ProductItems = new List<ProductItem>();
-                product.ProductItems = new List<ProductItem>();
-                _uw.BasketRepo.Add(Member.Basket);           
-                _uw.Complete();
+                Member Member = User.GetMember(_uw);
+                Product product = _uw.ProductRepo.GetOne(id);
+                bool control = false;
+                if (Member.Basket == null)
+                {
+                    Member.Basket = new Basket();
+                    Member.Basket.ProductItems = new List<ProductItem>();
+                    product.ProductItems = new List<ProductItem>();
+                    _uw.BasketRepo.Add(Member.Basket);
+                    _uw.Complete();
 
-            }
-            foreach (ProductItem item in Member.Basket.ProductItems)
+                }
+                foreach (ProductItem item in Member.Basket.ProductItems)
                 {
                     if (item.Product.ID == id)
                     {
@@ -81,30 +83,39 @@ namespace HandWork.Controllers
                         control = true;
 
                     }
-                }         
-            if (control == false)
-            {               
-                ProductItem ProductItem = new ProductItem();
-                ProductItem.Product = product;
-                ProductItem.Basket = Member.Basket;                
-                product.ProductItems.Add(ProductItem);
-                 Member.Basket.ProductItems.Add(ProductItem);
-               _uw.Db.Entry(Member.Basket).State = System.Data.Entity.EntityState.Modified;
-                _uw.Db.Entry(product).State = System.Data.Entity.EntityState.Modified;
-                _uw.Db.ProductItems.Add(ProductItem);
-                _uw.Complete();
+                }
+                if (control == false)
+                {
+                    ProductItem ProductItem = new ProductItem();
+                    ProductItem.Product = product;
+                    ProductItem.Basket = Member.Basket;
+                    product.ProductItems.Add(ProductItem);
+                    Member.Basket.ProductItems.Add(ProductItem);
+                    _uw.Db.Entry(Member.Basket).State = System.Data.Entity.EntityState.Modified;
+                    _uw.Db.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                    _uw.Db.ProductItems.Add(ProductItem);
+                    _uw.Complete();
 
+                }
+                return RedirectToAction("IndexBasket");
             }
-
-            return RedirectToAction("IndexBasket");
+            else
+            {
+                TempData["Error"] = "Ürün Satın Almadan Önce Giriş Yapınız";
+                return RedirectToAction("Index","Home");
+            }
+          
         }
         public JsonResult UpdateProductItemCount(int ItemID, int CurrentCount)
         {
+            Member member = User.GetMember(_uw);
             ProductItem productItem = _uw.Db.ProductItems.Find(ItemID);
             productItem.ItemCount = CurrentCount;
             _uw.Db.Entry(productItem).State = System.Data.Entity.EntityState.Modified;
             _uw.Complete();
-            return Json(true);
+            decimal CurrentPrice = productItem.TotalPrice;
+            decimal TotalPrice= member.Basket.SubTotal;
+            return Json(new { CurrentPrice, TotalPrice });
 
         }
         public ActionResult CheckOut()//sepet id si geliyor

@@ -16,9 +16,17 @@ namespace HandWork.Controllers
         UnitOfWork _uw = new UnitOfWork();
         public ActionResult GetProducts(int id)
         {
-            Member Member = User.GetMember(_uw);
-            ViewBag.Member = Member;
-            return View(_uw.Db.Products.Where(x=>x.CategoryID==id && x.StockCount!=0&&x.Member.Id!=Member.Id).ToList());
+            if (User.Identity.IsAuthenticated)
+            {
+                Member Member = User.GetMember(_uw);
+                ViewBag.Member = Member;
+                return View(_uw.Db.Products.Where(x => x.CategoryID == id && x.StockCount != 0 && x.Member.Id != Member.Id).ToList());
+            }
+            else
+            {
+                return View(_uw.Db.Products.Where(x => x.CategoryID == id && x.StockCount != 0).ToList());
+            }
+          
         }
         [HttpGet]
         public ActionResult AddProduct()
