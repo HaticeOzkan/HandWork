@@ -44,20 +44,20 @@
             @*//  <input type='file' onchange="readURL(this);" />*@
         </div>
         <div class="form-group pass_show">
-            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı" })
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı", @required="required" })
         </div>
 
         <div class="form-group pass_show">
 
-            @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres" })
+            @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres",@required="required" })
         </div>
         <div class="form-group pass_show ">
 
-            @Html.TextAreaFor(x => x.Address, 6, 5, new { @type = "address", @class = "form-control", @placeholder = "Addres" })
+            @Html.TextAreaFor(x => x.Address, 6, 5, new { @type = "address", @class = "form-control", @placeholder = "Addres",@required="required"})
         </div>
         <div class="form-group pass_show ">
 
-            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası" })
+            @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası", @required = "required" })
         </div>
 
 

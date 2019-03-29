@@ -116,51 +116,49 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 register-sec">
+                @if (TempData["Error"] != null)
+                {
+                    <p class="alert alert-danger">@TempData["Error"]</p>
+                }
                 <h2 class="text-center">Register Now</h2>
                 @using (Html.BeginForm("Register", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form", @enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-                    if (TempData["Error"] != null)
-                    {
-                        foreach (string item in (List<string>)Session["hata"])
-                        {
-                            <p>item</p>
-                        }
-                    }
+                  
                     <div class="form-group">
                         @*@Html.Label("Kullanıcı Adı", new { @class = "text-uppercase" })*@
-                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı" })
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı",@required="required" })
 
                     </div>
                     <div class="form-group">
 
                         @*@Html.Label("Email Adres", new { @class = "text-uppercase" })*@
-                        @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres" })
+                        @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres", @required = "required" })
                     </div>
                     <div class="form-group">
 
                         @*@Html.Label("Adres", new { @class = "text-uppercase" })*@
-                        @Html.TextAreaFor(x => x.Address, 6, 5, new { @type = "address", @class = "form-control", @placeholder = "Adres" })
+                        @Html.TextAreaFor(x => x.Address, 6, 5, new { @type = "address", @class = "form-control", @placeholder = "Adres", @required = "required" })
                     </div>
                     <div class="form-group">
 
                         @*@Html.Label("Telefon", new { @class = "from-control" })*@
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası" })
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası", @required = "required" })
                     </div>
                     <div class="form-group">
 
                         @Html.Label("Profil Resmi", new { @class = "from-control" })
-                        @Html.TextBox("image", null, new { @class = "form-control", @type = "file" })
+                        @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @required = "required" })
 
                     </div>
 
                     <div class="form-group">
                         @*@Html.Label("Şifre", new { @class = "from-control" })*@
-                        @Html.TextBox("Password", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre" })
+                        @Html.TextBox("Password", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre", @required = "required" })
                     </div>
                     <div class="form-group">
                         @*@Html.Label("Şifre Tekrarı", new { @class = "from-control" })*@
-                        @Html.TextBox("ConfirmPassword", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre Tekrarı" })
+                        @Html.TextBox("ConfirmPassword", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre Tekrarı", @required = "required" })
                     </div>
 
                     <div class="form-group">

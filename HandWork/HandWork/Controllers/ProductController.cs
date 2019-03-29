@@ -138,7 +138,6 @@ namespace HandWork.Controllers
         {
            //?
             Product product = _uw.ProductRepo.GetOne(id);
-            ViewBag.ByWho = product.Member;
             return View(product);
         }
         public JsonResult DeletePic(int id)

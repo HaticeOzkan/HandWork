@@ -279,76 +279,61 @@
 }
 
 </style>
-
+<br /><br /><br /><br />
 <div class="container">
     <div class="row">
         <div class="col-md-2">
            
                 <div class="portlet light profile-sidebar-portlet bordered">
-                    <div class="profile-userpic">
-                        <img src="@Model.ProfilPhoto.ImageURL" class="img-responsive" alt="">
-                    </div>
+ 
                     <div class="profile-usertitle">
+                        <img style="height:150px; width:150px; border-radius:50px;" src="@Model.ProfilPhoto.ImageURL" class="img-responsive" alt="">
                         <div class="profile-usertitle-name">@Model.UserName</div>
                         <div class="profile-usertitle-job">@Model.Text</div>
+                        <div class="profile-usertitle-job">@Model.FavorCount Öneri</div>
+                        <div class="profile-usertitle-job">
+                            @Model.ComplaintCount Şikayet<div>
+                        </div>
+                        <div class="profile-userbuttons">
+                            <button class="like btn btn-default delLike" rel="@Model.Id" type="button"><i class="fas fa-thumbs-up "></i></button>
+                            <button class="like btn btn-default delDislike" rel="@Model.Id" type="button"><i class="fas fa-thumbs-down "></i></button>
+                            <a href="/Member/SendMessage/@Model.Id" type="button" class="btn btn-info  btn-sm">Mesaj Gonder</a>
+                            <a href="/Member/MemberComplaint/@Model.Id" type="button" class="btn btn-danger  btn-sm">Şikayet Et</a>
+                        </div>
                     </div>
-                    <div class="profile-userbuttons">
-                        <button class="like btn btn-default delLike" rel="@Model.Id" type="button">@Model.FavorCount<i class="fas fa-thumbs-up "></i></button>
-                        <button class="like btn btn-default delDislike" rel="@Model.Id" type="button">@Model.ComplaintCount<i class="fas fa-thumbs-down "></i></button>
-                        <a href="/Member/SendMessage/@Model.Id" type="button" class="btn btn-info  btn-sm">Mesaj Gonder</a>
-                    </div>
-                    <div class="profile-usermenu">
-                        <ul class="nav">
-                            <li class="active">
-                                <a href="#">
-                                    <i class="icon-home"></i> Ticket List
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-settings"></i> Support Staff
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-info"></i> Configurations
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-           
-        </div>
+
+                    </div></div></div>
         <div class="col-md-10">
             @foreach (Product item in ViewBag.ProductList)
             {
-                <div class="col-md-4">
-                    <div class="product-item">
-                        <div class="pi-img-wrapper">
-                            <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
-                            <div>
-                                <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
-                            </div>
+            <div class="col-md-4">
+                <div class="product-item">
+                    <div class="pi-img-wrapper">
+                        <img src="@item.ProductImages.FirstOrDefault().ImageURL" class="img-responsive" alt="@item.ProductName">
+                        <div>
+                            <a href="/Product/ProductDetail/@item.ID" class="btn">Ürün Detayı</a>
                         </div>
-                        <h3><a href="shop-item.html">@item.ProductName</a> </h3>
-                        @if (item.StockCount == 1)
-                        {
-                            <h4>Son 1 Ürün!!</h4>
-                        }
-                        <div class="pi-price">@item.Price.ToString("C")</div>
-                        <br /><br />
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up"></i></spam><p>@item.LikeCount.ToString()</p></div>
-                            <div class="pi-price" style="padding-left:5px;"><spam><i class="fas fa-thumbs-down "></i></spam><p>@item.DisLikeCount.ToString()</p></div>
-                        }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
-                        {
-                            <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
-                        }
-
-                        <div class="sticker sticker-new"></div>
                     </div>
+                    <h3><a href="shop-item.html">@item.ProductName</a> </h3>
+                    @if (item.StockCount == 1)
+                    {
+                        <h4>Son 1 Ürün!!</h4>
+                    }
+                    <div class="pi-price">@item.Price.ToString("C")</div>
+                    <br /><br />
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="pi-price" style="padding-left:5px;"><p>@item.LikeCount.ToString() Like</p> </div>
+                        <div class="pi-price" style="padding-left:5px;"><p>@item.DisLikeCount.ToString() Dislike</p> </div>
+                    }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
+                    {
+                        <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
+                    }
+
+                    <div class="sticker sticker-new"></div>
                 </div>
+            </div>
+               
 
             }
 

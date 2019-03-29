@@ -38,7 +38,12 @@ namespace HandWork.Controllers
                 }
             }
             else
-                return RedirectToAction("Index", "Home", new { error = "sepetinize girebilmeniz için önce giriş yapmalısınız." });
+            {
+                TempData["Error"] = "Sepete gidebilmek için giriş yapılmalıdır";
+                return RedirectToAction("Index", "Home");
+            }
+
+
 
         }
         public JsonResult DeleteProductItem(int id)//ürün item id
@@ -161,7 +166,7 @@ namespace HandWork.Controllers
         }
 
         private void ResetShoppingCart()
-        {//resetlemiyor veri tabanındanda silmiyor
+        {
             Member Member = User.GetMember(_uw);
             Member.Basket.ProductItems.Clear();
             List<ProductItem> productItems = _uw.Db.ProductItems.Where(x => x.Basket.ID == Member.Basket.ID).ToList();

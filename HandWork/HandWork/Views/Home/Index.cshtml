@@ -1,42 +1,46 @@
 ﻿@using Entity
 @model List<Category>
-@{ 
+@{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 @if (TempData["Error"] != null)
 {
-<p class="alert alert-danger" style="margin-top:100px;">@TempData["Error"]</p> 
+    <p class="alert alert-danger" style="margin-top:100px;">@TempData["Error"]</p>
+}
+@if (TempData["SuccessRegister"] != null)
+{
+    <p class="alert alert-success" style="margin-top:100px;">@TempData["SuccessRegister"]</p>
 }
     <!--================Header Menu Area =================-->
-    <!--================Home Banner Area =================-->
-    <section class="home_banner_area">
-        <div class="overlay"></div>
-        <div class="banner_inner d-flex align-items-center">
-            <div class="container">
-                <div class="banner_content row">
-                    <div class="offset-lg-2 col-lg-8">
-                        <h3>
-                            Dükkanın Evin
-                            <br />
-                        </h3>
-                        <p>
-                          Yap Sat Hayallerin gerçek olsun.
-                        </p>
-                        @Html.ActionLink("View Collection","Index","Product",new {@class="white_bg_btn" })
-                     
-                    </div>
+<!--================Home Banner Area =================-->
+<section class="home_banner_area">
+    <div class="overlay"></div>
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content row">
+                <div class="offset-lg-2 col-lg-8">
+                    <h3>
+                        Dükkanın Evin
+                        <br />
+                    </h3>
+                    <p>
+                        Yap Sat Hayallerin gerçek olsun.
+                    </p>
+                    @Html.ActionLink("View Collection", "Index", "Product", new { @class = "white_bg_btn" })
+
                 </div>
             </div>
         </div>
-    </section>
-    <!--================End Home Banner Area =================-->
-    <!--================Hot Deals Area =================-->
-    <section class="hot_deals_area section_gap">
-        <div class="container-fluid">
-            <div class="row">
-                @*//Kategoriler gelecek*@
-                @foreach (Category item in Model)
-                {
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Hot Deals Area =================-->
+<section class="hot_deals_area section_gap">
+    <div class="container-fluid">
+        <div class="row">
+            @*//Kategoriler gelecek*@
+            @foreach (Category item in Model)
+            {
                 <div class="col-lg-6">
                     <div style="height:400px; width:600px;" class="hot_deal_box">
                         <a href="/Product/GetProducts/@item.ID"><img style="height:400px; width:600px;" class="img-fluid" src="@item.CategoryImageURL"></a>@*linkin içinde resim varken nasıl yazıcaz html şeklinde*@
@@ -49,8 +53,7 @@
                     <br /><br />
                 </div>
 
-                }
-            </div>
+            }
         </div>
-    </section> 
-    
+    </div>
+</section>

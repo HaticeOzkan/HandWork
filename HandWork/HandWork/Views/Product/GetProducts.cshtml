@@ -163,8 +163,8 @@
                  <br /><br />
                  @if (User.Identity.IsAuthenticated)
                  {
-                     <div class="pi-price" style="padding-left:5px;"><spam class="spam"><i class="fas fa-thumbs-up"></i></spam><p>@item.LikeCount.ToString()</p></div>
-                     <div class="pi-price" style="padding-left:5px;"><spam><i class="fas fa-thumbs-down "></i></spam><p>@item.DisLikeCount.ToString()</p></div>
+                     <div class="pi-price" style="padding-left:5px;"><spam class="spam"><p>@item.LikeCount.ToString() Like</p></div>
+                     <div class="pi-price" style="padding-left:5px;"><p>@item.DisLikeCount.ToString() Dislike</p></div>
                  }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
                  {
                      <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>

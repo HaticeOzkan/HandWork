@@ -72,12 +72,15 @@ namespace HandWork.Controllers
                     NewMember.HasPhoto = true;
                     Manager.Update(NewMember);
                 }
-
+                TempData["SuccessRegister"] = "Kayıt Gerçekleştirildi";
+                return RedirectToAction("Index", "Home");
             }
             else
-                TempData["Error"] = Result.Errors;
-
-            return RedirectToAction("Index", "Home");
+            {
+                TempData["Error"] = "Şifre En az 8 karakter içermeli rakam ,özel karakter Büyük ve küçük harf içermeli";
+                return RedirectToAction("Register", "Member");
+            }
+            
         }
         [HttpGet]
         public ActionResult AccountEdit()
@@ -176,7 +179,8 @@ namespace HandWork.Controllers
         }
         public ActionResult MemberProfile(int id)
         {
-            Member member = _uw.Db.Users.Find(id);
+            Product product = _uw.ProductRepo.GetOne(id);
+            Member member = product.Member;
             List<Product> Products = member.Products.ToList();
             ViewBag.ProductList = Products;
             return View(member);

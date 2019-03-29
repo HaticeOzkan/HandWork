@@ -1,11 +1,11 @@
 ﻿@using Entity
-@model Order
+@model List<Order>
 @{
     ViewBag.Title = "MyOrders";
     Layout = "~/Views/Shared/ProfileLayout.cshtml";
 }
 
-<table class="table table-striped">
+<table class="table table-striped" style="margin-top:180px;">
     <thead>
         <tr>
             <th>Sipariş Tarihi</th>
@@ -15,12 +15,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>@Model.OrderDate</td>
-            <td>@Model.TotalPrice.ToString("C")</td>
-            <td>Ödendi</td>
-            <td><a class="btn btn-primary" href="/Order/OrderDetail/@Model.ID">Sipariş Detayı</a></td>
-        </tr>
+        @foreach (Order item in Model)
+        {
+            <tr>
+                <td>@item.OrderDate</td>
+                <td>@item.TotalPrice.ToString("C")</td>
+                <td>Ödendi</td>
+                <td><a class="btn btn-primary" href="/Order/OrderDetail/@item.ID">Sipariş Detayı</a></td>
+            </tr>
+
+        }
+
     </tbody>
 </table>
 
