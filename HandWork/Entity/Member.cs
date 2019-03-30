@@ -28,8 +28,9 @@ namespace Entity
         public int? ComplaintCount { get; set; }
         public int? FavorCount { get; set; }
         public bool HasPhoto { get; set; }
-        public virtual List<Conversation> Conversations { get; set; }
+        public virtual List<Message> Messages { get; set; }
         public virtual List<Notification> Notifications { get; set; }
+        public virtual List<Conversation> Conversations { get; set; }
         public int NewMessageCount { get; set; }
         public Member()
         {

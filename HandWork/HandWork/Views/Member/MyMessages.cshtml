@@ -1,5 +1,5 @@
 ﻿@using Entity
-@model Member
+@model List<Message>
 @{
     ViewBag.Title = "MyMessages";
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -65,32 +65,33 @@
 
                     <div class="panel-body">
                         <ul class="chat">
-                            @foreach (Message item in ViewBag.MessageList)
-                            {//burdan devam
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                            dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+                            @foreach (Message item in Model)
+                            {
+                                @*<li class="left clearfix">
+            <span class="chat-img pull-left">
+                <img src="@item.Member.ProfilPhoto.ImageURL" alt="User Avatar" class="img-circle" />
+            </span>
+            <div class="chat-body clearfix">
+                <div class="header">
+                    <strong class="primary-font">@item.Member.UserName</strong> <small class="pull-right text-muted">
+                        <span class="glyphicon glyphicon-time"></span>@item.Date
+                    </small>
+                </div>
+                <p>
+                  @item.Content
+                </p>
+            </div>   </li>*@
+
                             }
 
 
                         </ul>
                     </div>
+                    <form method="post">
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <input id="btn-input" name="NewMessage" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <input type="hidden" value="@ViewBag.ConversationId" name="ConID"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-warning btn-sm" id="btn-chat">
                                     Send
@@ -98,6 +99,7 @@
                             </span>
                         </div>
                     </div>
+                        </form>
                 </div>
             </div>
         </div>

@@ -5,184 +5,74 @@
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 <style>
-    @@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-
-    .register-block {
-        background: url('../../Content/img/banner/2.jpg') fixed;
-        background-size: cover;
-
+    body {
+       background-image: url('../../Content/img/CategoryImage/Orgum.jpg'); background-size:cover;
     }
-
-    .banner-sec {
-        background: url('../../Content/img/banner/8.jpg') no-repeat;
-        background-size: cover;
-        min-height: 500px;
-        border-radius: 0 10px 10px 0;
-        padding: 0;
-    }
-
-    .container {
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
-    }
-
-    .carousel-inner {
-        border-radius: 0 10px 10px 0;
-    }
-
-    .carousel-caption {
-        text-align: left;
-        left: 5%;
-    }
-
-    .register-sec {
-        padding: 50px 30px;
-        position: relative;
-    }
-
-        .register-sec .copy-text {
-            position: absolute;
-            width: 80%;
-            bottom: 20px;
-            font-size: 13px;
-            text-align: center;
-        }
-
-            .register-sec .copy-text i {
-                color: #FEB58A;
-            }
-
-            .register-sec .copy-text a {
-                color: #E36262;
-            }
-
-        .register-sec h2 {
-            margin-bottom: 30px;
-            font-weight: 800;
-            font-size: 30px;
-            color: #3f4c6b;
-        }
-
-            .register-sec h2:after {
-                content: " ";
-                width: 100px;
-                height: 5px;
-                background: #3f4c6b;
-                display: block;
-                margin-top: 20px;
-                border-radius: 3px;
-                margin-left: auto;
-                margin-right: auto
-            }
-
-    .btn-register {
-        background: #3f4c6b;
-        color: #fff;
-        font-weight: 600;
-    }
-
-    .banner-text {
-        width: 70%;
-        position: absolute;
-        bottom: 40px;
-        padding-left: 20px;
-    }
-
-        .banner-text h2 {
-            color: #fff;
-            font-weight: 600;
-        }
-
-            .banner-text h2:after {
-                content: " ";
-                width: 100px;
-                height: 5px;
-                background: #FFF;
-                display: block;
-                margin-top: 20px;
-                border-radius: 3px;
-            }
-
-        .banner-text p {
-            color: #fff;
-        }
 </style>
 <br /><br /><br /><br />
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<section class="register-block">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 register-sec">
-                @if (TempData["Error"] != null)
-                {
-                    <p class="alert alert-danger">@TempData["Error"]</p>
-                }
-                <h2 class="text-center">Register Now</h2>
-                @using (Html.BeginForm("Register", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form", @enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-                  
-                    <div class="form-group">
-                        @*@Html.Label("Kullanıcı Adı", new { @class = "text-uppercase" })*@
-                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı",@required="required" })
 
-                    </div>
-                    <div class="form-group">
+                  <h3 style="color:black; font-weight:bold;" class="text-center">Register Now</h3>
+                  <div class="container" >
+                      
+                          
+                              @if (TempData["Error"] != null)
+                              {
+                                  <p class="alert alert-danger">@TempData["Error"]</p>
+                              }
+                              
+                      <br /><br />
+                              @using (Html.BeginForm("Register", "Member", FormMethod.Post, htmlAttributes: new { @style = "display:block;", @class = "register-form", @enctype = "multipart/form-data" }))
+                              {
+                                  @Html.AntiForgeryToken()
+                              <div style="position:relative; left:150px;" class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          @*@Html.Label("Kullanıcı Adı", new { @class = "text-uppercase" })*@
+                                          @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @type = "name", @placeholder = "Kullanıcı Adı", @required = "required" })
 
-                        @*@Html.Label("Email Adres", new { @class = "text-uppercase" })*@
-                        @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres", @required = "required" })
-                    </div>
-                    <div class="form-group">
+                                      </div>
 
-                        @*@Html.Label("Adres", new { @class = "text-uppercase" })*@
-                        @Html.TextAreaFor(x => x.Address, 6, 5, new { @type = "address", @class = "form-control", @placeholder = "Adres", @required = "required" })
-                    </div>
-                    <div class="form-group">
+                                      <div class="form-group">
 
-                        @*@Html.Label("Telefon", new { @class = "from-control" })*@
-                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası", @required = "required" })
-                    </div>
-                    <div class="form-group">
+                                          @*@Html.Label("Email Adres", new { @class = "text-uppercase" })*@
+                                          @Html.TextBoxFor(x => x.Email, new { @type = "email", @class = "form-control", @placeholder = "Email Adres", @required = "required" })
+                                      </div>
 
-                        @Html.Label("Profil Resmi", new { @class = "from-control" })
-                        @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @required = "required" })
+                                      <div class="form-group">
 
-                    </div>
+                                          @*@Html.Label("Adres", new { @class = "text-uppercase" })*@
+                                          @Html.TextAreaFor(x => x.Address, 6, 5, new { @type = "address", @class = "form-control", @placeholder = "Adres", @required = "required" })
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
 
-                    <div class="form-group">
-                        @*@Html.Label("Şifre", new { @class = "from-control" })*@
-                        @Html.TextBox("Password", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre", @required = "required" })
-                    </div>
-                    <div class="form-group">
-                        @*@Html.Label("Şifre Tekrarı", new { @class = "from-control" })*@
-                        @Html.TextBox("ConfirmPassword", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre Tekrarı", @required = "required" })
-                    </div>
+                                          @*@Html.Label("Telefon", new { @class = "from-control" })*@
+                                          @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası", @required = "required" })
+                                      </div>
+                                      <div class="form-group">
 
-                    <div class="form-group">
-                        <input type="radio" name="gender" id="gender" value="Female" />Female
-                        <br />
-                        <input type="radio" name="gender" id="gender" value="Male" />Male
-                    </div>
-                    <br />
+                                          @Html.Label("Profil Resmi", new { @class = "from-control", @style = "font-weight:bold;" })
+                                          @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @required = "required" })
 
-                    <div class="form-check">
-                        <button type="submit" class="btn btn-register float-right">Submit</button>
-                    </div>
+                                      </div>
 
-                }
-            </div>
-            <div class="col-md-8 banner-sec">
-            </div>
-        </div>
-    </div>
-</section>
+                                      <div class="form-group">
+                                          @*@Html.Label("Şifre", new { @class = "from-control" })*@
+                                          @Html.TextBox("Password", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre", @required = "required" })
+                                      </div>
+                                      <div class="form-group">
+                                          @*@Html.Label("Şifre Tekrarı", new { @class = "from-control" })*@
+                                          @Html.TextBox("ConfirmPassword", null, new { @type = "password", @class = "form-control", @placeholder = "Şifre Tekrarı", @required = "required" })
+                                      </div>
 
 
-<!-- JS -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="js/main.js"></script>
+                                      <br />
 
-
+                                      <div class="form-check">
+                                          <button type="submit" class="btn btn-primary">Kayıt ol</button>
+                                      </div>
+                                  </div>
+                              </div>
+                                      }
+             </div>

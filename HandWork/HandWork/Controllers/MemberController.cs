@@ -44,7 +44,11 @@ namespace HandWork.Controllers
                 case SignInStatus.Success:
                     return RedirectToAction("Index", "Home");
                 case SignInStatus.Failure:
-                    return RedirectToAction("Index");
+                    {
+                        TempData["Error"] = "Hatalı giriş";
+                        return RedirectToAction("Index");
+                    }
+                   
 
             }
             return View();
@@ -209,12 +213,19 @@ namespace HandWork.Controllers
             return View(member);
         }
         //conversation id geliyor onun mesajları donulecek
-        public ActionResult MyMessages(int id)
+        [HttpGet]
+        public ActionResult MyMessages(int id)//conversation id si
         {
             Conversation conversation = _uw.Db.Conversations.Find(id);
-            ViewBag.MessageList = _uw.Db.Messages.Where(x => x.Conversation == conversation).ToList();
-            Member SenderMember = User.GetMember(_uw);
-            return View(SenderMember);
+            List<Message> ListMessage = _uw.Db.Messages.Where(x => x.Conversation == conversation).ToList();
+            ViewBag.ConversationId = id;
+            return View(ListMessage);
+        }
+        [HttpPost]
+        public ActionResult MyMessages(string NewMesage,string ConID)
+        {
+            
+                return View();
         }
     }
 }

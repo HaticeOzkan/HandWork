@@ -47,7 +47,7 @@ namespace DAL
             modelBuilder.Entity<Basket>().HasMany(x => x.ProductItems).WithRequired(x => x.Basket);
             modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
             modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
-            modelBuilder.Entity<Member>().HasMany(x => x.Conversations).WithRequired(x => x.ReceiverMember);
+            modelBuilder.Entity<Member>().HasMany(x => x.Messages).WithOptional(x=>x.MemberSender);
             modelBuilder.Entity<Conversation>().HasMany(x => x.Messages).WithRequired(x => x.Conversation);
             modelBuilder.Entity<Member>().HasMany(x => x.Notifications).WithRequired(x => x.Owner);
             base.OnModelCreating(modelBuilder);

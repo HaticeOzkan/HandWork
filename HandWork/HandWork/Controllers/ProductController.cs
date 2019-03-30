@@ -55,8 +55,8 @@ namespace HandWork.Controllers
                 int ProductID = _uw.Db.Products.Where(x => x.MemberID == MemberID).OrderByDescending(x=>x.ID).Select(x => x.ID).FirstOrDefault();
                 if (images != null)
                 {
-                    //System.IO.Directory.CreateDirectory("C:/Users/funda/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" +ProductID);
-                    System.IO.Directory.CreateDirectory("C:/Users/Section1/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" + ProductID);
+                    System.IO.Directory.CreateDirectory("C:/Users/funda/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" +ProductID);
+                    //System.IO.Directory.CreateDirectory("C:/Users/Section1/source/repos/HandWork/HandWork/HandWork/Uploads/Products/" + ProductID);
                     int Count = 0;
                     NewProduct.ProductImages = new List<ProductImage>();
                     foreach (HttpPostedFileBase item in images)
