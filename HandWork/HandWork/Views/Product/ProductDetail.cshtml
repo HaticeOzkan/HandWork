@@ -8,7 +8,7 @@
     body {
         font-family: 'open sans';
         overflow-x: hidden;
-        background: url('../../Content/img/banner/2.jpg') fixed;
+        background-image: url('../../Content/img/CategoryImage/Orgum.jpg');
         background-size: cover;
     }
 
@@ -42,7 +42,8 @@
     }
 
     p, h3, h4 {
-        color: white;
+        color: black;
+        font-weight:bold;
     }
 
     .preview-thumbnail.nav-tabs {
@@ -277,9 +278,9 @@
                     <p class="vote"><strong>@Model.DisLikeCount Dislike</strong> </p>
 
                     <div class="action">
-                        <a type="button" href="/Basket/AddToBasket/@Model.ID" class="add-to-cart btn btn-default">add to cart</a>
-                        <button class="like btn btn-default delLike" rel="@Model.ID" type="button"><i  class="fas fa-thumbs-up "></i></button>
-                        <button class="like btn btn-default delDislike" rel="@Model.ID" type="button"><i  class="fas fa-thumbs-down "></i></button>
+                        <a type="button" href="/Basket/AddToBasket/@Model.ID"  style="background-color:royalblue;" class="add-to-cart btn btn-default">add to cart</a>
+                        <button class="like btn btn-default delLike"  style="background-color:royalblue;" rel="@Model.ID" type="button"><i  class="fas fa-thumbs-up "></i></button>
+                        <button class="like btn btn-default delDislike" style="background-color:royalblue;" rel="@Model.ID" type="button"><i  class="fas fa-thumbs-down "></i></button>
                     </div>
                 </div>
             </div>

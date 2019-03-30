@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    public enum Gender
-    {
-        Female,
-        Male
-    }
    public class Member:IdentityUser
     {//email password telno geliyor identity userdan
         public long TC { get; set; }
       
-        public Gender Gender { get; set; }
+     
        public string Address { get; set; }
         public virtual List<Product> Products { get; set; }
         public virtual Basket Basket { get; set; }

@@ -14,7 +14,7 @@
         color:white;
     }
 
-    img {
+    img.dev {
         width: 150px;
         height: 150px;
         margin-top: 20px;
@@ -39,7 +39,7 @@
             <img id="blah" src="@Model.ProfilPhoto.ImageURL" alt="your image" />
             <br /><br />
             @Html.Label("Profil Resmi", new { @class = "from-control" })
-            @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @onchange = "readURL(this);" })
+            @Html.TextBox("image", null, new { @class = "form-control dev", @type = "file", @onchange = "readURL(this);" })
 
             @*//  <input type='file' onchange="readURL(this);" />*@
         </div>
@@ -60,25 +60,8 @@
             @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @type = "phone", @placeholder = "Telefon Numarası", @required = "required" })
         </div>
 
-
         <div class="form-group pass_show">
-            @if (Model.Gender == Gender.Female)
-            {
-                <input type="radio" name="gender" id="gender" value="Female" checked /><label for="gender">Female</label>
-                <input type="radio" name="gender" id="gender" value="Male" /><label for="gender">Male</label>
-            }
-            else
-            {<input type="radio" name="gender" id="gender" value="Female"/><label for="gender">Female</label>
-                <input type="radio" name="gender" id="gender" value="Male" checked/><label for="gender">Male</label>
-
-            }
-
-        </div>
-        <div class="form-group pass_show">
-          
-        </div>
-        <div class="form-group pass_show">
-            <button class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary">Kaydet</button>
         </div>
 
 

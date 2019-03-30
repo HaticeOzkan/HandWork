@@ -46,10 +46,8 @@ namespace HandWork.Controllers
                 case SignInStatus.Failure:
                     {
                         TempData["Error"] = "Hatalı giriş";
-                        return RedirectToAction("Index");
-                    }
-                   
-
+                        return View();
+                    }                 
             }
             return View();
         }
@@ -102,7 +100,6 @@ namespace HandWork.Controllers
             OldMember.Address = NewMember.Address;
             OldMember.PhoneNumber = NewMember.PhoneNumber;
             _uw.ProfilPhotoRepo.Delete(OldMember.ProfilPhoto.ID);
-            OldMember.Gender = NewMember.Gender;
             if (image != null)
             {
                 OldMember.ProfilPhoto = new ProfilPhoto();
@@ -144,7 +141,7 @@ namespace HandWork.Controllers
             UserManager<Member> Manager = new UserManager<Member>(Store);
             string MemberID = User.Identity.GetUserId();
             Member Member = _uw.Db.Users.Find(MemberID);
-            bool Result = Manager.CheckPassword(Member, ViewModel.CurrentPassword);
+            bool Result = Manager.CheckPassword(Member, ViewModel.CurrentPassword);//??
             if (ViewModel.NewPassword != ViewModel.ConfirmPassword)
             {
                 ViewBag.Result = "Şifreler Uyuşmuyor!";
@@ -156,7 +153,7 @@ namespace HandWork.Controllers
                 if (Result2.Succeeded)
                 {
                     ViewBag.Result = "Başarılı";
-                    return RedirectToAction("MyProfile", "Member");
+                    return View();
                 }
                 ViewBag.Result = "Tekrar Deneyin";
                 return View();
