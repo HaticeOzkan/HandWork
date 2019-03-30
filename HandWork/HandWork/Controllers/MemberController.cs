@@ -184,6 +184,37 @@ namespace HandWork.Controllers
             List<Product> Products = member.Products.ToList();
             ViewBag.ProductList = Products;
             return View(member);
+        }      
+        public JsonResult MemberComplaint(string id)//şikayet edilecek olan kişinin id si
+        {
+            //beğeni ve şikayetlere ve dislike kontrol konulmalı kişi birden fazla begenip şikayet edemesin
+            Member member = _uw.Db.Users.Find(id);
+            member.ComplaintCount = member.ComplaintCount + 1;
+            _uw.Db.Entry(member).State = System.Data.Entity.EntityState.Modified;
+            _uw.Complete();
+            return Json(true);
+        }
+        public JsonResult SuggestCount(string id)//şikayet edilecek olan kişinin id si
+        {
+            //beğeni ve şikayetlere ve dislike kontrol konulmalı kişi birden fazla begenip şikayet edemesin
+            Member member = _uw.Db.Users.Find(id);
+            member.FavorCount = member.FavorCount + 1;
+            _uw.Db.Entry(member).State = System.Data.Entity.EntityState.Modified;
+            _uw.Complete();
+            return Json(true);
+        }
+        public ActionResult MyConversations()
+        {
+            Member member = User.GetMember(_uw);      
+            return View(member);
+        }
+        //conversation id geliyor onun mesajları donulecek
+        public ActionResult MyMessages(int id)
+        {
+            Conversation conversation = _uw.Db.Conversations.Find(id);
+            ViewBag.MessageList = _uw.Db.Messages.Where(x => x.Conversation == conversation).ToList();
+            Member SenderMember = User.GetMember(_uw);
+            return View(SenderMember);
         }
     }
 }

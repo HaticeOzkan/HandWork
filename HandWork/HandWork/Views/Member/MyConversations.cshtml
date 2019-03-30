@@ -1,0 +1,54 @@
+﻿@using Entity
+@model Member
+@{
+    ViewBag.Title = "MyMessages";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<style>
+    body {
+        background: url('../../Content/img/banner/2.jpg') fixed;
+        background-size: cover;
+    }
+    .table-inbox {
+        border: 1px solid #d3d3d3;
+        margin-bottom: 0;
+    }
+
+        .table-inbox tr td {
+            padding: 12px !important;
+        }
+
+            .table-inbox tr td:hover {
+                cursor: pointer;
+            }
+
+            .table-inbox tr td .fa-star.inbox-started, .table-inbox tr td .fa-star:hover {
+                color: #f78a09;
+            }
+
+            .table-inbox tr td .fa-star {
+                color: #d5d5d5;
+            }
+
+        .table-inbox tr.unread td {
+            background: none repeat scroll 0 0 #f7f7f7;
+            font-weight: 600;
+        }
+</style>
+<div class="container">
+    <h2 style="margin-top:150px;text-align:center;">Mesajlarım</h2>
+    <a href="/Member/NewMessage/" class="btn btn-success">Yeni Mesaj oluştur</a>
+    <table class="table table-inbox table-hover">
+        <tbody>
+            @foreach (Conversation item in Model.Conversations)
+            {           
+                    <tr data-href="/Member/MyMessages/@item.ID" class="unread">
+                        <td class="view-message  dont-show">@item.ReceiverMember.UserName</td>
+                        <td class="view-message ">@item.Title</td>
+                        <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message  text-right">@item.LastConversationDate</td>
+                    </tr>      
+            }
+        </tbody>
+    </table>
+</div>

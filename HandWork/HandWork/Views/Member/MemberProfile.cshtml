@@ -294,12 +294,12 @@
                         <div class="profile-usertitle-job">
                             @Model.ComplaintCount Şikayet<div>
                         </div>
-                        <div class="profile-userbuttons">
-                            <button class="like btn btn-default delLike" rel="@Model.Id" type="button"><i class="fas fa-thumbs-up "></i></button>
-                            <button class="like btn btn-default delDislike" rel="@Model.Id" type="button"><i class="fas fa-thumbs-down "></i></button>
-                            <a href="/Member/SendMessage/@Model.Id" type="button" class="btn btn-info  btn-sm">Mesaj Gonder</a>
-                            <a href="/Member/MemberComplaint/@Model.Id" type="button" class="btn btn-danger  btn-sm">Şikayet Et</a>
-                        </div>
+                                                         <div class="profile-userbuttons">
+
+                                                             <a href="/Member/SendMessage/@Model.Id" type="button" class="btn btn-info  btn-sm">Mesaj Gonder</a>
+                                                             <button class="btn btn-danger btn-sm sikayet" rel="@Model.Id">Şikayet Et</button>
+                                                             <button class="btn btn-danger btn-sm oner" rel="@Model.Id">Öner</button>
+                                                         </div>
                     </div>
 
                     </div></div></div>
@@ -321,15 +321,12 @@
                     }
                     <div class="pi-price">@item.Price.ToString("C")</div>
                     <br /><br />
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                   
                         <div class="pi-price" style="padding-left:5px;"><p>@item.LikeCount.ToString() Like</p> </div>
                         <div class="pi-price" style="padding-left:5px;"><p>@item.DisLikeCount.ToString() Dislike</p> </div>
-                    }@if (User.Identity.IsAuthenticated && item.Member != ViewBag.Member)
-                    {
+                  
                         <a href="/Basket/AddToBasket/@item.ID" class="btn add2cart">Sepete Ekle</a>
-                    }
-
+                
                     <div class="sticker sticker-new"></div>
                 </div>
             </div>
@@ -341,4 +338,27 @@
 
     </div>
 </div>
-
+<script>
+    $('.sikayet').click(function () {
+        var id = $('.sikayet').attr('rel');
+        $.ajax({
+            url: "/Member/MemberComplaint/" + id,
+            method:"POST",
+            success: function (sonuc) {
+                if(sonuc)
+                window.location = window.location;
+            }
+        })
+    });
+    $('.oner').click(function () {
+        var id = $('.oner').attr('rel');
+        $.ajax({
+            url: "/Member/SuggestCount/" + id,
+            method: "POST",
+            success: function (sonuc) {
+                if (sonuc)
+                    window.location = window.location;
+            }
+        })
+    });
+</script>
