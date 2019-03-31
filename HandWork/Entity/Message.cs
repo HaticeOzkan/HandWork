@@ -13,8 +13,8 @@ namespace Entity
         public DateTime Date { get; set; }
         public string Content { get; set; }
         public virtual Conversation Conversation { get; set; }
-        public virtual Member MemberSender { get; set; }
-        public string MemberReceiverID { get; set; }
+        public string SenderID { get; set; }
+        public virtual Member ReceiverMember { get; set; }
         public Message()
         {
             Date = DateTime.Now;
@@ -25,13 +25,35 @@ namespace Entity
     {
         public int ID { get; set; }
         public virtual List<Message> Messages { get; set; }
-        public virtual Member Member { get; set; }
-        public DateTime LastConversationDate { get; set; }
-        public string Title { get; set; }
-        public Conversation()
+        public string SenderID { get; set; }
+        public virtual Member ReceiverMember { get; set; }
+        public DateTime? LastConversationDate
         {
-            DateTime LastDate = Messages.OrderByDescending(x => x.Date).Select(x => x.Date).FirstOrDefault();
-            LastConversationDate = LastDate;
+            get
+            {
+                if (Messages != null || Messages.Count != 0)
+                {
+                    DateTime LastDate = Messages.OrderByDescending(x => x.Date).Select(x => x.Date).FirstOrDefault();
+                    return LastDate;
+                }
+                else return null;
+                
+            }
         }
+        public string Title
+        {
+            get
+            {
+                string Content = Messages.OrderBy(x => x.Date).Select(x => x.Content).FirstOrDefault();
+                string NewContent = "";
+                foreach (var item in Content.Split(' ').Take(5))
+                {
+                    NewContent = NewContent + item;
+                    NewContent = NewContent + " ";
+                }
+                return NewContent;
+
+            }
+        }      
     }
 }
