@@ -9,12 +9,15 @@
         background-image: url('../../Content/img/CategoryImage/Orgum.jpg');
         background-size: cover;
     }
+    p,h4{
+        color:white;
+    }
 </style>
 <br /><br /><br /><br /><br />
 <h2 style="text-align:center;">Sepetim</h2>
 <br />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
+<div class="container" style=" background: rgba(0,0,0,0.5);">
     <table id="cart" class="table table-hover table-condensed">
         @if (Model.ProductItems.Count ==0 || Model.ProductItems==null)
         {
@@ -24,11 +27,11 @@
         {
             <thead>
                 <tr>
-                    <th style="width:50%">Product</th>
-                    <th style="width:10%">Price</th>
-                    <th style="width:8%">Quantity</th>
-                    <th style="width:22%" class="text-center">Subtotal</th>
-                    <th style="width:10%"></th>
+                    <th style="width:50%; color:white;">Product</th>
+                    <th style="width:10%; color:white;">Price</th>
+                    <th style="width:8%; color:white;">Quantity</th>
+                    <th style="width:22%; color:white;" class="text-center">Subtotal</th>
+                    <th style="width:10%; color:white;"></th>
                 </tr>
             </thead>
             foreach (var item in Model.ProductItems)
@@ -44,13 +47,13 @@
                                 </div>
                             </div>
                         </td>
-                        <td data-th="Price">@item.Product.Price.ToString("C")</td>
+                        <td style="color:white;" data-th="Price">@item.Product.Price.ToString("C")</td>
                   
                         <td data-th="Quantity">
                             <input type="number" class="form-control text-center sayi" value="@item.ItemCount" rel=@item.ID>
                         </td>
                         
-                        <td data-th="Subtotal" class="text-center CurrentPrice">@item.TotalPrice.ToString("C")</td>
+                        <td style="color:white;" data-th="Subtotal" class="text-center CurrentPrice">@item.TotalPrice.ToString("C")</td>
                         <td class="actions" data-th="">
                             <strong class="btn btn-danger btn-sm del" rel="@item.ID"><i class="fa fa-trash-o"></i></strong>
                         </td>
@@ -59,10 +62,10 @@
             }
             <tfoot>
                 <tr>
-                    <td><a href="/Product/GetProduct/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>@*burada ürün geldiği ürün sayfasına donecek ama sayfanın hangi konumundaysa oraya donsun sor*@
+                    <td><a style="background-color:darkcyan; border-color:darkcyan;" href="/Product/GetProduct/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>@*burada ürün geldiği ürün sayfasına donecek ama sayfanın hangi konumundaysa oraya donsun sor*@
                     <td colspan="2" class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong class="TotalPrice">Total @Model.SubTotal.ToString("C") </strong></td>
-                    <td><a href="/Basket/Checkout/" class="btn btn-success btn-block dene">Checkout<i class="fa fa-angle-right"></i></a></td>
+                    <td style="color:white;" class="hidden-xs text-center"><strong class="TotalPrice">Total @Model.SubTotal.ToString("C") </strong></td>
+                    <td><a href="/Basket/Checkout/" class="btn btn-success btn-block dene" style="background-color:darkcyan; border-color:darkcyan;">Checkout<i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>
         }

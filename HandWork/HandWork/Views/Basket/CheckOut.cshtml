@@ -6,8 +6,12 @@
 }
 <style>
     body {
-        background: url('../../Content/img/banner/2.jpg') fixed;
+        background-image: url('../../Content/img/CategoryImage/Orgum.jpg');
+        
         background-size: cover;
+    }
+    p, dt, dd, .hidden-xs,.CardN {
+        color: white;
     }
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
@@ -20,7 +24,7 @@
     <div class="row">
 
         <aside style="position:relative; left:280px;" class="col-sm-6">
-            <article class="card">
+            <article class="card" style=" background: rgba(0,0,0,0.5);">
                 <div class="card-body p-5">
                     <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
                         <li class="nav-item">
@@ -43,12 +47,12 @@
                             @using (Html.BeginForm("PayCreditCart", "Basket", FormMethod.Post, new { @class = "form-group" }))
                             {
                                 <div class="form-group">
-                                    <label for="username">Full name (on the card)</label>
+                                    <label for="username" class="CardN">Full name (on the card)</label>
                             @Html.TextBoxFor(x => x.NameSurname, new {@class="form-control",@type="text",@required="required" })
                                     @*<input type="text" class="form-control" name="NameSurname" placeholder="" required=""*@
                                 </div> <!-- form-group.// -->
                                 <div class="form-group">
-                                    <label for="cardNumber">Card number</label>
+                                    <label for="cardNumber" class="CardN">Card number</label>
                                     <div class="input-group">
                                         @Html.TextBoxFor(x => x.CartNumber, new { @class = "form-control", @type = "text", @required = "required" })
                                         
@@ -74,7 +78,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
 
-                                            <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label> @Html.TextBoxFor(x => x.CV2, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "CVV" })
+                                            <label class="CardN" data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label> @Html.TextBoxFor(x => x.CV2, new { @class = "form-control", @type = "number", @required = "required", @placeholder = "CVV" })
   
                                         </div> <!-- form-group.// -->
                                     </div>

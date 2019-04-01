@@ -156,8 +156,7 @@ namespace HandWork.Controllers
 
         }
         public JsonResult AddLike(int id)
-        {
-            //Sor!! sayfayı yenilemeden like sayısını arttırmek p içindeki yazıya ulaşamıyom text dediği halde
+        {           
             Product product = _uw.ProductRepo.GetOne(id);
             product.LikeCount = (product.LikeCount) + 1;
             _uw.ProductRepo.Edit(product);
