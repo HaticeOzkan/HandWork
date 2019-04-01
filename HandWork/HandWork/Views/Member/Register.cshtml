@@ -11,9 +11,9 @@
 </style>
 <br /><br /><br /><br />
 
-                  <h3 style="color:black; font-weight:bold;" class="text-center">Register Now</h3>
-                  <div class="container" >
-                      
+                  
+                  <div class="container" style=" background: rgba(0,0,0,0.5);" >
+                      <h3 style="color:azure; font-weight:bold;" class="text-center">Register Now</h3>
                           
                               @if (TempData["Error"] != null)
                               {
@@ -52,7 +52,7 @@
                                       </div>
                                       <div class="form-group">
 
-                                          @Html.Label("Profil Resmi", new { @class = "from-control", @style = "font-weight:bold;" })
+                                          @Html.Label("Profil Resmi", new { @class = "from-control", @style = "font-weight:bold; color:white;" })
                                           @Html.TextBox("image", null, new { @class = "form-control", @type = "file", @required = "required" })
 
                                       </div>

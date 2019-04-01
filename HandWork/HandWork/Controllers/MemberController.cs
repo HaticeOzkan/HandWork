@@ -215,10 +215,7 @@ namespace HandWork.Controllers
             string ID = User.Identity.GetUserId();
             Member SenderMember = _uw.Db.Users.Find(ID);
             Conversation conversation = _uw.Db.Conversations.Where(x => x.SenderID == ID && x.ReceiverMember.Id == id).FirstOrDefault();
-            TempData["ReceiverMember"] = conversation.ReceiverMember;
-            ViewBag.SenderMember = User.GetMember(_uw);
-            ViewBag.SenderMemberID = User.Identity.GetUserId();
-            TempData["ConID"] = conversation.ID;
+           
             if (conversation == null)
             {
                 Conversation Con = new Conversation();
@@ -231,18 +228,28 @@ namespace HandWork.Controllers
                 _uw.Db.Entry(Con.ReceiverMember).State=System.Data.Entity.EntityState.Modified;             
                 _uw.Complete();
                 ViewBag.ConversationID = Con.ID;
-                
+                TempData["ReceiverMember"] = conversation.ReceiverMember;
+                ViewBag.SenderMember = User.GetMember(_uw);
+                ViewBag.SenderMemberID = User.Identity.GetUserId();
+                TempData["ConID"] = conversation.ID;
                 return View();
             }
             else
             {
-
-               
                 if (conversation.Messages.Count != 0)
                 {
                     List<Message> ListMessage = conversation.Messages;
-                    return View(ListMessage);
-                }else
+                    TempData["ReceiverMember"] = conversation.ReceiverMember;
+                    ViewBag.SenderMember = User.GetMember(_uw);
+                    ViewBag.SenderMemberID = User.Identity.GetUserId();
+                    TempData["ConID"] = conversation.ID;
+                    return View(ListMessage);                   
+                }
+                else
+                    TempData["ReceiverMember"] = conversation.ReceiverMember;
+                ViewBag.SenderMember = User.GetMember(_uw);
+                ViewBag.SenderMemberID = User.Identity.GetUserId();
+                TempData["ConID"] = conversation.ID;
                 return View();
             }                     
         }

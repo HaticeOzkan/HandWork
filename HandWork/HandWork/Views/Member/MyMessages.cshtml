@@ -6,6 +6,9 @@
 }
 @*//message listesi boş ise boş ekran getirecek dolu ise mesajları yazılmış getirecek*@
 <style>
+    body {
+        background-image: url('../../Content/img/CategoryImage/Orgum.jpg'); background-size:cover;
+    }
     .chat {
         list-style: none;
         margin: 0;
@@ -57,16 +60,14 @@
     }
 </style>
 <br /><br /><br /><br />
-<div class="container">
+<div class="container" >
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-12" style=" background: rgba(0,0,0,0.5);">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-comment"></span> Chat
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
+                     
 
                     </div>
                 </div>
@@ -127,7 +128,7 @@
                             <input type="hidden" value="@TempData["ConID"]" name="ConID" />
                             <input type="hidden" value="@Receiver1.Id" name="ReceiverID" />
                             <span class="input-group-btn">
-                                <button class="btn btn-warning btn-sm" id="btn-chat">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" style="background-color:darkcyan; border-color:darkcyan;">
                                     Send
                                 </button>
                             </span>
