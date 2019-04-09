@@ -24,7 +24,7 @@ namespace DAL
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Conversation> Conversations { get; set; }
+        //public virtual DbSet<Conversation> Conversations { get; set; }
      
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace DAL
             modelBuilder.Entity<ProductItem>().HasKey(x => x.ID);
             modelBuilder.Entity<OrderItem>().HasKey(x => x.ID);
             modelBuilder.Entity<Category>().HasKey(x => x.ID);
-            modelBuilder.Entity<Conversation>().HasKey(x => x.ID);
+            //modelBuilder.Entity<Conversation>().HasKey(x => x.ID);
            
             modelBuilder.Entity<Category>().HasMany(x => x.Products).WithRequired(x=>x.Categories).HasForeignKey(x=>x.CategoryID);
             modelBuilder.Entity<Product>().HasRequired(x => x.Member).WithMany(x => x.Products).HasForeignKey(x=>x.MemberID);
@@ -47,8 +47,9 @@ namespace DAL
             modelBuilder.Entity<Basket>().HasMany(x => x.ProductItems).WithRequired(x => x.Basket);
             modelBuilder.Entity<Member>().HasOptional(x => x.Basket).WithRequired(x=>x.Member);
             modelBuilder.Entity<Member>().HasOptional(x => x.ProfilPhoto).WithRequired(x => x.Member);
-            modelBuilder.Entity<Member>().HasMany(x => x.Messages);
-            modelBuilder.Entity<Conversation>().HasMany(x => x.Messages).WithRequired(x => x.Conversation);
+            modelBuilder.Entity<Message>().HasRequired(x => x.AliciMember).WithMany(x => x.AlinanMesajlar).HasForeignKey(x => x.AliciID).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Message>().HasRequired(x => x.GondericiMember).WithMany(x => x.GonderilenMesajlar).HasForeignKey(x => x.GondericiID).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Conversation>().HasMany(x => x.Messages).WithRequired(x => x.Conversation);
             modelBuilder.Entity<Member>().HasMany(x => x.Notifications).WithRequired(x => x.Owner);
             base.OnModelCreating(modelBuilder);
         }

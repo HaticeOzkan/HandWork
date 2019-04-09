@@ -212,60 +212,61 @@ namespace HandWork.Controllers
         [HttpGet]
         public ActionResult MyMessages(string id)//receiver id messj gonderen sender giriş yapmış olan kişi biz mesela
         {
-            string ID = User.Identity.GetUserId();
-            Member SenderMember = _uw.Db.Users.Find(ID);
-            Conversation conversation = _uw.Db.Conversations.Where(x => x.SenderID == ID && x.ReceiverMember.Id == id).FirstOrDefault();
-           
-            if (conversation == null)
-            {
-                Conversation Con = new Conversation();
-                Con.ReceiverMember = _uw.Db.Users.Find(id);
-                Con.SenderID = User.Identity.GetUserId();
-                Con.Messages = new List<Message>();
-                _uw.Db.Conversations.Add(Con);
-                _uw.Complete();
-                _uw.Db.Entry(SenderMember).State = System.Data.Entity.EntityState.Modified;
-                _uw.Db.Entry(Con.ReceiverMember).State=System.Data.Entity.EntityState.Modified;             
-                _uw.Complete();
-                ViewBag.ConversationID = Con.ID;
-                TempData["ReceiverMember"] = conversation.ReceiverMember;
-                ViewBag.SenderMember = User.GetMember(_uw);
-                ViewBag.SenderMemberID = User.Identity.GetUserId();
-                TempData["ConID"] = conversation.ID;
-                return View();
-            }
-            else
-            {
-                if (conversation.Messages.Count != 0)
-                {
-                    List<Message> ListMessage = conversation.Messages;
-                    TempData["ReceiverMember"] = conversation.ReceiverMember;
-                    ViewBag.SenderMember = User.GetMember(_uw);
-                    ViewBag.SenderMemberID = User.Identity.GetUserId();
-                    TempData["ConID"] = conversation.ID;
-                    return View(ListMessage);                   
-                }
-                else
-                    TempData["ReceiverMember"] = conversation.ReceiverMember;
-                ViewBag.SenderMember = User.GetMember(_uw);
-                ViewBag.SenderMemberID = User.Identity.GetUserId();
-                TempData["ConID"] = conversation.ID;
-                return View();
-            }                     
+            //string ID = User.Identity.GetUserId();
+            //Member SenderMember = _uw.Db.Users.Find(ID);
+            //Conversation conversation = _uw.Db.Conversations.Where(x => x.SenderID == ID && x.ReceiverMember.Id == id).FirstOrDefault();
+
+            //if (conversation == null)
+            //{
+            //    Conversation Con = new Conversation();
+            //    Con.ReceiverMember = _uw.Db.Users.Find(id);
+            //    Con.SenderID = User.Identity.GetUserId();
+            //    Con.Messages = new List<Message>();
+            //    _uw.Db.Conversations.Add(Con);
+            //    _uw.Complete();
+            //    _uw.Db.Entry(SenderMember).State = System.Data.Entity.EntityState.Modified;
+            //    _uw.Db.Entry(Con.ReceiverMember).State=System.Data.Entity.EntityState.Modified;             
+            //    _uw.Complete();
+            //    ViewBag.ConversationID = Con.ID;
+            //    TempData["ReceiverMember"] = conversation.ReceiverMember;
+            //    ViewBag.SenderMember = User.GetMember(_uw);
+            //    ViewBag.SenderMemberID = User.Identity.GetUserId();
+            //    TempData["ConID"] = conversation.ID;
+            //    return View();
+            //}
+            //else
+            //{
+            //    if (conversation.Messages.Count != 0)
+            //    {
+            //        List<Message> ListMessage = conversation.Messages;
+            //        TempData["ReceiverMember"] = conversation.ReceiverMember;
+            //        ViewBag.SenderMember = User.GetMember(_uw);
+            //        ViewBag.SenderMemberID = User.Identity.GetUserId();
+            //        TempData["ConID"] = conversation.ID;
+            //        return View(ListMessage);                   
+            //    }
+            //    else
+            //        TempData["ReceiverMember"] = conversation.ReceiverMember;
+            //    ViewBag.SenderMember = User.GetMember(_uw);
+            //    ViewBag.SenderMemberID = User.Identity.GetUserId();
+            //    TempData["ConID"] = conversation.ID;
+            //    return View();
+            //}
+            return View();
         }
         [HttpPost]
         public ActionResult MyMessages(string NewMessage,string ConID,string ReceiverID)
         {
-            Conversation conversation = _uw.Db.Conversations.Find(Convert.ToInt32(ConID));
-            Message message = new Message();
-            message.Content = NewMessage;
-            message.Conversation = conversation;
-            message.ReceiverMember = _uw.Db.Users.Find(ReceiverID);
-            message.SenderID = User.Identity.GetUserId();
-            conversation.Messages.Add(message);
-            _uw.Db.Messages.Add(message);
-            _uw.Db.Entry(conversation).State = System.Data.Entity.EntityState.Modified;
-            _uw.Complete();
+            //Conversation conversation = _uw.Db.Conversations.Find(Convert.ToInt32(ConID));
+            //Message message = new Message();
+            //message.Content = NewMessage;
+            //message.Conversation = conversation;
+            //message.ReceiverMember = _uw.Db.Users.Find(ReceiverID);
+            //message.SenderID = User.Identity.GetUserId();
+            //conversation.Messages.Add(message);
+            //_uw.Db.Messages.Add(message);
+            //_uw.Db.Entry(conversation).State = System.Data.Entity.EntityState.Modified;
+            //_uw.Complete();
             return RedirectToAction("MyMessages", "Member");
         }
        

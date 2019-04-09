@@ -155,13 +155,33 @@ namespace HandWork.Controllers
             }
 
         }
-        public JsonResult AddLike(int id)
-        {           
-            Product product = _uw.ProductRepo.GetOne(id);
-            product.LikeCount = (product.LikeCount) + 1;
-            _uw.ProductRepo.Edit(product);
-            _uw.Complete();
-            return Json(true);
+        public JsonResult AddLike(int id)//beğenilen ürün id geliyor
+        {
+            Member member = User.GetMember(_uw);
+            if (member.LikeModel == null)
+                member.LikeModel = new LikeModel();
+
+            bool DidLike = member.LikeModel.ProductLiked.Any(x => x.ID == id);
+            if (DidLike == false)
+            {
+                Product product = _uw.ProductRepo.GetOne(id);
+                product.LikeCount = (product.LikeCount) + 1;
+                member.LikeModel.ProductLiked.Add(product);
+                _uw.Db.Entry(member).State = System.Data.Entity.EntityState.Modified;
+                _uw.ProductRepo.Edit(product);
+                _uw.Complete();
+                return Json(true);//urunu hiç beğenmediyse bir kere beğenebilir begeni dolucak
+            }
+            else
+            {
+                Product product = _uw.ProductRepo.GetOne(id);
+                product.LikeCount = (product.LikeCount) - 1;
+                member.LikeModel.ProductLiked.Remove(product);
+                _uw.Db.Entry(member).State = System.Data.Entity.EntityState.Modified;
+                _uw.ProductRepo.Edit(product);
+                _uw.Complete();
+                return Json(false);//urunu beğenmişse ve tekrar basarsa begeniye ozaman begenisini kaldırıyor
+            }              
         }
         public JsonResult AddDisLike(int id)
         {

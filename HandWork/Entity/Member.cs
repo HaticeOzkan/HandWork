@@ -23,16 +23,18 @@ namespace Entity
         public int? ComplaintCount { get; set; }
         public int? FavorCount { get; set; }
         public bool HasPhoto { get; set; }
-        public virtual List<Message> Messages { get; set; }
+        public virtual List<Message> AlinanMesajlar { get; set; }
+        public virtual List<Message> GonderilenMesajlar { get; set; }
         public virtual List<Notification> Notifications { get; set; }
-        public virtual List<Conversation> Conversations { get; set; }
-        public int NewMessageCount { get; set; }
+        //public virtual List<Conversation> Conversations { get; set; }
+        //public int NewMessageCount { get; set; }
+        public virtual LikeModel LikeModel { get; set; }
         public Member()
         {
             HasPhoto = false;
             ComplaintCount = 0;
             FavorCount=0;
-            NewMessageCount = 0;
+            //NewMessageCount = 0;
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Member> manager)
         {
